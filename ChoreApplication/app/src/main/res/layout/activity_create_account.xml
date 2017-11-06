@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="ca.uottawa.jackdell.choreapplication.CreateAccountActivity">
+
+    <LinearLayout
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:weightSum="1"
+        tools:layout_editor_absoluteX="42dp"
+        tools:layout_editor_absoluteY="16dp">
+
+        <TextView
+            android:id="@+id/txtCreateAcc"
+            android:layout_width="match_parent"
+            android:layout_height="71dp"
+            android:text="Please provide the following information to create an account:"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txtAskForAccName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Account Name:"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/etAccName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName" />
+
+        <TextView
+            android:id="@+id/txtAskForEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Email:"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/etAccEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textEmailAddress" />
+
+        <TextView
+            android:id="@+id/txtAskForPass"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Account Password:"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/etAccPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPassword" />
+
+        <Button
+            android:id="@+id/btnCreateAccount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onBtnCreateAccountClick"
+            android:text="Create Account"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="289dp" />
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>
