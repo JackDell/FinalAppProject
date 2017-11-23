@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.ahame_000.seg2105.CreateChore">
+
+    <ScrollView
+        android:layout_width="368dp"
+        android:layout_height="495dp"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="8dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:baselineAligned="false"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:visibility="visible"
+            android:weightSum="1"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="10dp">
+
+            <TextView
+                android:id="@+id/NewChore_TextView_NewChore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.19"
+                android:text="New Chore"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                android:visibility="visible" />
+
+            <TextView
+                android:id="@+id/NewChore_TextView_NewChore"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Chore:"
+                android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title" />
+
+            <EditText
+                android:id="@+id/EnterChore_EditText_NewChore"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Enter Chore."
+                android:inputType="textPersonName"
+                android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.19"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/CreatedBy_TextView_NewChore"
+                    android:layout_width="180dp"
+                    android:layout_height="wrap_content"
+                    android:text="Created By:"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title" />
+
+                <EditText
+                    android:id="@+id/EnterUsername_EditText_NewChore"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:hint="Enter username"
+                    android:inputType="textNoSuggestions|textPersonName" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.19"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/DueDate_TextView_NewChore"
+                    android:layout_width="174dp"
+                    android:layout_height="wrap_content"
+                    android:text="Due Date:"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title" />
+
+                <EditText
+                    android:id="@+id/EnterDueDate_EditText_NewChore"
+                    android:layout_width="175dp"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="Enter date due"
+                    android:inputType="textNoSuggestions|textPersonName" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/Description_TextView_NewChore"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Description:"
+                android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title" />
+
+            <EditText
+                android:id="@+id/EnterDescription_EditText_NewChore"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:gravity="left"
+                android:hint="Enter chore description"
+                android:inputType="text|textMultiLine|textCapSentences"
+                android:maxLines="10"
+                android:selectAllOnFocus="true"
+                android:singleLine="false"
+                android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large" />
+
+
+            <TextView
+                android:id="@+id/Rewards_TextView_NewChore"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Rewards : "
+                android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title" />
+
+            <EditText
+                android:id="@+id/EnterDescription_EditText_NewChore"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Enter reward points"
+                android:inputType="textPersonName"
+                android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.19"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/Assign_TextView_NewChore"
+                    android:layout_width="129dp"
+                    android:layout_height="wrap_content"
+                    android:text="Assign"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title" />
+
+                <EditText
+                    android:id="@+id/Person_EditText_NewChore"
+                    android:layout_width="153dp"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="person"
+                    android:inputType="textPersonName"
+                    android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large" />
+
+                <Spinner
+                    android:id="@+id/DropDown_Spinner_NewChore"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:spinnerMode="dialog" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.19"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/Add_Button_NewChore"
+                    style="@android:style/Widget.DeviceDefault.Button.Inset"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Add" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+</android.support.constraint.ConstraintLayout>
