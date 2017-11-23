@@ -16,8 +16,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name=".CreateChore" />
         <activity android:name=".EditViewChore"></activity>
+
+        <activity android:name=".AddMember" />
+        <activity android:name=".AccountLogin"></activity>
+
     </application>
 
 </manifest>

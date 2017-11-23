@@ -1,4 +1,19 @@
 <resources>
     <string name="app_name">SEG2105</string>
+   
+
+    <string name="save_button">Save</string>
+    <string name="Child_RadioButton">Child</string>
+    <string name="Adult_RadioButton">Adult</string>
+    <string name="memberName_editText">Member Name</string>
+    <string name="email_editText">Email</string>
+    <string name="password_editText">Password</string>
+    <string name="confirmPassword_editText">Confirm Password</string>
+    <string name="addMember_button">Add Member</string>
     <string name="done_button">Done</string>
+    <string name="allChores_textView">All Chores</string>
+    <string name="login_button">Login</string>
+    <string name="createAccount_button">Create Account</string>
+    <string name="choreName_textView" />
+    <string name="dueDate_textView" />String />
 </resources>
