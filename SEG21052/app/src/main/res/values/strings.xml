@@ -3,8 +3,8 @@
    
 
     <string name="save_button">Save</string>
-    <string name="Child_RadioButton">Child</string>
-    <string name="Adult_RadioButton">Adult</string>
+    <string name="Child_radioButton">Child</string>
+    <string name="adult_radioButton">Adult</string>
     <string name="memberName_editText">Member Name</string>
     <string name="email_editText">Email</string>
     <string name="password_editText">Password</string>
@@ -14,6 +14,24 @@
     <string name="allChores_textView">All Chores</string>
     <string name="login_button">Login</string>
     <string name="createAccount_button">Create Account</string>
-    <string name="choreName_textView" />
-    <string name="dueDate_textView" />String />
+    <string name="choreName_textView">Chore Name</string>
+    <string name="newChore_textView">New Chore</string>
+    <string name="chore_textView">Chore:</string>String />
+    <string name="enterChore_hint">Enter Chore</string>
+    <string name="createdBy_textView">Created By:</string>
+    <string name="enterCreatedBy_hint">Enter Username</string>
+    <string name="dueDate_textView">Due Date: </string>
+    <string name="enterDueDate_hint">Enter Date due</string>
+    <string name="description_textView">Description</string>
+    <string name="description_hint">Enter Description</string>
+    <string name="rewards_textView">Rewards:</string>
+    <string name="enterRewards_hint">Enter Rewards</string>
+    <string name="penalty_textView">Penalty:</string>
+    <string name="enterPenalty_hint">Enter Penalty</string>
+    <string name="assign_textView">Assign</string>
+    <string name="enterPerson_hint">Person</string>
+    <string name="add_button">Add</string>
+    <string name="choreDetails_textView">Chore Details</string>
+    <string name="delete_button">Delete</string>
+    <string name="assignToMe_button">Assign To Me</string>
 </resources>
