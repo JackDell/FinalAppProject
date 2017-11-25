@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">SEG2105</string>
-   
+
 
     <string name="save_button">Save</string>
     <string name="Child_radioButton">Child</string>
@@ -34,4 +34,15 @@
     <string name="choreDetails_textView">Chore Details</string>
     <string name="delete_button">Delete</string>
     <string name="assignToMe_button">Assign To Me</string>
+    <string name="title_activity_navigation">Navigation</string>
+    <string name="generalList_textView">General List</string>
+    <string name="todoList_textView">To-Do List</string>
+    <string name="completed_textView">Completed List</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="addChore_textView">Add New Chore</string>
+    <string name="viewOthers_textView">View Children's Profiles</string>
 </resources>
