@@ -125,16 +125,16 @@ public class Profile
     return 0;
   }
 
-  public Chore addChore(String aState, String aName, String aDescription, Date aDeadline, int aPenalty, int aReward, Date aCompletedDate, Parent aParent, Account aAccount)
+  public Chore addChore( String aName, String aDescription, Date aDeadline, int aPenalty, int aReward, Date aCompletedDate, Parent aParent, Account aAccount)
   {
-    return new Chore(aState, aName, aDescription, aDeadline, aPenalty, aReward, aCompletedDate, aParent, aAccount, this);
+    return new Chore( aName, aDescription, aDeadline, aPenalty, aReward, aCompletedDate, aParent, aAccount, this);
   }
 
   public boolean addChore(Chore aChore)
   {
     boolean wasAdded = false;
     if (chores.contains(aChore)) { return false; }
-    Profile existingProfile = aChore.getProfile();
+    Profile existingProfile = aChore.getAssignedTo();
     boolean isNewProfile = existingProfile != null && !this.equals(existingProfile);
     if (isNewProfile)
     {
@@ -152,7 +152,7 @@ public class Profile
   {
     boolean wasRemoved = false;
     //Unable to remove aChore, as it must always have a profile
-    if (!this.equals(aChore.getProfile()))
+    if (!this.equals(aChore.getAssignedTo()))
     {
       chores.remove(aChore);
       wasRemoved = true;
