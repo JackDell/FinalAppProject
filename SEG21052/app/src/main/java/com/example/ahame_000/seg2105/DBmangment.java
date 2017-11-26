@@ -3,17 +3,18 @@ package com.example.ahame_000.seg2105;
 
 
 
-// line 56 "model.ump"
-// line 96 "model.ump"
 public class DBmangment
 {
 
+
+
+  private static Profile profile;
   //------------------------
   // MEMBER VARIABLES
   //------------------------
 
   //DBmangment Associations
-  private Account account;
+  private static Account account;
 
   //------------------------
   // CONSTRUCTOR
@@ -37,10 +38,21 @@ public class DBmangment
   // INTERFACE
   //------------------------
 
+
+    //getters
   public Account getAccount()
   {
     return account;
   }
+
+    public Profile getProfile() {
+        return profile;
+    }
+
+    // setters
+    public void setProfile(Profile profile) {
+        this.profile = profile;
+    }
 
   public void delete()
   {
