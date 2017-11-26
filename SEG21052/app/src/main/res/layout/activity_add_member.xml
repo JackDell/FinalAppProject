@@ -58,14 +58,14 @@
             android:id="@+id/Adult_RadioButton_AddMember"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/Adult_RadioButton"
+            android:text="@string/adult_radioButton"
             android:textSize="18sp" />
 
         <RadioButton
             android:id="@+id/Child_RadioButton_AddMember"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/Child_RadioButton"
+            android:text="@string/Child_radioButton"
             android:textSize="18sp" />
 
         <Space
