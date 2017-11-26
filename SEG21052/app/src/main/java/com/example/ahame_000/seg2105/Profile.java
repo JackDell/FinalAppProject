@@ -109,6 +109,7 @@ public abstract class Profile
     return account;
   }
 
+
   public Chore addChore( String aName, String aDescription, Date aDeadline, int aPenalty, int aReward, Date aCompletedDate, Parent aParent, Account aAccount)
   {
     return new Chore( aName, aDescription, aDeadline, aPenalty, aReward, aCompletedDate, aParent, aAccount, this);
@@ -118,7 +119,7 @@ public abstract class Profile
   {
     boolean wasAdded = false;
     if (chores.contains(aChore)) { return false; }
-    Profile existingProfile = aChore.getProfile();
+    Profile existingProfile = aChore.getAssignedTo();
     boolean isNewProfile = existingProfile != null && !this.equals(existingProfile);
     if (isNewProfile)
     {
@@ -134,14 +135,18 @@ public abstract class Profile
 
   public boolean removeChore(Chore aChore) {
     boolean wasRemoved = false;
-    if (!this.equals(aChore.getProfile())) {
+
+
+    if (!this.equals(aChore.getAssignedTo()))
+    {
+
       chores.remove(aChore);
       wasRemoved = true;
     }
     return wasRemoved;
   }
 
-  private boolean setAccount(Account aAccount)
+  public boolean setAccount(Account aAccount)
   {
     boolean wasSet = false;
     if (aAccount == null)
@@ -162,12 +167,10 @@ public abstract class Profile
 
   public void delete()
   {
-    for(Chore aChore: chores)
-    {
-      //Todo:
-    if(aChore.getState()=State.UNASSIGED) {
+    for(Chore aChore: chores) {
+      aChore.getState();
     }
-  }
+
     Account placeholderAccount = account;
     this.account = null;
     placeholderAccount.removeProfile(this);

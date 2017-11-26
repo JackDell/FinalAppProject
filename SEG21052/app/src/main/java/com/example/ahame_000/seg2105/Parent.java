@@ -76,7 +76,7 @@ public class Parent extends Profile
   {
     boolean wasAdded = false;
     if (chores.contains(aChore)) { return false; }
-    Parent existingParent = aChore.getParent();
+    Parent existingParent = aChore.getCreator();
     boolean isNewParent = existingParent != null && !this.equals(existingParent);
     if (isNewParent)
     {
@@ -94,7 +94,7 @@ public class Parent extends Profile
   {
     boolean wasRemoved = false;
     //Unable to remove aChore, as it must always have a parent
-    if (!this.equals(aChore.getParent()))
+    if (!this.equals(aChore.getCreator()))
     {
       chores.remove(aChore);
       wasRemoved = true;
