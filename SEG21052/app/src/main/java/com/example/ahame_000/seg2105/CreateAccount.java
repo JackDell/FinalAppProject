@@ -26,7 +26,7 @@ public class CreateAccount extends AppCompatActivity {
 
     }
 
-    //creates a new DBmanager ( which creates a new account ) 
+    //creates a new DBmanager ( which creates a new account )
     public void doneCreateNewAccBttnClick(View view) {
 
         EditText emailTxt = (EditText) findViewById(R.id.Email_EditText_CreateAccount);

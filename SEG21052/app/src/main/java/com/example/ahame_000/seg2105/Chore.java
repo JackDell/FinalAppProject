@@ -4,8 +4,7 @@ package com.example.ahame_000.seg2105;
 
 import java.sql.Date;
 
-// line 42 "model.ump"
-// line 90 "model.ump"
+
 public class Chore
 {
 
@@ -13,27 +12,29 @@ public class Chore
   // MEMBER VARIABLES
   //------------------------
 
+  public enum State  {UNASSIGNED , TODO, PASTDUE, COMPLETED, DELETED};
+
   //Chore Attributes
-  private String state;
-  private String name;
-  private String description;
-  private Date deadline;
-  private int penalty;
-  private int reward;
-  private Date completedDate;
+  public State state;
+  public String name;
+  public String description;
+  public Date deadline;
+  public int penalty;
+  public int reward;
+  public Date completedDate;
 
   //Chore Associations
-  private Parent parent;
+  private Parent creator;
   private Account account;
-  private Profile profile;
+  private Profile assignedTo;
 
   //------------------------
   // CONSTRUCTOR
   //------------------------
 
-  public Chore(String aState, String aName, String aDescription, Date aDeadline, int aPenalty, int aReward, Date aCompletedDate, Parent aParent, Account aAccount, Profile aProfile)
+  public Chore( String aName, String aDescription, Date aDeadline, int aPenalty, int aReward, Date aCompletedDate, Parent aParent, Account aAccount, Profile assignedTo)
   {
-    state = aState;
+    state = State.UNASSIGNED;
     name = aName;
     description = aDescription;
     deadline = aDeadline;
@@ -43,17 +44,17 @@ public class Chore
     boolean didAddParent = setParent(aParent);
     if (!didAddParent)
     {
-      throw new RuntimeException("Unable to create chore due to parent");
+      throw new RuntimeException("Unable to create chore due to creator");
     }
     boolean didAddAccount = setAccount(aAccount);
     if (!didAddAccount)
     {
       throw new RuntimeException("Unable to create chore due to account");
     }
-    boolean didAddProfile = setProfile(aProfile);
+    boolean didAddProfile = setProfile(assignedTo);
     if (!didAddProfile)
     {
-      throw new RuntimeException("Unable to create chore due to profile");
+      throw new RuntimeException("Unable to create chore due to assignedTo");
     }
   }
 
@@ -61,7 +62,7 @@ public class Chore
   // INTERFACE
   //------------------------
 
-  public boolean setState(String aState)
+  private boolean setState(State aState)
   {
     boolean wasSet = false;
     state = aState;
@@ -69,7 +70,7 @@ public class Chore
     return wasSet;
   }
 
-  public boolean setName(String aName)
+  private boolean setName(String aName)
   {
     boolean wasSet = false;
     name = aName;
@@ -77,7 +78,7 @@ public class Chore
     return wasSet;
   }
 
-  public boolean setDescription(String aDescription)
+  private boolean setDescription(String aDescription)
   {
     boolean wasSet = false;
     description = aDescription;
@@ -85,7 +86,7 @@ public class Chore
     return wasSet;
   }
 
-  public boolean setDeadline(Date aDeadline)
+  private boolean setDeadline(Date aDeadline)
   {
     boolean wasSet = false;
     deadline = aDeadline;
@@ -93,7 +94,7 @@ public class Chore
     return wasSet;
   }
 
-  public boolean setPenalty(int aPenalty)
+  private boolean setPenalty(int aPenalty)
   {
     boolean wasSet = false;
     penalty = aPenalty;
@@ -101,7 +102,7 @@ public class Chore
     return wasSet;
   }
 
-  public boolean setReward(int aReward)
+  private boolean setReward(int aReward)
   {
     boolean wasSet = false;
     reward = aReward;
@@ -117,7 +118,7 @@ public class Chore
     return wasSet;
   }
 
-  public String getState()
+  public State getState()
   {
     return state;
   }
@@ -152,9 +153,9 @@ public class Chore
     return completedDate;
   }
 
-  public Parent getParent()
+  public Parent getCreator()
   {
-    return parent;
+    return creator;
   }
 
   public Account getAccount()
@@ -162,12 +163,48 @@ public class Chore
     return account;
   }
 
-  public Profile getProfile()
+  public Profile getAssignedTo()
   {
-    return profile;
+    return assignedTo;
   }
 
-  public boolean setParent(Parent aParent)
+  //------------------------
+  // METHOD
+  //------------------------
+
+  // changing state to TODO once assigned
+  public boolean assign(){
+    if (state == State.UNASSIGNED){
+         state = State.TODO;
+
+         return true;
+          }
+          return false;
+  }
+
+// changing state from todo and pastdue to completed
+  public boolean complete(){
+    if (state == State.TODO || state == State.PASTDUE){
+      state = State.COMPLETED;
+      return true;
+    }
+
+    return false;
+  }
+
+  //changing state to pastdue when late
+  public boolean islate(Date today){
+
+    if (state == State.TODO && today.after(deadline)){
+      state = State.PASTDUE;
+      return true;
+    }
+
+    return false;
+
+  }
+
+   public boolean setParent(Parent aParent)
   {
     boolean wasSet = false;
     if (aParent == null)
@@ -175,13 +212,13 @@ public class Chore
       return wasSet;
     }
 
-    Parent existingParent = parent;
-    parent = aParent;
+    Parent existingParent = creator;
+    creator = aParent;
     if (existingParent != null && !existingParent.equals(aParent))
     {
       existingParent.removeChore(this);
     }
-    parent.addChore(this);
+    creator.addChore(this);
     wasSet = true;
     return wasSet;
   }
@@ -213,28 +250,31 @@ public class Chore
       return wasSet;
     }
 
-    Profile existingProfile = profile;
-    profile = aProfile;
+    Profile existingProfile = assignedTo;
+    assignedTo = aProfile;
     if (existingProfile != null && !existingProfile.equals(aProfile))
     {
       existingProfile.removeChore(this);
     }
-    profile.addChore(this);
+    assignedTo.addChore(this);
     wasSet = true;
     return wasSet;
   }
 
-  public void delete()
-  {
-    Parent placeholderParent = parent;
-    this.parent = null;
-    placeholderParent.removeChore(this);
-    Account placeholderAccount = account;
-    this.account = null;
-    placeholderAccount.removeChore(this);
-    Profile placeholderProfile = profile;
-    this.profile = null;
-    placeholderProfile.removeChore(this);
+  public boolean delete()
+  { if (state == State.COMPLETED){
+      state = State.DELETED;
+      this.assignedTo = null;
+       return true;
+  }
+
+    if(state == State.TODO || state == State.PASTDUE){
+      state = State.UNASSIGNED;
+      this.assignedTo = null;
+      return  true;
+    }
+    return false;
+
   }
 
 
@@ -248,8 +288,8 @@ public class Chore
             "reward" + ":" + getReward()+ "]" + System.getProperties().getProperty("line.separator") +
             "  " + "deadline" + "=" + (getDeadline() != null ? !getDeadline().equals(this)  ? getDeadline().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator") +
             "  " + "completedDate" + "=" + (getCompletedDate() != null ? !getCompletedDate().equals(this)  ? getCompletedDate().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator") +
-            "  " + "parent = "+(getParent()!=null?Integer.toHexString(System.identityHashCode(getParent())):"null") + System.getProperties().getProperty("line.separator") +
+            "  " + "creator = "+(getCreator()!=null?Integer.toHexString(System.identityHashCode(getCreator())):"null") + System.getProperties().getProperty("line.separator") +
             "  " + "account = "+(getAccount()!=null?Integer.toHexString(System.identityHashCode(getAccount())):"null") + System.getProperties().getProperty("line.separator") +
-            "  " + "profile = "+(getProfile()!=null?Integer.toHexString(System.identityHashCode(getProfile())):"null");
+            "  " + "assignedTo = "+(getAssignedTo()!=null?Integer.toHexString(System.identityHashCode(getAssignedTo())):"null");
   }
 }

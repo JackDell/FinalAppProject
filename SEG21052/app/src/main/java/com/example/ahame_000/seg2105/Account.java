@@ -156,10 +156,6 @@ public class Account
     return 0;
   }
 
-  public Profile addProfile(String aName, Icon aIcon, String aPassword)
-  {
-    return new Profile(aName, aIcon, aPassword, this);
-  }
 
   public boolean addProfile(Profile aProfile)
   {
@@ -228,9 +224,9 @@ public class Account
     return 0;
   }
 
-  public Chore addChore(String aState, String aName, String aDescription, Date aDeadline, int aPenalty, int aReward, Date aCompletedDate, Parent aParent, Profile aProfile)
+  public Chore addChore( String aName, String aDescription, Date aDeadline, int aPenalty, int aReward, Date aCompletedDate, Parent aParent, Profile aProfile)
   {
-    return new Chore(aState, aName, aDescription, aDeadline, aPenalty, aReward, aCompletedDate, aParent, this, aProfile);
+    return new Chore( aName, aDescription, aDeadline, aPenalty, aReward, aCompletedDate, aParent, this, aProfile);
   }
 
   public boolean addChore(Chore aChore)

@@ -4,8 +4,6 @@ package com.example.ahame_000.seg2105;
 
 import android.view.View;
 
-// line 56 "model.ump"
-// line 96 "model.ump"
 public class DBmangment
 {
 
