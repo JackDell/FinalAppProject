@@ -17,7 +17,6 @@ public class Parent extends Profile
   //------------------------
 
   //Parent Associations
-  private List<Chore> chores;
 
   //------------------------
   // CONSTRUCTOR
@@ -68,9 +67,9 @@ public class Parent extends Profile
     return 0;
   }
 
-  public Chore addChore(String aState, String aName, String aDescription, Date aDeadline, int aPenalty, int aReward, Date aCompletedDate, Account aAccount, Profile aProfile)
+  public Chore addChore( String aName, String aDescription, Date aDeadline, int aPenalty, int aReward, Date aCompletedDate, Account aAccount, Profile aProfile)
   {
-    return new Chore(aState, aName, aDescription, aDeadline, aPenalty, aReward, aCompletedDate, this, aAccount, aProfile);
+    return new Chore( aName, aDescription, aDeadline, aPenalty, aReward, aCompletedDate, this, aAccount, aProfile);
   }
 
   public boolean addChore(Chore aChore)
