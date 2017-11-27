@@ -26,8 +26,8 @@ public class CreateAccount extends AppCompatActivity {
         EditText confirmPasswordTxt = (EditText) findViewById(R.id.ConfirmPassword_EditText_CreateAccount);
         String confirmPasswordString = emailTxt.getText().toString();
 
-
-        if (passwordConfirm(passwordString, confirmPasswordString) == true) {
+        setContentView(R.layout.activity_account_login);
+        if (passwordConfirm(passwordString, confirmPasswordString)) {
             DBmangment newAcc = new DBmangment(emailString, passwordString);
             setContentView(R.layout.activity_account_login);
 
