@@ -1,72 +1,189 @@
-package ca.uottawa.jackdell.choreapplication;
+package com.example.ahame_000.seg2105;
+/*This code was generated using the UMPLE 1.26.1-f40f105-3613 modeling language!*/
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
-/**
- * Created by Jack on 2017-11-05.
- */
+import android.graphics.drawable.Icon;
 
-public class Profile {
+import java.util.*;
+import java.sql.Date;
 
-    private String name;
-    private String email;
-    private String password;
-    private Account account;
-    private int points;
-    private List<Chore> chores;
 
-    public Profile(String name, String email, String password, Account account) {
-        this(name, email, password, account, 0, new ArrayList<Chore>());
+public abstract class Profile
+{
+
+  //------------------------
+  // MEMBER VARIABLES
+  //------------------------
+
+  //Profile Attributes
+  protected String name;
+  protected Icon icon;
+  protected String password;
+
+  //Profile Associations
+  protected List<Chore> chores;
+  protected Account account;
+
+  //------------------------
+  // CONSTRUCTOR
+  //------------------------
+
+  public Profile(String aName, Icon aIcon, String aPassword, Account aAccount)
+  {
+    name = aName;
+    icon = aIcon;
+    password = aPassword;
+    chores = new ArrayList<Chore>();
+    boolean didAddAccount = setAccount(aAccount);
+    if (!didAddAccount)
+    {
+      throw new RuntimeException("Unable to create profile due to account");
+    }
+  }
+
+  //------------------------
+  // INTERFACE
+  //------------------------
+
+  public boolean setName(String aName)
+  {
+    boolean wasSet = false;
+    name = aName;
+    wasSet = true;
+    return wasSet;
+  }
+
+  public boolean setIcon(Icon aIcon)
+  {
+    boolean wasSet = false;
+    icon = aIcon;
+    wasSet = true;
+    return wasSet;
+  }
+
+  private boolean setPassword(String aPassword)
+  {
+    boolean wasSet = false;
+    password = aPassword;
+    wasSet = true;
+    return wasSet;
+  }
+
+  public String getName()
+  {
+    return name;
+  }
+
+  public Icon getIcon()
+  {
+    return icon;
+  }
+
+  private String getPassword()
+  {
+    return password;
+  }
+
+
+  public List<Chore> getChores()
+  {
+    List<Chore> newChores = Collections.unmodifiableList(chores);
+    return newChores;
+  }
+
+  public int numberOfChores()
+  {
+    int number = chores.size();
+    return number;
+  }
+
+  public boolean hasChores()
+  {
+    boolean has = chores.size() > 0;
+    return has;
+  }
+
+
+  public Account getAccount()
+  {
+    return account;
+  }
+
+
+  public Chore addChore( String aName, String aDescription, Date aDeadline, int aPenalty, int aReward, Date aCompletedDate, Parent aParent, Account aAccount)
+  {
+    return new Chore( aName, aDescription, aDeadline, aPenalty, aReward, aCompletedDate, aParent, aAccount, this);
+  }
+
+  public boolean addChore(Chore aChore)
+  {
+    boolean wasAdded = false;
+    if (chores.contains(aChore)) { return false; }
+    Profile existingProfile = aChore.getAssignedTo();
+    boolean isNewProfile = existingProfile != null && !this.equals(existingProfile);
+    if (isNewProfile)
+    {
+      aChore.setProfile(this);
+    }
+    else
+    {
+      chores.add(aChore);
+    }
+    wasAdded = true;
+    return wasAdded;
+  }
+
+  public boolean removeChore(Chore aChore) {
+    boolean wasRemoved = false;
+
+
+    if (!this.equals(aChore.getAssignedTo()))
+    {
+
+      chores.remove(aChore);
+      wasRemoved = true;
+    }
+    return wasRemoved;
+  }
+
+  public boolean setAccount(Account aAccount)
+  {
+    boolean wasSet = false;
+    if (aAccount == null)
+    {
+      return wasSet;
     }
 
-    public Profile(String name, String email, String password, Account account, int points, List<Chore> chores) {
-        this.name = name;
-        this.email = email;
-        this.password = password;
-        this.account = account;
-        this.points = points;
-        this.chores = chores;
+    Account existingAccount = account;
+    account = aAccount;
+    if (existingAccount != null && !existingAccount.equals(aAccount))
+    {
+      existingAccount.removeProfile(this);
+    }
+    account.addProfile(this);
+    wasSet = true;
+    return wasSet;
+  }
+
+  public void delete()
+  {
+    for(Chore aChore: chores) {
+      aChore.getState();
     }
 
-    public String getName() {
-        return name;
-    }
+    Account placeholderAccount = account;
+    this.account = null;
+    placeholderAccount.removeProfile(this);
+  }
 
-    public String getEmail() {
-        return email;
-    }
 
-    public String getPassword() {
-        return password;
-    }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public int getPoints() {
-        return this.points;
-    }
-
-    public void setPoints(int points) {
-        this.points = points;
-    }
-
-    public List<Chore> getChores() {
-        return chores;
-    }
-
-    public void setChores(List<Chore> chores) {
-        this.chores = chores;
-    }
-
-    public void addChore(Chore chore) {
-        this.chores.add(chore);
-    }
-
-    public void removeChore(Chore chore) {
-        this.chores.remove(chore);
-    }
+  public String toString()
+  {
+    return super.toString() + "["+
+            "name" + ":" + getName()+ "," +
+            "password" + ":" + getPassword()+ "]" + System.getProperties().getProperty("line.separator") +
+            "  " + "icon" + "=" + (getIcon() != null ? !getIcon().equals(this)  ? getIcon().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator") +
+            "  " + "account = "+(getAccount()!=null?Integer.toHexString(System.identityHashCode(getAccount())):"null");
+  }
 }
