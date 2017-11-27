@@ -52,7 +52,7 @@ public class EditViewChore extends AppCompatActivity {
 
         if(chore.getState()==Chore.State.UNASSIGNED){
             currentAccount.removeChore(chore);
-            
+
         }
     }
 
