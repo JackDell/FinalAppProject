@@ -29,14 +29,22 @@
             android:hint="@string/password_editText"
             android:inputType="textPassword" />
 
-        <Space
+        <TextView
+            android:id="@+id/incorrectCreds_TextView_AccountLogin"
             android:layout_width="match_parent"
-            android:layout_height="50dp" />
+            android:layout_height="wrap_content"
+            android:text="Incorrect email or password. Try again"
+            android:textAlignment="center"
+            android:textColor="@android:color/holo_red_dark"
+            android:textSize="18sp"
+            android:textStyle="italic"
+            android:visibility="invisible" />
 
         <Button
             android:id="@+id/Login_Button_CreateAccount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:onClick="accLoginBttnClick"
             android:text="@string/login_button" />
 
         <Space
@@ -47,6 +55,7 @@
             android:id="@+id/CreateAccount_Button_CreateAccount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:onClick="createAccBttnClick"
             android:text="@string/createAccount_button" />
 
     </LinearLayout>

@@ -59,8 +59,7 @@ public class Navigation extends AppCompatActivity
             //Todo
 
         } else if (id == R.id.nav_addChore) {
-            //Todo
-
+            setContentView(R.layout.activity_create_chore);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

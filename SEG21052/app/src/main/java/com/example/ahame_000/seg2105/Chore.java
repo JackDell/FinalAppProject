@@ -51,7 +51,9 @@ public class Chore
     {
       throw new RuntimeException("Unable to create chore due to account");
     }
+
     boolean didAddProfile = setAssignedTo(assignedTo);
+
     if (!didAddProfile)
     {
       throw new RuntimeException("Unable to create chore due to assignedTo");
@@ -193,7 +195,8 @@ public class Chore
   }
 
   //changing state to pastdue when late
-  public boolean isLate(Date today){
+
+  public boolean islate(Date today){
 
     if (state == State.TODO && today.after(deadline)){
       state = State.PASTDUE;

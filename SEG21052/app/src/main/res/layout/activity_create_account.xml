@@ -37,20 +37,29 @@
             android:hint="@string/confirmPassword_editText"
             android:inputType="textPassword" />
 
-        <Space
+        <TextView
+            android:id="@+id/passNotSame_TextView_CreateAccount"
             android:layout_width="match_parent"
-            android:layout_height="50dp" />
+            android:layout_height="wrap_content"
+            android:text="Passwords are not the same"
+            android:textAlignment="center"
+            android:textColor="@android:color/holo_red_dark"
+            android:textSize="18sp"
+            android:textStyle="italic"
+            android:visibility="invisible" />
 
         <Button
             android:id="@+id/AddMember_Button_CreateAccount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:onClick="addMemberBttnClick"
             android:text="@string/addMember_button" />
 
         <Button
             android:id="@+id/Done_Button_CreateAccount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:onClick="doneCreateNewAccBttnClick"
             android:text="@string/done_button" />
 
     </LinearLayout>

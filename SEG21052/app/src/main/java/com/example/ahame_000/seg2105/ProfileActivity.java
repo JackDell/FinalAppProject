@@ -1,15 +1,13 @@
-package com.example.ahame_000.seg2105;
+package ca.uottawa.jackdell.choreapplication;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
-public class AddMember extends AppCompatActivity {
+
+public class ProfileActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_member);
+        setContentView(R.layout.activity_profile);
     }
-
-
 }

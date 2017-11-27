@@ -17,7 +17,6 @@ public class Parent extends Profile
   //------------------------
 
   //Parent Associations
-  private List<Chore> chores;
 
   //------------------------
   // CONSTRUCTOR
