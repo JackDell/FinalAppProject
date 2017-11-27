@@ -17,8 +17,10 @@ package="com.example.ahame_000.seg2105">
         </intent-filter>
     </activity>
     <activity android:name=".CreateChore" />
+    <activity android:name=".CreateAccount"/>
     <activity android:name=".EditViewChore" />
     <activity android:name=".AddMember" />
+    <activity android:name=".HomePage"/>
     <activity android:name=".AccountLogin" />
     <activity
         android:name=".Navigation"
