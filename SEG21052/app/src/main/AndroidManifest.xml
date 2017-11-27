@@ -10,16 +10,18 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".CreateChore" />
         <activity android:name=".EditViewChore" />
         <activity android:name=".AddMember" />
-        <activity android:name=".AccountLogin" />
+        <activity android:name=".AccountLogin" >
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
         <activity
             android:name=".Navigation"
             android:label="@string/title_activity_navigation"

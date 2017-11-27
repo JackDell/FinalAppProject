@@ -15,6 +15,18 @@ public class AccountLogin extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_login);
     }
+    // takes user to Create New Account page
+    public void createAccBttnClick(View view){
+
+        EditText emailTxt = (EditText)findViewById(R.id.Email_EditText_AccountLogin);
+        String emailString = emailTxt.getText().toString();
+
+        setContentView(R.layout.activity_create_account);
+
+        EditText emailTxtCreateAcc = (EditText)findViewById(R.id.Email_EditText_CreateAccount);
+        emailTxtCreateAcc.setText(emailString);
+
+    }
 
     public void accLoginBttnClick (View view){
 
@@ -28,12 +40,14 @@ public class AccountLogin extends AppCompatActivity {
 
        DBmangment dManage= DBmangment.getInstance();
 
+        //If password & email verified, go to profiles activity
         if (dManage.verifyAccount(emailString, passwordString)==true){
 
             //TODO: change activity_main to allProfiles_layout
             setContentView(R.layout.activity_main);
 
         }
+        //If they don't match, swipe all the fields and have "incorrect pssword..." pop up
         else {
             emailTxt.setText("");
             passwordTxt.setText("");

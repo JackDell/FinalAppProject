@@ -11,18 +11,6 @@ public class CreateAccount extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_account);
-    }
-
-    // takes user to Create New Account page
-    public void createAccBttnClick(View view){
-
-        EditText emailTxt = (EditText)findViewById(R.id.Email_EditText_AccountLogin);
-        String emailString = emailTxt.getText().toString();
-
-        setContentView(R.layout.activity_create_account);
-
-        EditText emailTxtCreateAcc = (EditText)findViewById(R.id.Email_EditText_CreateAccount);
-        emailTxtCreateAcc.setText(emailString);
 
     }
 
@@ -54,15 +42,17 @@ public class CreateAccount extends AppCompatActivity {
 
         View incorrectPopUp = findViewById(R.id.passNotSame_TextView_CreateAccount);
 
-        if(pass1 != pass2){
-
-            incorrectPopUp.setVisibility(View.VISIBLE);
-        }
-        else {
+        if(pass1.equals(pass2) ){
             incorrectPopUp.setVisibility(View.INVISIBLE);
             confirmed = true;
+        }
+        else {
+            incorrectPopUp.setVisibility(View.VISIBLE);
+
         }
         return confirmed;
 
     }
+
+
 }
