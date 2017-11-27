@@ -123,7 +123,7 @@ public abstract class Profile
     boolean isNewProfile = existingProfile != null && !this.equals(existingProfile);
     if (isNewProfile)
     {
-      aChore.setProfile(this);
+      aChore.setAssignedTo(this);
     }
     else
     {

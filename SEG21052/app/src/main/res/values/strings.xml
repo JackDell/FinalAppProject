@@ -38,6 +38,7 @@
     <string name="generalList_textView">General List</string>
     <string name="todoList_textView">To-Do List</string>
     <string name="completed_textView">Completed List</string>
+    <string name="completedDate_textView">Completed Date: </string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
