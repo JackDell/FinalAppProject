@@ -31,23 +31,21 @@ public class Account
   // CONSTRUCTOR
   //------------------------
 
-  public Account(String aName, String aEmail, String aPassword, DBmangment aDBmangment)
+  public Account( String aEmail, String aPassword, DBmangment aDBmangment)
   {
-    name = aName;
     email = aEmail;
     password = aPassword;
     profiles = new ArrayList<Profile>();
     chores = new ArrayList<Chore>();
-    if (aDBmangment == null || aDBmangment.getAccount() != null)
+    if (aDBmangment == null || aDBmangment.getAccount(email) != null)
     {
       throw new RuntimeException("Unable to create Account due to aDBmangment");
     }
     dBmangment = aDBmangment;
   }
 
-  public Account(String aName, String aEmail, String aPassword)
+  public Account( String aEmail, String aPassword)
   {
-    name = aName;
     email = aEmail;
     password = aPassword;
     profiles = new ArrayList<Profile>();
@@ -59,13 +57,6 @@ public class Account
   // INTERFACE
   //------------------------
 
-  public boolean setName(String aName)
-  {
-    boolean wasSet = false;
-    name = aName;
-    wasSet = true;
-    return wasSet;
-  }
 
   public boolean setEmail(String aEmail)
   {
@@ -83,10 +74,7 @@ public class Account
     return wasSet;
   }
 
-  public String getName()
-  {
-    return name;
-  }
+
 
   public String getEmail()
   {
@@ -329,7 +317,6 @@ public class Account
   public String toString()
   {
     return super.toString() + "["+
-            "name" + ":" + getName()+ "," +
             "email" + ":" + getEmail()+ "," +
             "password" + ":" + getPassword()+ "]" + System.getProperties().getProperty("line.separator") +
             "  " + "dBmangment = "+(getDBmangment()!=null?Integer.toHexString(System.identityHashCode(getDBmangment())):"null");
