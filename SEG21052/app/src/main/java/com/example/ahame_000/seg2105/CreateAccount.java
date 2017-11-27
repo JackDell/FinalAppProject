@@ -1,5 +1,6 @@
 package com.example.ahame_000.seg2105;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -13,55 +14,56 @@ public class CreateAccount extends AppCompatActivity {
         setContentView(R.layout.activity_create_account);
     }
 
-    // takes user to Create New Account page
-    public void createAccBttnClick(View view){
-
-        EditText emailTxt = (EditText)findViewById(R.id.Email_EditText_AccountLogin);
-        String emailString = emailTxt.getText().toString();
-
-        setContentView(R.layout.activity_create_account);
-
-        EditText emailTxtCreateAcc = (EditText)findViewById(R.id.Email_EditText_CreateAccount);
-        emailTxtCreateAcc.setText(emailString);
-
-    }
 
     //creates a new DBmanager ( which creates a new account )
     public void doneCreateNewAccBttnClick(View view) {
 
-        EditText emailTxt = (EditText) findViewById(R.id.Email_EditText_CreateAccount);
+        EditText emailTxt = findViewById(R.id.Email_EditText_CreateAccount);
         String emailString = emailTxt.getText().toString();
 
-        EditText passwordTxt = (EditText) findViewById(R.id.Password_EditText_CreateAccount);
-        String passwordString = emailTxt.getText().toString();
+        EditText passwordTxt = findViewById(R.id.Password_EditText_CreateAccount);
+        String passwordString = passwordTxt.getText().toString();
 
-        EditText confirmPasswordTxt = (EditText) findViewById(R.id.ConfirmPassword_EditText_CreateAccount);
-        String confirmPasswordString = emailTxt.getText().toString();
+        EditText confirmPasswordTxt = findViewById(R.id.ConfirmPassword_EditText_CreateAccount);
+        String confirmPasswordString = confirmPasswordTxt.getText().toString();
 
 
         if (passwordConfirm(passwordString, confirmPasswordString) == true) {
             DBmangment newAcc = new DBmangment(emailString, passwordString);
-            setContentView(R.layout.activity_account_login);
+            Intent intent = new Intent(this,AccountLogin.class);
+            startActivity(intent);
 
         }
     }
 
+    public void addMemberBttnClick (View view){
+        Intent intent = new Intent(this,AccountLogin.class);
+        startActivity(intent);
 
-    //confirm the users 2 passwords are the same, returns true if they are
+    }
+
+
+    //confirm the users 2 passwords are the same/ not empty, returns true if they are
     public boolean passwordConfirm( String pass1, String pass2){
 
         boolean confirmed = false;
 
         View incorrectPopUp = findViewById(R.id.passNotSame_TextView_CreateAccount);
 
-        if(pass1 != pass2){
-
-            incorrectPopUp.setVisibility(View.VISIBLE);
-        }
-        else {
+        if(pass1.equals(pass2)){
             incorrectPopUp.setVisibility(View.INVISIBLE);
             confirmed = true;
+
+
         }
+        else {
+            incorrectPopUp.setVisibility(View.VISIBLE);
+
+        }
+        if (pass1.isEmpty() || pass2.isEmpty()){
+            confirmed = false;
+        }
+
         return confirmed;
 
     }
