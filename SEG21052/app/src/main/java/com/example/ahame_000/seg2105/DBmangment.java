@@ -76,6 +76,61 @@ public class DBmangment
     }
   }
 
+  public string loadProfiles(Resources res) {
+    InputStream is = res.openRawResource(R.raw.profiles);
+    Scanner scanner = new Scanner(is);
+    StringBuilder builder = new StringBuilder();
+
+    while(scanner.hasNextLine()) {
+      builder.append(scanner.nextLine());
+    }
+
+
+
+    return parseJSON(builder.toString());
+  }
+
+  public String loadJSONFile(Resources res) {
+    InputStream is = res.openRawResource(R.raw.example_2);
+    Scanner scanner = new Scanner(is);
+    StringBuilder builder = new StringBuilder();
+
+    while(scanner.hasNextLine()) {
+      builder.append(scanner.nextLine());
+    }
+
+    StringBuilder b= new StringBuilder();
+
+    try {
+      JSONObject root = new JSONObject(builder.toString());
+      JSONArray profiles = (JSONArray) root.get("Profiles");
+      for(int i = 0; i < profiles.length(); i++) {
+        JSONObject name = (JSONObject) profiles
+      }
+    }
+    catch(JSONException e) {
+      e.printStackTrace();
+    }
+
+    return b.toString();
+  }
+
+  private String parseJSON(String s) {
+    StringBuilder builder = new StringBuilder();
+
+    try {
+      JSONObject root = new JSONObject(s);
+      JSONObject quiz = root.getJSONObject("quiz");
+      JSONObject holder = quiz.getJSONObject("sport");
+      holder = holder.getJSONObject("q1");
+      builder.append("Q: ").append(holder.getString("question")).append("\n");
+    }
+    catch(JSONException e) {
+      e.printStackTrace();
+    }
+
+    return builder.toString();
+  }
 
 
   public static boolean verifyAccount(String email, String password) {
