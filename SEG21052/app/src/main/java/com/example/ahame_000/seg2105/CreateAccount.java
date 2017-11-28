@@ -6,6 +6,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 
+import com.example.ahame_000.seg2105.databasing.DatabaseHelper;
+import com.example.ahame_000.seg2105.databasing.DatabaseManager;
+
 public class CreateAccount extends AppCompatActivity {
 
     @Override
@@ -18,6 +21,9 @@ public class CreateAccount extends AppCompatActivity {
     //creates a new DBmanager ( which creates a new account )
     public void doneCreateNewAccBttnClick(View view) {
 
+        // ********** NEED TO ADD NAME EditText just putting this here for implementation -jack
+        String name = "Name Goes Here";
+
         EditText emailTxt = findViewById(R.id.Email_EditText_CreateAccount);
         String emailString = emailTxt.getText().toString();
 
@@ -28,18 +34,17 @@ public class CreateAccount extends AppCompatActivity {
         String confirmPasswordString = confirmPasswordTxt.getText().toString();
 
 
-        if (passwordConfirm(passwordString, confirmPasswordString) == true) {
-            DBmangment newAcc = new DBmangment(emailString, passwordString);
+        if (passwordTxt.equals(confirmPasswordTxt)) {
+            DatabaseManager DM = new DatabaseManager(new DatabaseHelper(this.getApplicationContext()));
+            DM.saveAccount(new Account(name, emailString, passwordString));
             Intent intent = new Intent(this,AccountLogin.class);
             startActivity(intent);
-
         }
     }
 
     public void addMemberBttnClick (View view){
         Intent intent = new Intent(this,AccountLogin.class);
         startActivity(intent);
-
     }
 
 

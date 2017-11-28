@@ -7,6 +7,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
+import com.example.ahame_000.seg2105.databasing.DatabaseHelper;
+import com.example.ahame_000.seg2105.databasing.DatabaseManager;
+
 public class EditViewChore extends AppCompatActivity {
 
     private Chore chore;
@@ -21,7 +24,7 @@ public class EditViewChore extends AppCompatActivity {
         LinearLayout eLayout = (LinearLayout)findViewById(R.id.CreatedByDate_Layout_ChoreDetails);
         Button doneButton = (Button)findViewById(R.id.Done_Button_ChoreDetails);
 
-        if (chore.complete()){
+        if (chore.getState() == ChoreState.COMPLETE){
             eLayout.setVisibility(View.VISIBLE);
             doneButton.setVisibility(View.INVISIBLE);
         }
@@ -30,30 +33,26 @@ public class EditViewChore extends AppCompatActivity {
 
     public void onAssignToMeBttnClick(View view){
         Button assignToMeButton = (Button)findViewById(R.id.AssignToMe_Button_ChoreDetails);
-        DBmangment dBmangment = DBmangment.getInstance();
-        Button doneButton = (Button)findViewById(R.id.Done_Button_ChoreDetails);
-        Profile currentProfile = dBmangment.getProfile();
-        Account currentAccount = dBmangment.getAccount();
 
-        if (chore.getState()== Chore.State.UNASSIGNED){
+        Button doneButton = (Button)findViewById(R.id.Done_Button_ChoreDetails);
+        Profile currentProfile = Session.getProfile();
+        Account currentAccount = Session.getAccount();
+
+        if(currentAccount.getChores().contains(chore)) {
             currentProfile.addChore(chore);
             currentAccount.removeChore(chore);
-            chore.setAssignedTo(currentProfile);
             assignToMeButton.setVisibility(View.INVISIBLE);
             doneButton.setVisibility(View.VISIBLE);
         }
     }
 
     public void onDeleteBttnClick(View view){
-        Button deleteButton = (Button)findViewById(R.id.Delete_Button_ChoreDetails);
-        DBmangment dBmangment = DBmangment.getInstance();
-        Account currentAccount = dBmangment.getAccount();
-        Profile currentProfile = dBmangment.getProfile();
+        Button deleteButton = (Button) findViewById(R.id.Delete_Button_ChoreDetails);
 
-        if(chore.getState()==Chore.State.UNASSIGNED){
-            currentAccount.removeChore(chore);
-            
-        }
+        Account currentAccount = Session.getAccount();
+        Profile currentProfile = Session.getProfile();
+
+        currentAccount.removeChore(chore);
     }
 
 }

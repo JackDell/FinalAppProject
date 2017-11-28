@@ -1,34 +1,29 @@
 package com.example.ahame_000.seg2105;
-/*This code was generated using the UMPLE 1.26.1-f40f105-3613 modeling language!*/
 
+import com.example.ahame_000.seg2105.Account;
+import com.example.ahame_000.seg2105.Chore;
+import com.example.ahame_000.seg2105.Profile;
 
-import android.graphics.drawable.Icon;
+import java.util.ArrayList;
+import java.util.List;
 
-// line 36 "model.ump"
-// line 85 "model.ump"
-public class Child extends Profile
-{
+/**
+ * Created by Jack on 2017-11-28.
+ */
 
-  //------------------------
-  // MEMBER VARIABLES
-  //------------------------
+public class Child extends Profile {
 
-  //------------------------
-  // CONSTRUCTOR
-  //------------------------
+    /**
+     * Constructor
+     */
+    public Child(String name, String password, String icon, int points, Account account, List<Chore> chores) {
+        super(name, password, icon, points, account, chores);
+    }
 
-  public Child(String aName, Icon aIcon, String aPassword, Account aAccount)
-  {
-    super(aName, aIcon, aPassword, aAccount);
-  }
-
-  //------------------------
-  // INTERFACE
-  //------------------------
-
-  public void delete()
-  {
-    super.delete();
-  }
-
+    /**
+     * Compressed Constructor
+     */
+    public Child(String name, String password, String icon, Account account) {
+        super(name, password, icon, 0, account, new ArrayList<Chore>());
+    }
 }

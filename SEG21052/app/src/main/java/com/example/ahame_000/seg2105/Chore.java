@@ -1,298 +1,116 @@
 package com.example.ahame_000.seg2105;
-/*This code was generated using the UMPLE 1.26.1-f40f105-3613 modeling language!*/
 
+import com.example.ahame_000.seg2105.ChoreState;
 
-import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
+/**
+ * Created by Jack on 2017-11-27.
+ */
 
-public class Chore
-{
+public class Chore {
 
-  //------------------------
-  // MEMBER VARIABLES
-  //------------------------
+    // Instance variables
+    private String name;
+    private String description;
+    private ChoreState state;
+    private Date creationDate;
+    private int daysToComplete;
+    private int reward;
 
-  public enum State  {UNASSIGNED , TODO, PASTDUE, COMPLETED, DELETED};
-
-  //Chore Attributes
-  public State state;
-  public String name;
-  public String description;
-  public Date deadline;
-  public int penalty;
-  public int reward;
-  public Date completedDate;
-
-  //Chore Associations
-  private Parent creator;
-  private Account account;
-  private Profile assignedTo;
-
-  //------------------------
-  // CONSTRUCTOR
-  //------------------------
-
-  public Chore( String aName, String aDescription, Date aDeadline, int aPenalty, int aReward, Date aCompletedDate, Parent aParent, Account aAccount, Profile assignedTo)
-  {
-    state = State.UNASSIGNED;
-    name = aName;
-    description = aDescription;
-    deadline = aDeadline;
-    penalty = aPenalty;
-    reward = aReward;
-    completedDate = aCompletedDate;
-    boolean didAddParent = setParent(aParent);
-    if (!didAddParent)
-    {
-      throw new RuntimeException("Unable to create chore due to creator");
-    }
-    boolean didAddAccount = setAccount(aAccount);
-    if (!didAddAccount)
-    {
-      throw new RuntimeException("Unable to create chore due to account");
+    /**
+     * Constructor
+     */
+    public Chore(String name, String description, ChoreState state, Date creationDate, int daysToComplete, int reward) {
+        this.name = name;
+        this.description = description;
+        this.state = state;
+        this.creationDate = creationDate;
+        this.daysToComplete = daysToComplete;
+        this.reward = reward;
     }
 
-    boolean didAddProfile = setAssignedTo(assignedTo);
-
-    if (!didAddProfile)
-    {
-      throw new RuntimeException("Unable to create chore due to assignedTo");
-    }
-  }
-
-  //------------------------
-  // INTERFACE
-  //------------------------
-
-  private boolean setState(State aState)
-  {
-    boolean wasSet = false;
-    state = aState;
-    wasSet = true;
-    return wasSet;
-  }
-
-  private boolean setName(String aName)
-  {
-    boolean wasSet = false;
-    name = aName;
-    wasSet = true;
-    return wasSet;
-  }
-
-  private boolean setDescription(String aDescription)
-  {
-    boolean wasSet = false;
-    description = aDescription;
-    wasSet = true;
-    return wasSet;
-  }
-
-  private boolean setDeadline(Date aDeadline)
-  {
-    boolean wasSet = false;
-    deadline = aDeadline;
-    wasSet = true;
-    return wasSet;
-  }
-
-  private boolean setPenalty(int aPenalty)
-  {
-    boolean wasSet = false;
-    penalty = aPenalty;
-    wasSet = true;
-    return wasSet;
-  }
-
-  private boolean setReward(int aReward)
-  {
-    boolean wasSet = false;
-    reward = aReward;
-    wasSet = true;
-    return wasSet;
-  }
-
-  public boolean setCompletedDate(Date aCompletedDate)
-  {
-    boolean wasSet = false;
-    completedDate = aCompletedDate;
-    wasSet = true;
-    return wasSet;
-  }
-
-  public State getState()
-  {
-    return state;
-  }
-
-  public String getName()
-  {
-    return name;
-  }
-
-  public String getDescription()
-  {
-    return description;
-  }
-
-  public Date getDeadline()
-  {
-    return deadline;
-  }
-
-  public int getPenalty()
-  {
-    return penalty;
-  }
-
-  public int getReward()
-  {
-    return reward;
-  }
-
-  public Date getCompletedDate()
-  {
-    return completedDate;
-  }
-
-  public Parent getCreator()
-  {
-    return creator;
-  }
-
-  public Account getAccount()
-  {
-    return account;
-  }
-
-  public Profile getAssignedTo()
-  {
-    return assignedTo;
-  }
-
-  //------------------------
-  // METHOD
-  //------------------------
-
-  // changing state to TODO once assigned
-  public boolean assign(){
-    if (state == State.UNASSIGNED){
-         state = State.TODO;
-
-         return true;
-          }
-          return false;
-  }
-
-// changing state from todo and pastdue to completed
-  public boolean complete(){
-    if (state == State.TODO || state == State.PASTDUE){
-      state = State.COMPLETED;
-      return true;
+    /**
+     * Compressed Constructor
+     */
+    public Chore(String name, String description, int daysToComplete, int reward) {
+        this(name, description, ChoreState.INCOMPLETE, new Date(), daysToComplete, reward);
     }
 
-    return false;
-  }
-
-  //changing state to pastdue when late
-
-  public boolean islate(Date today){
-
-    if (state == State.TODO && today.after(deadline)){
-      state = State.PASTDUE;
-      return true;
+    public String getName() {
+        return name;
     }
 
-    return false;
-
-  }
-
-   public boolean setParent(Parent aParent)
-  {
-    boolean wasSet = false;
-    if (aParent == null)
-    {
-      return wasSet;
+    public String getDescription() {
+        return description;
     }
 
-    Parent existingParent = creator;
-    creator = aParent;
-    if (existingParent != null && !existingParent.equals(aParent))
-    {
-      existingParent.removeChore(this);
-    }
-    creator.addChore(this);
-    wasSet = true;
-    return wasSet;
-  }
-
-  public boolean setAccount(Account aAccount)
-  {
-    boolean wasSet = false;
-    if (aAccount == null)
-    {
-      return wasSet;
+    public ChoreState getState() {
+        return state;
     }
 
-    Account existingAccount = account;
-    account = aAccount;
-    if (existingAccount != null && !existingAccount.equals(aAccount))
-    {
-      existingAccount.removeChore(this);
-    }
-    account.addChore(this);
-    wasSet = true;
-    return wasSet;
-  }
-
-  public boolean setAssignedTo(Profile aProfile)
-  {
-    boolean wasSet = false;
-    if (aProfile == null)
-    {
-      return wasSet;
+    public Date getCreationDate() {
+        return creationDate;
     }
 
-    Profile existingProfile = assignedTo;
-    assignedTo = aProfile;
-    if (existingProfile != null && !existingProfile.equals(aProfile))
-    {
-      existingProfile.removeChore(this);
+    public int getDaysToComplete() {
+        return this.daysToComplete;
     }
-    assignedTo.addChore(this);
-    wasSet = true;
-    return wasSet;
-  }
 
-  public boolean delete()
-  { if (state == State.COMPLETED){
-      state = State.DELETED;
-      this.assignedTo = null;
-       return true;
-  }
-
-    if(state == State.TODO || state == State.PASTDUE){
-      state = State.UNASSIGNED;
-      this.assignedTo = null;
-      return  true;
+    public void setDaysToComplete(int daysToComplete) {
+        this.daysToComplete = daysToComplete;
     }
-    return false;
 
-  }
+    /**
+     * Based on the idea that an average 'chore' would have about 1 week to be completed, right now the
+     * reward value is calculated with (reward - ((reward * 5%) * (num of days since creation))).
+     * Essentially removing 5% of the total reward value everyday. If the completion date is after
+     * the 'complete by' date the reward is 50% of the original.
+     * @return
+     */
+    public int getReward() {
+        // The date now must be before the complete by Date
+        // Getting the current date
+        Date currentDate = new Date();
+        // Creating a calendar object
+        Calendar currentCalendar = Calendar.getInstance();
+        // Setting its date to only the day, month, and year
+        currentCalendar.set(currentDate.getYear(), currentDate.getMonth(), currentDate.getDay(), 0, 0, 0);
+        currentCalendar.add(Calendar.DATE, this.daysToComplete);
 
+        // Creating a calendar object for the completion date
+        Calendar completionCalendar = Calendar.getInstance();
+        completionCalendar.set(this.creationDate.getYear(), this.creationDate.getMonth(), this.creationDate.getDay(), 0, 0,0);
 
-  public String toString()
-  {
-    return super.toString() + "["+
-            "state" + ":" + getState()+ "," +
-            "name" + ":" + getName()+ "," +
-            "description" + ":" + getDescription()+ "," +
-            "penalty" + ":" + getPenalty()+ "," +
-            "reward" + ":" + getReward()+ "]" + System.getProperties().getProperty("line.separator") +
-            "  " + "deadline" + "=" + (getDeadline() != null ? !getDeadline().equals(this)  ? getDeadline().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator") +
-            "  " + "completedDate" + "=" + (getCompletedDate() != null ? !getCompletedDate().equals(this)  ? getCompletedDate().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator") +
-            "  " + "creator = "+(getCreator()!=null?Integer.toHexString(System.identityHashCode(getCreator())):"null") + System.getProperties().getProperty("line.separator") +
-            "  " + "account = "+(getAccount()!=null?Integer.toHexString(System.identityHashCode(getAccount())):"null") + System.getProperties().getProperty("line.separator") +
-            "  " + "assignedTo = "+(getAssignedTo()!=null?Integer.toHexString(System.identityHashCode(getAssignedTo())):"null");
-  }
+        // If the current date is after the completion date, return half of the reward
+        if(currentCalendar.after(completionCalendar)) {
+            return ((int) Math.round(this.reward * 0.5));
+        }
+        // Determining how long the Chore has existed for and returning proper reward
+        int amountOfDays = 0;
+        while(currentCalendar.before(completionCalendar)) {
+            amountOfDays++;
+            currentCalendar.add(Calendar.DATE, 1);
+        }
+
+        return ((int) Math.round(reward - ((reward * 0.05) * amountOfDays)));
+    }
+
+    /**
+     * Takes a Date object and returns a List of Integers, the first Integer in the list is the day
+     * of the month, the second object is the month, the third object is the year.
+     * @param date the Date object you wish to convert
+     * @return a List object containing the converted Date data
+     */
+    private static List<Integer> convertDate(Date date) {
+        List<Integer> dateList = new ArrayList<>();
+        String[] splitDate = date.toString().split(" ")[3].split(":");
+        dateList.add(Integer.parseInt(splitDate[0]));
+        dateList.add(Integer.parseInt(splitDate[1]));
+        dateList.add(Integer.parseInt(splitDate[2]));
+        return dateList;
+    }
 }

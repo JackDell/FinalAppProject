@@ -7,6 +7,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.content.Intent;
 
+import com.example.ahame_000.seg2105.databasing.DatabaseHelper;
+import com.example.ahame_000.seg2105.databasing.DatabaseManager;
+
 import java.sql.DatabaseMetaData;
 
 public class AccountLogin extends AppCompatActivity {
@@ -34,17 +37,19 @@ public class AccountLogin extends AppCompatActivity {
 
     public void accLoginBttnClick (View view){
 
-        //extract email from ID
+
+
+
+        // Getting the email inputted
         EditText emailTxt = findViewById(R.id.Email_EditText_AccountLogin);
-        //convert email txt view to String
         String emailString = emailTxt.getText().toString();
 
         EditText passwordTxt = findViewById(R.id.Password_EditText_CreateAccount);
         String passwordString = passwordTxt.getText().toString();
 
-       DBmangment dManage= DBmangment.getInstance();
+        DatabaseManager DM = new DatabaseManager(new DatabaseHelper(this.getApplicationContext()));
 
-        if (dManage.verifyAccount(emailString, passwordString)==true){
+        if (DM.loginAccount(emailString, passwordString)){
 
             //TODO: change activity_main to allProfiles_layout
             setContentView(R.layout.activity_main);
