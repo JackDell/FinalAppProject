@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.content.Intent;
 
 import java.sql.DatabaseMetaData;
 
@@ -15,15 +16,30 @@ public class AccountLogin extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_login);
     }
+    // takes user to Create New Account page
+    public void createAccBttnClick(View view){
+
+        EditText emailTxt = findViewById(R.id.Email_EditText_AccountLogin);
+        String emailString = emailTxt.getText().toString();
+
+        setContentView(R.layout.activity_create_account);
+
+        EditText emailTxtCreateAcc = findViewById(R.id.Email_EditText_CreateAccount);
+        emailTxtCreateAcc.setText(emailString);
+
+        Intent intent = new Intent(this,CreateAccount.class);
+        startActivity(intent);
+
+    }
 
     public void accLoginBttnClick (View view){
 
         //extract email from ID
-        EditText emailTxt = (EditText)findViewById(R.id.Email_EditText_AccountLogin);
+        EditText emailTxt = findViewById(R.id.Email_EditText_AccountLogin);
         //convert email txt view to String
         String emailString = emailTxt.getText().toString();
 
-        EditText passwordTxt = (EditText)findViewById(R.id.Password_EditText_CreateAccount);
+        EditText passwordTxt = findViewById(R.id.Password_EditText_CreateAccount);
         String passwordString = passwordTxt.getText().toString();
 
        DBmangment dManage= DBmangment.getInstance();
