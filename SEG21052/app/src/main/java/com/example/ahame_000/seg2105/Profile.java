@@ -1,17 +1,14 @@
 package com.example.ahame_000.seg2105;
 
+import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Jack on 2017-11-27.
- */
 
 public abstract class Profile {
 
     // Instance Variables
     private String name;
     private String password;
-    private String icon;    // The icon is a String and save the file location in which is icon image is located
     private int points;
     private Account account;
     private List<Chore> chores;
@@ -19,13 +16,20 @@ public abstract class Profile {
     /**
      * Constructor
      */
-    public Profile(String name, String password, String icon, int points, Account account, List<Chore> chores) {
+    protected Profile(String name, String password, int points, Account account, List<Chore> chores) {
         this.name = name;
         this.password = password;
-        this.icon = icon;
         this.points = points;
         this.account = account;
         this.chores = chores;
+    }
+
+    protected Profile(String name, String password,  Account account) {
+        this.name = name;
+        this.password = password;
+        this.points = 0;
+        this.account = account;
+        this.chores =  new ArrayList<Chore>();
     }
 
     /**
@@ -54,20 +58,6 @@ public abstract class Profile {
      */
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    /**
-     * @return a String object containing the file location of the icon associated with the account
-     */
-    public String getIcon() {
-        return this.icon;
-    }
-
-    /**
-     * @param icon a String object containing the file location of the icon in which you want to associate with the profile
-     */
-    public void setIcon(String icon) {
-        this.icon = icon;
     }
 
     /**
@@ -129,10 +119,4 @@ public abstract class Profile {
     /**
      * @return a String version of the profile summarizing important information
      */
-    public String toString() {
-        if(this instanceof Parent) {
-            return ("Parent(name: " + this.name + ", password: " + this.password + ")");
-        }
-        return ("Child(name: " + this.name + ", password: " + this.password + ")");
-    }
 }

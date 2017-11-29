@@ -1,27 +1,29 @@
 package com.example.ahame_000.seg2105;
 
-/**
- * Created by Jack on 2017-11-28.
- */
 
 public class Session {
     
-    private static Account account;
-    private static Profile profile;
+    private static Account loggedInAccount;
+    private static Profile loggedInProfile;
+    private static Child viewedChild;
 
-    public static Account getAccount() {
-        return account;
+    public static Child getViewedChild() { return viewedChild; }
+
+    public static void setViewedChild(Child viewedChild) { Session.viewedChild = viewedChild; }
+
+    public static Account getLoggedInAccount() {
+        return loggedInAccount;
     }
 
-    public static void setAccount(Account account) {
-        Session.account = account;
+    public static void setLoggedInAccount(Account loggedInAccount) {
+        Session.loggedInAccount = loggedInAccount;
     }
 
-    public static Profile getProfile() {
-        return profile;
+    public static Profile getLoggedInProfile() {
+        return loggedInProfile;
     }
 
-    public static void setProfile(Profile profile) {
-        Session.profile = profile;
+    public static void setLoggedInProfile(Profile loggedInProfile) {
+        Session.loggedInProfile = loggedInProfile;
     }
 }

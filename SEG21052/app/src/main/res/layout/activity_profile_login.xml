@@ -17,7 +17,7 @@
             android:id="@+id/txtEnterProfile"
             android:layout_width="match_parent"
             android:layout_height="82dp"
-            android:text="Please enter your profile information:"
+            android:text="Please enter your loggedInProfile information:"
             android:textAlignment="center"
             android:textSize="18sp"
             android:textStyle="bold" />

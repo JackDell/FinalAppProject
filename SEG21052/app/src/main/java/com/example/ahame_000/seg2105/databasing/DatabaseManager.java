@@ -7,10 +7,6 @@ import com.example.ahame_000.seg2105.*;
 import java.util.ArrayList;
 import java.util.List;
 
-// --------------------------
-//  Written by: Jack Dell
-// --------------------------
-
 public class DatabaseManager {
 
     private DatabaseHelper DB_Helper;
@@ -24,21 +20,21 @@ public class DatabaseManager {
      * @param account   the account object you wish to save to the database
      */
     public void saveAccount(Account account) {
-        String[] values = {account.toString(), account.getEmail(), account.getName(), account.getPassword()};
-        DB_Helper.getWritableDatabase().execSQL("INSERT INTO Accounts VALUES (summary, email, name, pass)", values);
+        String[] values = { account.getEmail(),  account.getPassword()};
+        DB_Helper.getWritableDatabase().execSQL("INSERT INTO Accounts VALUES (summary, email, pass)", values);
+        loginAccount(account.getEmail(),  account.getPassword());
     }
 
-    public Account getAccount(String accountString) {
-        String select = "SELECT * FROM Accounts WHERE summary = '" + accountString + "'";
+    public Account getAccount(String accountEmail) {
+        String select = "SELECT * FROM Accounts WHERE email = '" + accountEmail + "'";
         Cursor c = DB_Helper.getReadableDatabase().rawQuery(select, new String[]{});
         if(c == null) return null;
         if(c.moveToFirst() == false) return null;
-        String name = c.getString(c.getColumnIndex("name"));
         String email = c.getString(c.getColumnIndex("email"));
         String password = c.getString(c.getColumnIndex("pass"));
 
         for(Account acc : this.getDatabasedAccounts()) {
-            if(acc.getName() == name && acc.getEmail() == email && acc.getPassword() == password) return acc;
+            if( acc.getEmail() == email && acc.getPassword() == password) return acc;
         }
 
         return null;
@@ -63,9 +59,8 @@ public class DatabaseManager {
         try {
             while(c.moveToNext()) {
                 String email = c.getString(c.getColumnIndex("email"));
-                String name = c.getString(c.getColumnIndex("name"));
                 String pass = c.getString(c.getColumnIndex("pass"));
-                accounts.add(new Account(email, name, pass));
+                accounts.add(new Account(email, pass));
             }
         }
         finally {
@@ -80,8 +75,16 @@ public class DatabaseManager {
      * @param profile   the profile object you wish to save to the database
      */
     public void saveProfile(Profile profile) {
-        String[] values = {profile.toString(), profile.getName(), profile.getPassword(), profile.getIcon().toString(), profile.getAccount().toString()};
-        DB_Helper.getWritableDatabase().execSQL("INSERT INTO Profiles VALUES (summary, name, pass, icon, account)", values);
+        String kind = "";
+        if(profile instanceof Adult){
+            kind="Adult";
+        }
+        else if(profile instanceof Child){
+            kind="Child";
+        }
+
+        String[] values = { profile.getName(), profile.getPassword(), kind, profile.getAccount().getEmail()};
+        DB_Helper.getWritableDatabase().execSQL("INSERT INTO Profiles VALUES ( name, pass, kind, account)", values);
     }
 
     /**
@@ -102,17 +105,16 @@ public class DatabaseManager {
 
         try {
             while(c.moveToNext()) {
-                String summary = c.getString(c.getColumnIndex("kind"));
                 String name = c.getString(c.getColumnIndex("name"));
                 String password = c.getString(c.getColumnIndex("pass"));
-                String icon = c.getString(c.getColumnIndex("icon"));
                 int points = c.getInt(c.getColumnIndex("points"));
                 String account = c.getString(c.getColumnIndex("account"));
-                if(summary.contains("Parent")) {
-                    profiles.add(new Parent(name, password, icon, points, this.getAccount(account), new ArrayList<Chore>()));
+                String kind = c.getString(c.getColumnIndex("kind"));
+                if(kind=="Adult") {
+                    profiles.add(new Adult(name, password,  points, this.getAccount(account), new ArrayList<Chore>()));
                 }
-                else {
-                    profiles.add(new Child(name, password, icon, points, this.getAccount(account), new ArrayList<Chore>()));
+                else if (kind == "Child"){
+                    profiles.add(new Child(name, password, points, this.getAccount(account), new ArrayList<Chore>()));
                 }
             }
         }
@@ -122,13 +124,25 @@ public class DatabaseManager {
 
         return profiles;
     }
+    public List<Chore> getChore(Account account){
+        //TODO:
+        return new ArrayList<Chore>();
+    }
+    public List<Chore> getTodoChore(Profile profile){
+        //TODO:
+        return new ArrayList<Chore>();
+    }
+    public List<Chore> getCompletedChore(Profile profile){
+        //TODO:
+        return new ArrayList<Chore>();
+    }
 
 
     public boolean loginAccount(String email, String password) {
 
         for(Account account : this.getDatabasedAccounts()) {
             if(account.getEmail().equals(email) && account.getPassword().equals(password)) {
-                Session.setAccount(account);
+                Session.setLoggedInAccount(account);
                 return true;
             }
         }
@@ -139,7 +153,7 @@ public class DatabaseManager {
 
         for(Profile profile : this.getDatabasedProfiles()) {
             if(profile.getName().equals(name) && profile.getPassword().equals(password)) {
-                Session.setProfile(profile);
+                Session.setLoggedInProfile(profile);
                 return true;
             }
         }

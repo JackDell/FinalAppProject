@@ -1,15 +1,9 @@
 package com.example.ahame_000.seg2105;
 
-import com.example.ahame_000.seg2105.ChoreState;
 
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
-/**
- * Created by Jack on 2017-11-27.
- */
+
 
 public class Chore {
 
@@ -17,27 +11,30 @@ public class Chore {
     private String name;
     private String description;
     private ChoreState state;
-    private Date creationDate;
-    private int daysToComplete;
+    private Date deadline;
+    private int penalty;
     private int reward;
+    private Date completedDate;
+    private Adult creator;
+    private Profile assignedTo;
 
     /**
      * Constructor
      */
-    public Chore(String name, String description, ChoreState state, Date creationDate, int daysToComplete, int reward) {
+    public Chore(String name, String description,  Date deadline, int reward,int penalty) {
         this.name = name;
         this.description = description;
-        this.state = state;
-        this.creationDate = creationDate;
-        this.daysToComplete = daysToComplete;
+        this.state = ChoreState.UNASSIGNED;
+        this.deadline = deadline;
+        this.penalty = penalty;
         this.reward = reward;
     }
 
     /**
      * Compressed Constructor
      */
-    public Chore(String name, String description, int daysToComplete, int reward) {
-        this(name, description, ChoreState.INCOMPLETE, new Date(), daysToComplete, reward);
+    public Chore(String name, String description, Date deadline, int reward) {
+        this( name, description,  deadline, reward,0);
     }
 
     public String getName() {
@@ -52,65 +49,176 @@ public class Chore {
         return state;
     }
 
-    public Date getCreationDate() {
-        return creationDate;
+    public Date getCompletedDate() {
+        return completedDate;
     }
 
-    public int getDaysToComplete() {
-        return this.daysToComplete;
+
+
+    private boolean setState(ChoreState aState)
+    {
+        boolean wasSet = false;
+        state = aState;
+        wasSet = true;
+        return wasSet;
     }
 
-    public void setDaysToComplete(int daysToComplete) {
-        this.daysToComplete = daysToComplete;
+    private boolean setName(String aName)
+    {
+        boolean wasSet = false;
+        name = aName;
+        wasSet = true;
+        return wasSet;
     }
 
-    /**
-     * Based on the idea that an average 'chore' would have about 1 week to be completed, right now the
-     * reward value is calculated with (reward - ((reward * 5%) * (num of days since creation))).
-     * Essentially removing 5% of the total reward value everyday. If the completion date is after
-     * the 'complete by' date the reward is 50% of the original.
-     * @return
-     */
-    public int getReward() {
-        // The date now must be before the complete by Date
-        // Getting the current date
-        Date currentDate = new Date();
-        // Creating a calendar object
-        Calendar currentCalendar = Calendar.getInstance();
-        // Setting its date to only the day, month, and year
-        currentCalendar.set(currentDate.getYear(), currentDate.getMonth(), currentDate.getDay(), 0, 0, 0);
-        currentCalendar.add(Calendar.DATE, this.daysToComplete);
+    private boolean setDescription(String aDescription) {
+        boolean wasSet = false;
+        description = aDescription;
+        wasSet = true;
+        return wasSet;
+    }
+    private boolean setDeadline(Date aDeadline) {
+        boolean wasSet = false;
+        deadline = aDeadline;
+        wasSet = true;
+        return wasSet;
+    }
 
-        // Creating a calendar object for the completion date
-        Calendar completionCalendar = Calendar.getInstance();
-        completionCalendar.set(this.creationDate.getYear(), this.creationDate.getMonth(), this.creationDate.getDay(), 0, 0,0);
+    private boolean setPenalty(int aPenalty) {
+        boolean wasSet = false;
+        penalty = aPenalty;
+        wasSet = true;
+        return wasSet;
+    }
 
-        // If the current date is after the completion date, return half of the reward
-        if(currentCalendar.after(completionCalendar)) {
-            return ((int) Math.round(this.reward * 0.5));
+    private boolean setReward(int aReward) {
+        boolean wasSet = false;
+        reward = aReward;
+        wasSet = true;
+        return wasSet;
+    }
+
+    public boolean setCompletedDate(Date aCompletedDate){
+        boolean wasSet = false;
+        completedDate = aCompletedDate;
+        wasSet = true;
+        return wasSet;
+    }
+
+    public Date getDeadline(){
+        return deadline;
+    }
+
+    public int getPenalty(){
+        return penalty;
+    }
+
+    public int getReward(){
+        return reward;
+    }
+
+
+
+    public Adult getCreator(){
+        return creator;
+    }
+
+
+
+    public Profile getAssignedTo(){
+        return assignedTo;
+    }
+
+    //------------------------
+    // METHOD
+    //------------------------
+
+    // changing state to TO-DO once assigned
+    public boolean assign(){
+        if (state == ChoreState.UNASSIGNED){
+            state = ChoreState.TODO;
+
+            return true;
         }
-        // Determining how long the Chore has existed for and returning proper reward
-        int amountOfDays = 0;
-        while(currentCalendar.before(completionCalendar)) {
-            amountOfDays++;
-            currentCalendar.add(Calendar.DATE, 1);
-        }
-
-        return ((int) Math.round(reward - ((reward * 0.05) * amountOfDays)));
+        return false;
     }
 
-    /**
-     * Takes a Date object and returns a List of Integers, the first Integer in the list is the day
-     * of the month, the second object is the month, the third object is the year.
-     * @param date the Date object you wish to convert
-     * @return a List object containing the converted Date data
-     */
-    private static List<Integer> convertDate(Date date) {
-        List<Integer> dateList = new ArrayList<>();
-        String[] splitDate = date.toString().split(" ")[3].split(":");
-        dateList.add(Integer.parseInt(splitDate[0]));
-        dateList.add(Integer.parseInt(splitDate[1]));
-        dateList.add(Integer.parseInt(splitDate[2]));
-        return dateList;
+    // changing state from todo and pastdue to completed
+    public boolean complete(){
+        if (state == ChoreState.TODO || state == ChoreState.PASTDUE){
+            state = ChoreState.COMPLETED;
+            return true;
+        }
+
+
+
+        return false;
+    }
+
+    //changing state to pastdue when late
+
+    public boolean islate(Date today){
+
+        if (state == ChoreState.TODO && today.after(deadline)){
+            state = ChoreState.PASTDUE;
+            return true;
+        }
+
+        return false;
+
+    }
+
+    public boolean setParent(Adult aAdult) {
+        boolean wasSet = false;
+        if (aAdult == null) {
+            return wasSet;
+        }
+
+
+        Adult existingAdult = creator;
+        creator = aAdult;
+        if (existingAdult != null && !existingAdult.equals(aAdult)) {
+            existingAdult.removeChore(this);
+        }
+        creator.addChore(this);
+        wasSet = true;
+        return wasSet;
+    }
+
+
+    public boolean setAssignedTo(Profile aProfile)
+    {
+        boolean wasSet = false;
+        if (aProfile == null)
+        {
+            return wasSet;
+        }
+        Profile existingProfile = assignedTo;
+        assignedTo = aProfile;
+        if (existingProfile != null &&
+                !existingProfile.equals(aProfile))
+        {
+
+            existingProfile.removeChore(this);
+
+        }
+        assignedTo.addChore(this);
+        wasSet = true;
+        return wasSet;
+    }
+
+    public boolean delete() {
+        if (state == ChoreState.COMPLETED) {
+            state = ChoreState.DELETED;
+            this.assignedTo = null;
+            return true;
+        }
+        if (state == ChoreState.TODO || state == ChoreState.PASTDUE) {
+            state = ChoreState.UNASSIGNED;
+            this.assignedTo = null;
+            return true;
+
+        }
+        return false;
     }
 }

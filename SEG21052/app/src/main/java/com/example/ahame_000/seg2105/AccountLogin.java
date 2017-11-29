@@ -1,16 +1,13 @@
 package com.example.ahame_000.seg2105;
 
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
-import android.content.Intent;
 
 import com.example.ahame_000.seg2105.databasing.DatabaseHelper;
 import com.example.ahame_000.seg2105.databasing.DatabaseManager;
-
-import java.sql.DatabaseMetaData;
 
 public class AccountLogin extends AppCompatActivity {
 
@@ -25,11 +22,11 @@ public class AccountLogin extends AppCompatActivity {
         EditText emailTxt = findViewById(R.id.Email_EditText_AccountLogin);
         String emailString = emailTxt.getText().toString();
 
-        setContentView(R.layout.activity_create_account);
 
         EditText emailTxtCreateAcc = findViewById(R.id.Email_EditText_CreateAccount);
         emailTxtCreateAcc.setText(emailString);
 
+        //setContentView(R.layout.activity_create_account);
         Intent intent = new Intent(this,CreateAccount.class);
         startActivity(intent);
 

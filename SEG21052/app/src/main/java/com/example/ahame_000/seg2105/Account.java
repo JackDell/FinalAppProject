@@ -11,7 +11,6 @@ public class Account {
 
     // Instance Variables
     private String email;
-    private String name;
     private String password;
     private List<Profile> profiles;
     private List<Chore> chores;
@@ -19,9 +18,8 @@ public class Account {
     /**
      * Constructor
      */
-    public Account(String email, String name, String password, List<Profile> profiles, List<Chore> chores) {
+    public Account(String email,  String password, List<Profile> profiles, List<Chore> chores) {
         this.email = email;
-        this.name = name;
         this.password = password;
         this.profiles = profiles;
         this.chores = chores;
@@ -30,8 +28,8 @@ public class Account {
     /**
      * Compressed Constructor
      */
-    public Account(String email, String name, String password) {
-        this(email, name, password, new ArrayList<Profile>(), new ArrayList<Chore>());
+    public Account(String email,  String password) {
+        this(email,  password, new ArrayList<Profile>(), new ArrayList<Chore>());
     }
 
     /**
@@ -47,21 +45,6 @@ public class Account {
      */
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    /**
-     * @return a String object containing the name of the Account
-     */
-    public String getName() {
-        return this.name;
-    }
-
-    /**
-     *
-     * @param name a String object containing the name in which you want to set as the Account name
-     */
-    public void setName(String name) {
-        this.name = name;
     }
 
     /**
@@ -120,7 +103,4 @@ public class Account {
         this.chores.remove(chore);
     }
 
-    public String toString() {
-        return ("Account(email: " + this.email + ", name: " + this.name + ", pass: " + this.password + ")");
-    }
 }

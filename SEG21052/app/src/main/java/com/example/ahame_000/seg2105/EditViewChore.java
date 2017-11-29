@@ -1,14 +1,10 @@
 package com.example.ahame_000.seg2105;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
-
-import com.example.ahame_000.seg2105.databasing.DatabaseHelper;
-import com.example.ahame_000.seg2105.databasing.DatabaseManager;
 
 public class EditViewChore extends AppCompatActivity {
 
@@ -24,7 +20,7 @@ public class EditViewChore extends AppCompatActivity {
         LinearLayout eLayout = (LinearLayout)findViewById(R.id.CreatedByDate_Layout_ChoreDetails);
         Button doneButton = (Button)findViewById(R.id.Done_Button_ChoreDetails);
 
-        if (chore.getState() == ChoreState.COMPLETE){
+        if (chore.getState() == ChoreState.COMPLETED){
             eLayout.setVisibility(View.VISIBLE);
             doneButton.setVisibility(View.INVISIBLE);
         }
@@ -35,8 +31,8 @@ public class EditViewChore extends AppCompatActivity {
         Button assignToMeButton = (Button)findViewById(R.id.AssignToMe_Button_ChoreDetails);
 
         Button doneButton = (Button)findViewById(R.id.Done_Button_ChoreDetails);
-        Profile currentProfile = Session.getProfile();
-        Account currentAccount = Session.getAccount();
+        Profile currentProfile = Session.getLoggedInProfile();
+        Account currentAccount = Session.getLoggedInAccount();
 
         if(currentAccount.getChores().contains(chore)) {
             currentProfile.addChore(chore);
@@ -49,8 +45,8 @@ public class EditViewChore extends AppCompatActivity {
     public void onDeleteBttnClick(View view){
         Button deleteButton = (Button) findViewById(R.id.Delete_Button_ChoreDetails);
 
-        Account currentAccount = Session.getAccount();
-        Profile currentProfile = Session.getProfile();
+        Account currentAccount = Session.getLoggedInAccount();
+        Profile currentProfile = Session.getLoggedInProfile();
 
         currentAccount.removeChore(chore);
     }

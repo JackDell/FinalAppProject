@@ -1,11 +1,8 @@
 package com.example.ahame_000.seg2105;
 
-/**
- * Created by Jack on 2017-11-27.
- */
 
 public enum ChoreState {
-    INCOMPLETE("In-Complete"), IN_PROGRESS("In Progress"), COMPLETE("COMPLETE");
+    UNASSIGNED ("Unassigned"), TODO("To-Do"), PASTDUE("Past Due"), COMPLETED("Completed"), DELETED("Deleted");
 
     private String str;
 
