@@ -37,7 +37,7 @@ public class CreateAccount extends AppCompatActivity {
     }
 
     public void addMemberBttnClick (View view){
-        Intent intent = new Intent(this,AccountLogin.class);
+        Intent intent = new Intent(this,AddMember.class);
         startActivity(intent);
 
     }

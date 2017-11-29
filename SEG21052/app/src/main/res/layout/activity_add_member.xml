@@ -76,6 +76,7 @@
             android:id="@+id/Save_Button_AddMember"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:onClick="saveNewMemberBttnClick"
             android:text="@string/save_button" />
 
     </LinearLayout>
