@@ -1,5 +1,6 @@
 package com.example.ahame_000.seg2105.databasing;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 
 import com.example.ahame_000.seg2105.*;
@@ -22,9 +23,14 @@ public class DatabaseManager {
      * @param account   the account object you wish to save to the database
      */
     public void saveAccount(Account account) {
-        String[] values = {account.getEmail(),  account.getPassword()};
-        DB_Helper.getWritableDatabase().execSQL("INSERT INTO Accounts VALUES (email, pass)", values);
-        loginAccount(account.getEmail(),  account.getPassword());
+
+        ContentValues values = new ContentValues();
+        values.put("email", account.getEmail());
+        values.put("password", account.getPassword());
+
+        DB_Helper.getWritableDatabase().insert("Accounts", null, values);
+
+        this.loginAccount(account.getEmail(),  account.getPassword());
     }
 
     public Account getAccount(String accountEmail) {
@@ -33,7 +39,7 @@ public class DatabaseManager {
         if(c == null) return null;
         if(c.moveToFirst() == false) return null;
         String email = c.getString(c.getColumnIndex("email"));
-        String password = c.getString(c.getColumnIndex("pass"));
+        String password = c.getString(c.getColumnIndex("password"));
 
         for(Account acc : this.getDatabasedAccounts()) {
             if( acc.getEmail().equals(email) && acc.getPassword().equals(password)) return acc;
@@ -61,7 +67,7 @@ public class DatabaseManager {
         try {
             while(c.moveToNext()) {
                 String email = c.getString(c.getColumnIndex("email"));
-                String pass = c.getString(c.getColumnIndex("pass"));
+                String pass = c.getString(c.getColumnIndex("password"));
                 accounts.add(new Account(email, pass));
             }
         }

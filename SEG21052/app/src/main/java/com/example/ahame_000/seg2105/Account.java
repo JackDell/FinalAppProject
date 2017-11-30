@@ -119,7 +119,7 @@ public class Account {
     public Chore getChore(UUID id) {
 
         for (Chore chore : chores) {
-            if (chore.getId() == id) {
+            if (chore.getId().equals(id)) {
                 return chore;
             }
         }
@@ -127,5 +127,9 @@ public class Account {
         return null;
 
     }
+     public List<Profile> getChildren(){
+        //TODO
+         return null;
+     }
 
 }
