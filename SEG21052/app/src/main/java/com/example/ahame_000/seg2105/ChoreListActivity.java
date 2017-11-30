@@ -35,8 +35,5 @@ public class ChoreListActivity extends AppCompatActivity {
         ListView listView = (ListView) findViewById(R.id.GeneralChoresList_ListView_HomePage);
         ChoreCustomAdapter adapter = new ChoreCustomAdapter(this,choreList);
         listView.setAdapter(adapter);
-
-
-
     }
 }

@@ -16,6 +16,7 @@ import com.example.ahame_000.seg2105.databasing.DatabaseHelper;
 import com.example.ahame_000.seg2105.databasing.DatabaseManager;
 
 import java.util.Date;
+import java.util.UUID;
 
 public class EditViewChoreActivity extends AppCompatActivity {
 
@@ -28,11 +29,11 @@ public class EditViewChoreActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_view_chore);
 
         //DatabaseManager DM = new DatabaseManager(new DatabaseHelper(this.getApplicationContext()));
-        int id = getIntent().getIntExtra("chore ID",0);
+        String id = getIntent().getStringExtra("chore ID");
         Account account = Session.getLoggedInAccount();
         Profile profile = Session.getLoggedInProfile();
 
-        chore = account.getChore(id);
+        chore = account.getChore(UUID.fromString(id));
 
         //initializing the buttons
         Button doneButton = (Button)findViewById(R.id.Done_Button_ChoreDetails);
