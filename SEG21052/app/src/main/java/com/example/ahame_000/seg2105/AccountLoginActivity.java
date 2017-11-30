@@ -19,12 +19,8 @@ public class AccountLoginActivity extends AppCompatActivity {
     // takes user to Create New Account page
     public void createAccBttnClick(View view){
 
-        EditText emailTxt = findViewById(R.id.Email_EditText_AccountLogin);
+        EditText emailTxt = (EditText) findViewById(R.id.Email_EditText_AccountLogin);
         String emailString = emailTxt.getText().toString();
-
-
-        EditText emailTxtCreateAcc = findViewById(R.id.Email_EditText_CreateAccount);
-        emailTxtCreateAcc.setText(emailString);
 
         setContentView(R.layout.activity_create_account);
         Intent intent = new Intent(this,CreateAccountActivity.class);
