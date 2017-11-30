@@ -42,6 +42,7 @@ public class CreateAccountActivity extends AppCompatActivity {
     }
 
     public void addMemberBttnClick (View view){
+
         if(saveContent()) {
             Intent intent = new Intent(this, AddMemberActivity.class);
             startActivity(intent);
@@ -57,13 +58,13 @@ public class CreateAccountActivity extends AppCompatActivity {
         EditText confirmPasswordTxt = findViewById(R.id.ConfirmPassword_EditText_CreateAccount);
         String confirmPasswordString = confirmPasswordTxt.getText().toString();
 
-        boolean confirmaion = false;
+        boolean confirmation = false;
         if (passwordConfirmation(passwordString,confirmPasswordString)&&!emailString.isEmpty()) {
             DatabaseManager DM = new DatabaseManager(new DatabaseHelper(this.getApplicationContext()));
             DM.saveAccount(new Account(emailString, passwordString));
-            confirmaion = true;
+            confirmation = true;
         }
-        return confirmaion;
+        return confirmation;
     }
 
 

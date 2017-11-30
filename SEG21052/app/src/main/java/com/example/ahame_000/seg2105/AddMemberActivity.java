@@ -1,11 +1,15 @@
 package com.example.ahame_000.seg2105;
 
 import android.content.Intent;
-import android.os.Bundle;
+
 import android.support.v7.app.AppCompatActivity;
+
+import android.os.Bundle;
+
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
+
 import android.widget.RadioGroup;
 
 import com.example.ahame_000.seg2105.databasing.DatabaseHelper;
@@ -18,6 +22,7 @@ public class AddMemberActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_member);
     }
+
 
     public void onSaveBttnClick(View view){
         EditText nameTxt = findViewById(R.id.MemberName_EditText_AddMember);
