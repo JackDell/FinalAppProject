@@ -8,7 +8,11 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.ahame_000.seg2105.databasing.DatabaseHelper;
+import com.example.ahame_000.seg2105.databasing.DatabaseManager;
+
 import java.util.Date;
+import java.util.UUID;
 
 public class CreateChoreActivity extends AppCompatActivity {
 
@@ -88,7 +92,11 @@ public class CreateChoreActivity extends AppCompatActivity {
         else{
             //TODO add profile instead of null
             Chore chore = new Chore(choreName,description, null,duedate,(Adult)Session.getLoggedInProfile(),
-                    null, reward, penalty, Session.getLoggedInAccount(),0);
+                    null, reward, penalty, Session.getLoggedInAccount(), UUID.randomUUID());
+
+            DatabaseManager DM = new DatabaseManager(new DatabaseHelper(this.getApplicationContext()));
+
+            DM.saveChore(chore);
         }
 
 
