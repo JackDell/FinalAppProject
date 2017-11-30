@@ -182,9 +182,16 @@ public class DatabaseManager {
         return chores;
     }
 
+    /**
+     * Takes either an account or profile object and returns the databased chores for it
+     * @param obj
+     * @return
+     */
     public List<Chore> getDatabasedChores(Object obj) {
 
         List<Chore> chores = new ArrayList<>();
+
+        if(!(obj instanceof Account || obj instanceof Profile)) return chores;
 
         for(Chore chore : this.getDatabasedChores()) {
             if(obj instanceof Account) {

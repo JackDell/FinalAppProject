@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="ca.uottawa.jackdell.choreapplication.ProfileLoginActivity">
+    tools:context="com.example.ahame_000.seg2105.ProfileLoginActivity">
 
     <LinearLayout
         android:layout_width="300dp"
@@ -23,14 +23,14 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/txtAskForEmail"
+            android:id="@+id/txtAskForName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Email:"
             android:textSize="18sp" />
 
         <EditText
-            android:id="@+id/etProfileEmail"
+            android:id="@+id/etProfileName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
