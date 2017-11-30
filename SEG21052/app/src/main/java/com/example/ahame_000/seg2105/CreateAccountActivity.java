@@ -14,6 +14,10 @@ public class CreateAccountActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_account);
+        String initialEmail = getIntent().getStringExtra("email");
+        EditText emailTxt = findViewById(R.id.Email_EditText_CreateAccount);
+        emailTxt.setText(initialEmail);
+
     }
 
 

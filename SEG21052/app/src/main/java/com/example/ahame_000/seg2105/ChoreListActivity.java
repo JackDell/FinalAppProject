@@ -1,7 +1,10 @@
 package com.example.ahame_000.seg2105;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -32,8 +35,24 @@ public class ChoreListActivity extends AppCompatActivity {
         }
 
 
-        ListView listView = (ListView) findViewById(R.id.GeneralChoresList_ListView_HomePage);
+        ListView listView = findViewById(R.id.GeneralChoresList_ListView_HomePage);
         ChoreCustomAdapter adapter = new ChoreCustomAdapter(this,choreList);
         listView.setAdapter(adapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, final View view, int position, long id) {
+
+                Chore selectedChore = (Chore)parent.getItemAtPosition(position);
+
+               // selectedChore.getID();
+
+
+                Intent launchChoreEdit = new Intent(getApplicationContext(), EditViewChoreActivity.class);
+
+                startActivity(launchChoreEdit);
+
+            }
+        });
     }
 }
