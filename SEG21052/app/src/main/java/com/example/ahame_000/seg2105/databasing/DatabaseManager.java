@@ -76,16 +76,13 @@ public class DatabaseManager {
      * @param profile   the profile object you wish to save to the database
      */
     public void saveProfile(Profile profile) {
-        String kind = "";
-        if(profile instanceof Adult){
-            kind="Adult";
-        }
-        else if(profile instanceof Child){
-            kind="Child";
+        String kind = "Adult";
+        if(profile instanceof Child){
+            kind = "Child";
         }
 
         String[] values = {profile.getName(), profile.getPassword(), kind, profile.getAccount().getEmail()};
-        DB_Helper.getWritableDatabase().execSQL("INSERT INTO Profiles VALUES ( name, pass, kind, account)", values);
+        DB_Helper.getWritableDatabase().execSQL("INSERT INTO Profiles VALUES (name, pass, kind, account)", values);
     }
 
     /**
