@@ -47,6 +47,8 @@ public class Chore implements Comparable {
         this( name, description, null, deadline, null, null, reward, 0, account, UUID.randomUUID());
     }
 
+
+
     public String getName() {
         return name;
     }
