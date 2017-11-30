@@ -23,7 +23,6 @@ public class DatabaseManager {
      * @param account   the account object you wish to save to the database
      */
     public void saveAccount(Account account) {
-
         ContentValues values = new ContentValues();
         values.put("email", account.getEmail());
         values.put("password", account.getPassword());
@@ -88,8 +87,14 @@ public class DatabaseManager {
             kind = "Child";
         }
 
-        Object[] values = {kind, profile.getName(), profile.getPassword(), profile.getPoints(), profile.getAccount().getEmail()};
-        DB_Helper.getWritableDatabase().execSQL("INSERT INTO Profiles VALUES (kind, name, pass, points, accEmail)", values);
+        ContentValues values = new ContentValues();
+        values.put("kind", kind);
+        values.put("name", profile.getName());
+        values.put("password", profile.getPassword());
+        values.put("points", profile.getPoints());
+        values.put("accEmail", profile.getAccount().getEmail());
+
+        DB_Helper.getWritableDatabase().insert("Profiles", null, values);
     }
 
     /**
@@ -111,14 +116,14 @@ public class DatabaseManager {
         try {
             while(c.moveToNext()) {
                 String name = c.getString(c.getColumnIndex("name"));
-                String password = c.getString(c.getColumnIndex("pass"));
+                String password = c.getString(c.getColumnIndex("password"));
                 int points = c.getInt(c.getColumnIndex("points"));
                 String account = c.getString(c.getColumnIndex("account"));
                 String kind = c.getString(c.getColumnIndex("kind"));
-                if(kind=="Adult") {
+                if(kind.equals("Adult")) {
                     profiles.add(new Adult(name, password,  points, this.getAccount(account), new ArrayList<Chore>()));
                 }
-                else if (kind == "Child"){
+                else {
                     profiles.add(new Child(name, password, points, this.getAccount(account), new ArrayList<Chore>()));
                 }
             }
@@ -145,19 +150,20 @@ public class DatabaseManager {
 
         if(this.getDatabasedChores().contains(chore)) return;
 
-        String id = chore.getStringId();
-        String name = chore.getName();
-        String desc = chore.getDescription();
-        Date completedDate = chore.getCompletedDate();
-        Adult creator = chore.getCreator();
-        Profile assignedTo = chore.getAssignedTo();
-        int reward = chore.getReward();
-        int penalty = chore.getPenalty();
-        Date deadline = chore.getDeadline();
-        String accEmail = chore.getAccount().getEmail();
+        ContentValues values = new ContentValues();
+        values.put("id", chore.getStringId());
+        values.put("name", chore.getName());
+        values.put("desc", chore.getDescription());
+        values.put("completedDate", chore.getCompletedDate().getTime());
+        values.put("deadline", chore.getCompletedDate().getTime());
+        values.put("creatorName", chore.getCreator().getName());
+        values.put("assignedTo", chore.getAssignedTo().getName());
+        values.put("reward", chore.getReward());
+        values.put("penalty", chore.getPenalty());
+        values.put("accEmail", chore.getAccount().getEmail());
 
-        Object[] values = {id, name, desc, completedDate, creator.getName(), assignedTo.getName(), reward, penalty, deadline, accEmail};
-        DB_Helper.getWritableDatabase().execSQL("INSERT INTO Chores VALUES (id, name, description, completedDate, deadline, creator, assignedTo, reward, penalty, accEmail)", values);
+        //Object[] values = {id, name, desc, completedDate, creator.getName(), assignedTo.getName(), reward, penalty, deadline, accEmail};
+        DB_Helper.getWritableDatabase().insert("Profiles", null, values);
     }
 
     public List<Chore> getDatabasedChores() {
