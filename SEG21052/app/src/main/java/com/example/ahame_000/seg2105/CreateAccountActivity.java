@@ -8,7 +8,7 @@ import android.widget.EditText;
 
 import com.example.ahame_000.seg2105.databasing.*;
 
-public class CreateAccount extends AppCompatActivity {
+public class CreateAccountActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,7 +17,7 @@ public class CreateAccount extends AppCompatActivity {
     }
 
 
-    //creates a new DBmanager ( which creates a new account )
+    //creates a new DBManager ( which creates a new account )
     public void doneCreateNewAccBttnClick(View view) {
 
 
@@ -36,14 +36,14 @@ public class CreateAccount extends AppCompatActivity {
             DM.saveAccount(new Account(emailString, passwordString));
 
 
-            Intent intent = new Intent(this,AccountLogin.class);
+            Intent intent = new Intent(this,AccountLoginActivity.class);
             startActivity(intent);
         }
     }
 
     public void addMemberBttnClick (View view){
         if(saveContent()) {
-            Intent intent = new Intent(this, AddMember.class);
+            Intent intent = new Intent(this, AddMemberActivity.class);
             startActivity(intent);
         }
     }

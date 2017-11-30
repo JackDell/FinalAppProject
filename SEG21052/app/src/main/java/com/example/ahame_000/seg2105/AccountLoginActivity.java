@@ -9,7 +9,7 @@ import android.widget.EditText;
 import com.example.ahame_000.seg2105.databasing.DatabaseHelper;
 import com.example.ahame_000.seg2105.databasing.DatabaseManager;
 
-public class AccountLogin extends AppCompatActivity {
+public class AccountLoginActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,8 +26,8 @@ public class AccountLogin extends AppCompatActivity {
         EditText emailTxtCreateAcc = findViewById(R.id.Email_EditText_CreateAccount);
         emailTxtCreateAcc.setText(emailString);
 
-        //setContentView(R.layout.activity_create_account);
-        Intent intent = new Intent(this,CreateAccount.class);
+        setContentView(R.layout.activity_create_account);
+        Intent intent = new Intent(this,CreateAccountActivity.class);
         startActivity(intent);
 
     }

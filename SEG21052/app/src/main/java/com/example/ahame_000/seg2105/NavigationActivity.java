@@ -10,7 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
-public class Navigation extends AppCompatActivity
+public class NavigationActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     @Override
@@ -64,7 +64,7 @@ public class Navigation extends AppCompatActivity
             //Todo
 
         } else if (id == R.id.nav_addChore) {
-            Intent intent = new Intent(this,CreateChore.class);
+            Intent intent = new Intent(this,CreateChoreActivity.class);
             startActivity(intent);
         }else if (id == R.id.nav_addOtherMember){
             //TODO:

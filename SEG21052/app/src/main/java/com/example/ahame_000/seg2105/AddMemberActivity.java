@@ -11,7 +11,7 @@ import android.widget.RadioGroup;
 import com.example.ahame_000.seg2105.databasing.DatabaseHelper;
 import com.example.ahame_000.seg2105.databasing.DatabaseManager;
 
-public class AddMember extends AppCompatActivity {
+public class AddMemberActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +40,7 @@ public class AddMember extends AppCompatActivity {
             else if (childBttn.isChecked()){
                 DM.saveProfile(new Child(nameString,passwordString,currentAccount));
             }
-            Intent intent = new Intent(this,CreateAccount.class);
+            Intent intent = new Intent(this,CreateAccountActivity.class);
             startActivity(intent);
         }
 

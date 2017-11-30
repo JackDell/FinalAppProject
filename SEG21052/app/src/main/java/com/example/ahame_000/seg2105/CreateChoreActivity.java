@@ -3,7 +3,7 @@ package com.example.ahame_000.seg2105;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class CreateChore extends AppCompatActivity {
+public class CreateChoreActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

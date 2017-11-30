@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
-public class EditViewChore extends AppCompatActivity {
+public class EditViewChoreActivity extends AppCompatActivity {
 
     private Chore chore;
 
