@@ -18,18 +18,14 @@ public class ProfileLoginActivity extends AppCompatActivity {
     }
 
     public void onProfileLoginClick(View view) {
-        // Need to change XML to fix
-        //EditText emailInput = (EditText) findViewById(R.id.etEmailInput);
-        //EditText passInput = (EditText) findViewById(R.id.etPassInput);
 
-        //String email = emailInput.getText().toString();
-        //String password = passInput.getText().toString();
+        EditText etName = findViewById(R.id.etProfileName);
+        EditText etPassword = findViewById(R.id.etProfilePass);
+
+        String name = etName.getText().toString();
+        String password = etPassword.getText().toString();
 
         DatabaseManager DM = new DatabaseManager(new DatabaseHelper(this.getApplicationContext()));
-
-        // TODO: Profile login feature
-
-        // For the code below to execute, the profile login must be un-successful
-
+        DM.loginProfile(name, password);
     }
 }

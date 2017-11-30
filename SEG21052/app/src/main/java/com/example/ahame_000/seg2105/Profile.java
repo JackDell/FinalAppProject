@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-
 public abstract class Profile {
 
     // Instance Variables
@@ -31,7 +30,7 @@ public abstract class Profile {
         this.password = password;
         this.points = 0;
         this.account = account;
-        this.chores =  new ArrayList<Chore>();
+        this.chores =  new ArrayList<>();
     }
 
     /**
