@@ -4,7 +4,7 @@ package com.example.ahame_000.seg2105;
 import android.support.annotation.NonNull;
 
 import java.util.Date;
-
+import java.util.UUID;
 
 
 public class Chore implements Comparable{

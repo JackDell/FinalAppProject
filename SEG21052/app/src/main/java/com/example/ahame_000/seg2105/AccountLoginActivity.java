@@ -24,14 +24,12 @@ public class AccountLoginActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_create_account);
         Intent intent = new Intent(this,CreateAccountActivity.class);
+        intent.putExtra("email",emailString);
         startActivity(intent);
 
     }
 
     public void accLoginBttnClick (View view){
-
-
-
 
         // Getting the email inputted
         EditText emailTxt = findViewById(R.id.Email_EditText_AccountLogin);
@@ -44,8 +42,8 @@ public class AccountLoginActivity extends AppCompatActivity {
 
         if (DM.loginAccount(emailString, passwordString)){
 
-            //TODO: change activity_main to allProfiles_layout
-            setContentView(R.layout.activity_main);
+            Intent intent = new Intent(this,ProfileListActivity.class);
+            startActivity(intent);
 
         }
         else {
