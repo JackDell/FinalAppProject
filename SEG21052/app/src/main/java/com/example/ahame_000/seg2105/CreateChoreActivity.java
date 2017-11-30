@@ -10,4 +10,5 @@ public class CreateChoreActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_chore);
     }
+
 }

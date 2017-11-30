@@ -22,7 +22,7 @@ public class DatabaseManager {
      */
     public void saveAccount(Account account) {
         String[] values = { account.getEmail(),  account.getPassword()};
-        DB_Helper.getWritableDatabase().execSQL("INSERT INTO Accounts VALUES (summary, email, pass)", values);
+        DB_Helper.getWritableDatabase().execSQL("INSERT INTO Accounts VALUES (summary,email, pass)", values);
         loginAccount(account.getEmail(),  account.getPassword());
     }
 
