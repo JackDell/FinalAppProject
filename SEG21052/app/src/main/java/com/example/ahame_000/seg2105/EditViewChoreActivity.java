@@ -1,21 +1,17 @@
 package com.example.ahame_000.seg2105;
 
-import android.renderscript.Script;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
-import android.widget.TextView;
-
-import com.example.ahame_000.seg2105.databasing.DatabaseHelper;
-import com.example.ahame_000.seg2105.databasing.DatabaseManager;
 
 import java.util.Date;
+import java.util.List;
+import java.util.UUID;
 
 public class EditViewChoreActivity extends AppCompatActivity {
 
@@ -28,11 +24,11 @@ public class EditViewChoreActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_view_chore);
 
         //DatabaseManager DM = new DatabaseManager(new DatabaseHelper(this.getApplicationContext()));
-        int id = getIntent().getIntExtra("chore ID",0);
+        String id = getIntent().getStringExtra("chore ID");
         Account account = Session.getLoggedInAccount();
         Profile profile = Session.getLoggedInProfile();
 
-        chore = account.getChore(id);
+        chore = account.getChore(UUID.fromString(id));
 
         //initializing the buttons
         Button doneButton = (Button)findViewById(R.id.Done_Button_ChoreDetails);
@@ -77,13 +73,12 @@ public class EditViewChoreActivity extends AppCompatActivity {
 
 
         // instance of the spinner
-        Spinner spin = (Spinner)findViewById(R.id.AssignToProfiles_Spinner_ChoreDetails);
-        //spin.setOnItemClickListener(this);
+        Spinner spinner = findViewById(R.id.AssignToProfiles_Spinner_ChoreDetails);
+        List<Profile> profiles =Session.getLoggedInAccount().getChildren();
+       ProfileSpinnerAdapter adapter = new ProfileSpinnerAdapter(this.getApplicationContext(),profiles);
 
-
-        ArrayAdapter aa = new ArrayAdapter(this,android.R.layout.simple_spinner_dropdown_item,account.getProfiles() );
-
-        spin.setAdapter(aa);
+        adapter.setDropDownViewResource(R.layout.assign_to_profile_item_layout);
+        spinner.setAdapter(adapter);
 
         //turning off visibility of some fields and components based on the profile type
         if (profile instanceof  Adult) {
