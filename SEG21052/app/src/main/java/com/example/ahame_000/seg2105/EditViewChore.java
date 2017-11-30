@@ -34,9 +34,8 @@ public class EditViewChore extends AppCompatActivity {
         Profile currentProfile = Session.getLoggedInProfile();
         Account currentAccount = Session.getLoggedInAccount();
 
-        if(currentAccount.getChores().contains(chore)) {
+        if(currentAccount.getAllChores().contains(chore)) {
             currentProfile.addChore(chore);
-            currentAccount.removeChore(chore);
             assignToMeButton.setVisibility(View.INVISIBLE);
             doneButton.setVisibility(View.VISIBLE);
         }

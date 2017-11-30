@@ -1,11 +1,13 @@
 package com.example.ahame_000.seg2105;
 
 
+import android.support.annotation.NonNull;
+
 import java.util.Date;
 
 
 
-public class Chore {
+public class Chore implements Comparable{
 
     // Instance variables
     private String name;
@@ -156,9 +158,11 @@ public class Chore {
     }
 
     //changing state to pastdue when late
+    public  boolean isLate(){ return isLate(new Date()); }
 
-    public boolean islate(Date today){
-
+    private boolean isLate(Date today){
+        if (state == ChoreState.PASTDUE)
+            return true;
         if (state == ChoreState.TODO && today.after(deadline)){
             state = ChoreState.PASTDUE;
             return true;
@@ -220,5 +224,16 @@ public class Chore {
 
         }
         return false;
+    }
+
+    @Override
+    public int compareTo(@NonNull Object o) {
+        Chore oo = (Chore) o;
+        if(this.getDeadline().before(oo.getDeadline()))
+            return -1;
+        if (this.getDeadline().after(oo.getDeadline()))
+            return 1;
+        return 0;
+
     }
 }

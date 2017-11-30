@@ -1,11 +1,9 @@
 package com.example.ahame_000.seg2105;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-/**
- * Created by Jack on 2017-11-27.
- */
 
 public class Account {
 
@@ -43,7 +41,7 @@ public class Account {
      *
      * @param email a String object containing the email in which you want to set as the Account email
      */
-    public void setEmail(String email) {
+    private void setEmail(String email) {
         this.email = email;
     }
 
@@ -57,7 +55,7 @@ public class Account {
     /**
      * @param password a String object containing the password that you want to set as the Account password
      */
-    public void setPassword(String password) {
+    private void setPassword(String password) {
         this.password = password;
     }
 
@@ -71,21 +69,35 @@ public class Account {
     /**
      * @param profiles a List object containing all the profiles you want the Account to be associated with
      */
-    public void setProfiles(List<Profile> profiles) {
+    private void setProfiles(List<Profile> profiles) {
         this.profiles = profiles;
     }
 
     /**
-     * @return a List object containing all of the 'community chores', the chores associated with the Account
+     * @return a List object containing all of the chores associated with the Account
      */
-    public List<Chore> getChores() {
+    public List<Chore> getAllChores() {
         return this.chores;
+    }
+
+    /**
+     * @return a List object containing all of the 'unassigned chores', the chores associated with the Account
+     */
+    public List<Chore> getUnassignedChores(){
+        ArrayList<Chore> unassignedChores = new ArrayList<Chore>();
+        for (Chore chore:chores){
+            if(chore.getState()==ChoreState.UNASSIGNED){
+                unassignedChores.add(chore);
+            }
+        }
+        Collections.sort(unassignedChores);
+        return unassignedChores;
     }
 
     /**
      * @param chores a List object containing all the chores that you want to set as the 'community chores'
      */
-    public void setChores(List<Chore> chores) {
+    private void setChores(List<Chore> chores) {
         this.chores = chores;
     }
 

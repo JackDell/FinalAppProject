@@ -2,7 +2,7 @@ package com.example.ahame_000.seg2105;
 
 
 public enum ChoreState {
-    UNASSIGNED ("Unassigned"), TODO("To-Do"), PASTDUE("Past Due"), COMPLETED("Completed"), DELETED("Deleted");
+    UNASSIGNED ("UNASSIGNED"), TODO("TODO"), PASTDUE("PASTDUE"), COMPLETED("COMPLETED"), DELETED("DELETED");
 
     private String str;
 

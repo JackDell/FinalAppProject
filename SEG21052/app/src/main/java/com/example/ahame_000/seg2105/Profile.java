@@ -1,6 +1,8 @@
 package com.example.ahame_000.seg2105;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 
@@ -56,7 +58,7 @@ public abstract class Profile {
     /**
      * @param password a String object containing the password in which the profile password will be set to
      */
-    public void setPassword(String password) {
+    private void setPassword(String password) {
         this.password = password;
     }
 
@@ -70,7 +72,7 @@ public abstract class Profile {
     /**
      * @param points the amount of points the profile will be set to
      */
-    public void setPoints(int points) {
+    private void setPoints(int points) {
         this.points = points;
     }
 
@@ -91,8 +93,38 @@ public abstract class Profile {
     /**
      * @return a List containing the Profile's Chores
      */
-    public List<Chore> getChores() {
+    public List<Chore> getAllChores() {
         return this.chores;
+    }
+
+
+    /**
+     * @return a List containing the Profile's Chores that have not been completed yet
+     */
+    public List<Chore> getTodoChores() {
+        LinkedList<Chore> todoChores = new LinkedList<Chore>();
+        for (Chore chore:chores){
+            chore.isLate();//check and update if chore is late
+            if(chore.getState()==ChoreState.TODO ||chore.getState()==ChoreState.PASTDUE)
+              todoChores.addLast(chore);
+
+        }
+        Collections.sort(todoChores);
+        return todoChores;
+    }
+
+    /**
+     * @return a List containing the Profile's Chores that have been completed
+     */
+    public List<Chore> getCompletedChores() {
+        LinkedList<Chore> completedChores = new LinkedList<Chore>();
+        for (Chore chore:chores){
+            chore.isLate();//check and update if chore is late
+            if(chore.getState()==ChoreState.COMPLETED)
+                completedChores.addLast(chore);
+
+        }
+        return completedChores;
     }
 
     /**

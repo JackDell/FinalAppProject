@@ -1,5 +1,6 @@
 package com.example.ahame_000.seg2105;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -48,18 +49,23 @@ public class Navigation extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_completed_list) {
-            //Todo
+            Intent intent = new Intent(this,ChoreListActivity.class);
+            intent.putExtra("LIST_TYPE", ChoreState.COMPLETED);
+            startActivity(intent);
         } else if (id == R.id.nav_general_list) {
-            //Todo
-
+            Intent intent = new Intent(this,ChoreListActivity.class);
+            intent.putExtra("LIST_TYPE", ChoreState.UNASSIGNED);
+            startActivity(intent);
         } else if (id == R.id.nav_todo_list) {
-            //Todo
-
+            Intent intent = new Intent(this,ChoreListActivity.class);
+            intent.putExtra("LIST_TYPE", ChoreState.TODO);
+            startActivity(intent);
         } else if (id == R.id.nav_viewOthers) {
             //Todo
 
         } else if (id == R.id.nav_addChore) {
-            setContentView(R.layout.activity_create_chore);
+            Intent intent = new Intent(this,CreateChore.class);
+            startActivity(intent);
         }else if (id == R.id.nav_addOtherMember){
             //TODO:
         }
