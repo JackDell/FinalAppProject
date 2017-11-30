@@ -1,13 +1,13 @@
 package com.example.ahame_000.seg2105;
 
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
-import android.content.Intent;
 
-import java.sql.DatabaseMetaData;
+import com.example.ahame_000.seg2105.databasing.DatabaseHelper;
+import com.example.ahame_000.seg2105.databasing.DatabaseManager;
 
 public class AccountLogin extends AppCompatActivity {
 
@@ -22,11 +22,11 @@ public class AccountLogin extends AppCompatActivity {
         EditText emailTxt = findViewById(R.id.Email_EditText_AccountLogin);
         String emailString = emailTxt.getText().toString();
 
-        setContentView(R.layout.activity_create_account);
 
         EditText emailTxtCreateAcc = findViewById(R.id.Email_EditText_CreateAccount);
         emailTxtCreateAcc.setText(emailString);
 
+        //setContentView(R.layout.activity_create_account);
         Intent intent = new Intent(this,CreateAccount.class);
         startActivity(intent);
 
@@ -34,17 +34,19 @@ public class AccountLogin extends AppCompatActivity {
 
     public void accLoginBttnClick (View view){
 
-        //extract email from ID
+
+
+
+        // Getting the email inputted
         EditText emailTxt = findViewById(R.id.Email_EditText_AccountLogin);
-        //convert email txt view to String
         String emailString = emailTxt.getText().toString();
 
         EditText passwordTxt = findViewById(R.id.Password_EditText_CreateAccount);
         String passwordString = passwordTxt.getText().toString();
 
-       DBmangment dManage= DBmangment.getInstance();
+        DatabaseManager DM = new DatabaseManager(new DatabaseHelper(this.getApplicationContext()));
 
-        if (dManage.verifyAccount(emailString, passwordString)==true){
+        if (DM.loginAccount(emailString, passwordString)){
 
             //TODO: change activity_main to allProfiles_layout
             setContentView(R.layout.activity_main);

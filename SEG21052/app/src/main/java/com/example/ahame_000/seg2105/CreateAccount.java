@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 
+import com.example.ahame_000.seg2105.databasing.*;
+
 public class CreateAccount extends AppCompatActivity {
 
     @Override
@@ -18,6 +20,7 @@ public class CreateAccount extends AppCompatActivity {
     //creates a new DBmanager ( which creates a new account )
     public void doneCreateNewAccBttnClick(View view) {
 
+
         EditText emailTxt = findViewById(R.id.Email_EditText_CreateAccount);
         String emailString = emailTxt.getText().toString();
 
@@ -28,43 +31,59 @@ public class CreateAccount extends AppCompatActivity {
         String confirmPasswordString = confirmPasswordTxt.getText().toString();
 
 
-        if (passwordConfirm(passwordString, confirmPasswordString) == true) {
-            DBmangment newAcc = new DBmangment(emailString, passwordString);
+        if (passwordConfirmation(passwordString,confirmPasswordString)&&!emailString.isEmpty()) {
+            DatabaseManager DM = new DatabaseManager(new DatabaseHelper(this.getApplicationContext()));
+            DM.saveAccount(new Account(emailString, passwordString));
+
+
             Intent intent = new Intent(this,AccountLogin.class);
             startActivity(intent);
-
         }
     }
 
     public void addMemberBttnClick (View view){
-        Intent intent = new Intent(this,AddMember.class);
-        startActivity(intent);
 
+        if(saveContent()) {
+            Intent intent = new Intent(this, AddMember.class);
+            startActivity(intent);
+        }
+    }
+    private boolean saveContent(){
+        EditText emailTxt = findViewById(R.id.Email_EditText_CreateAccount);
+        String emailString = emailTxt.getText().toString();
+
+        EditText passwordTxt = findViewById(R.id.Password_EditText_CreateAccount);
+        String passwordString = passwordTxt.getText().toString();
+
+        EditText confirmPasswordTxt = findViewById(R.id.ConfirmPassword_EditText_CreateAccount);
+        String confirmPasswordString = confirmPasswordTxt.getText().toString();
+
+        boolean confirmation = false;
+        if (passwordConfirmation(passwordString,confirmPasswordString)&&!emailString.isEmpty()) {
+            DatabaseManager DM = new DatabaseManager(new DatabaseHelper(this.getApplicationContext()));
+            DM.saveAccount(new Account(emailString, passwordString));
+            confirmation = true;
+        }
+        return confirmation;
     }
 
 
     //confirm the users 2 passwords are the same/ not empty, returns true if they are
-    public boolean passwordConfirm( String pass1, String pass2){
+    private boolean passwordConfirmation( String pass1, String pass2) {
 
-        boolean confirmed = false;
 
         View incorrectPopUp = findViewById(R.id.passNotSame_TextView_CreateAccount);
 
-        if(pass1.equals(pass2)){
+        if (pass1.equals(pass2) && !pass1.isEmpty()) {
             incorrectPopUp.setVisibility(View.INVISIBLE);
-            confirmed = true;
+            return true;
 
 
         }
-        else {
-            incorrectPopUp.setVisibility(View.VISIBLE);
 
-        }
-        if (pass1.isEmpty() || pass2.isEmpty()){
-            confirmed = false;
-        }
-
-        return confirmed;
+        incorrectPopUp.setVisibility(View.VISIBLE);
+        return false;
 
     }
+
 }
