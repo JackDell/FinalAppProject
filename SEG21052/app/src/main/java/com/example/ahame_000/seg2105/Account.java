@@ -3,6 +3,7 @@ package com.example.ahame_000.seg2105;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.UUID;
 
 
 public class Account {
@@ -115,10 +116,9 @@ public class Account {
     }
 
 
-    public Chore getChore(int id) {
+    public Chore getChore(UUID id) {
 
         for (Chore chore : chores) {
-
             if (chore.getId() == id) {
                 return chore;
             }

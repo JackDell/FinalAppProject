@@ -34,9 +34,7 @@ public class EditViewChoreActivity extends AppCompatActivity {
         Account account = Session.getLoggedInAccount();
         Profile profile = Session.getLoggedInProfile();
 
-        chore = account.getChore(id);
-
-
+        //chore = account.getChore(id);
 
         //initializing the buttons
         Button doneButton = (Button)findViewById(R.id.Done_Button_ChoreDetails);
