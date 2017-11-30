@@ -172,7 +172,8 @@ public class DatabaseManager {
                 int reward = c.getInt(c.getColumnIndex("reward"));
                 int penalty = c.getInt(c.getColumnIndex("penalty"));
 
-                chores.add(new Chore(name, desc, completionDate, deadline, adult, assignedTo, reward, penalty, account));
+            // TODO: Add id for chore
+                chores.add(new Chore(name, desc, completionDate, deadline, adult, assignedTo, reward, penalty, account,0));
             }
         }
         finally {

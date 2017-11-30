@@ -9,6 +9,13 @@ public class CreateChoreActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_chore);
+/*
+        duedate.setYear(dueDateField.getYear());
+        duedate.setMonth(dueDateField.getMonth());
+        duedate.setDate(dueDateField.getDayOfMonth());
+
+        */
+
     }
 
 }
