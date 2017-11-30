@@ -3,6 +3,7 @@ package com.example.ahame_000.seg2105;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.UUID;
 
 
 public class Account {
@@ -16,7 +17,7 @@ public class Account {
     /**
      * Constructor
      */
-    public Account(String email,  String password, List<Profile> profiles, List<Chore> chores) {
+    public Account(String email, String password, List<Profile> profiles, List<Chore> chores) {
         this.email = email;
         this.password = password;
         this.profiles = profiles;
@@ -26,8 +27,8 @@ public class Account {
     /**
      * Compressed Constructor
      */
-    public Account(String email,  String password) {
-        this(email,  password, new ArrayList<Profile>(), new ArrayList<Chore>());
+    public Account(String email, String password) {
+        this(email, password, new ArrayList<Profile>(), new ArrayList<Chore>());
     }
 
     /**
@@ -38,7 +39,6 @@ public class Account {
     }
 
     /**
-     *
      * @param email a String object containing the email in which you want to set as the Account email
      */
     private void setEmail(String email) {
@@ -83,10 +83,10 @@ public class Account {
     /**
      * @return a List object containing all of the 'unassigned chores', the chores associated with the Account
      */
-    public List<Chore> getUnassignedChores(){
+    public List<Chore> getUnassignedChores() {
         ArrayList<Chore> unassignedChores = new ArrayList<Chore>();
-        for (Chore chore:chores){
-            if(chore.getState()==ChoreState.UNASSIGNED){
+        for (Chore chore : chores) {
+            if (chore.getState() == ChoreState.UNASSIGNED) {
                 unassignedChores.add(chore);
             }
         }
@@ -105,7 +105,7 @@ public class Account {
      * @param chore the Chore that you want to add to the Account
      */
     public void addChore(Chore chore) {
-        if(!(this.chores.contains(chore))) this.chores.add(chore);
+        if (!(this.chores.contains(chore))) this.chores.add(chore);
     }
 
     /**
@@ -113,6 +113,19 @@ public class Account {
      */
     public void removeChore(Chore chore) {
         this.chores.remove(chore);
+    }
+
+
+    public Chore getChore(UUID id) {
+
+        for (Chore chore : chores) {
+            if (chore.getId() == id) {
+                return chore;
+            }
+        }
+
+        return null;
+
     }
 
 }

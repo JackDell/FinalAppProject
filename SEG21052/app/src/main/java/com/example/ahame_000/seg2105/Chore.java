@@ -6,8 +6,7 @@ import android.support.annotation.NonNull;
 import java.util.Date;
 import java.util.UUID;
 
-
-public class Chore implements Comparable{
+public class Chore implements Comparable {
 
     // Instance variables
     private String name;
@@ -20,11 +19,13 @@ public class Chore implements Comparable{
     private Adult creator;
     private Profile assignedTo;
     private Account account;
+    private UUID id;
 
     /**
      * Constructor
      */
-    public Chore(String name, String description, Date completedDate, Date deadline, Adult creator, Profile assignedTo, int reward, int penalty, Account account) {
+    public Chore(String name, String description, Date completedDate, Date deadline, Adult creator, Profile assignedTo, int reward,
+                 int penalty, Account account, UUID id) {
         this.name = name;
         this.description = description;
         this.state = ChoreState.UNASSIGNED;
@@ -35,13 +36,14 @@ public class Chore implements Comparable{
         this.reward = reward;
         this.account = account;
         this.completedDate = completedDate;
+        this.id = id;
     }
 
     /**
      * Compressed Constructor
      */
     public Chore(String name, String description, Date deadline, int reward, Account account) {
-        this( name, description, null, deadline, null, null, reward, 0, account);
+        this( name, description, null, deadline, null, null, reward, 0, account, UUID.randomUUID());
     }
 
     public String getName() {
@@ -59,8 +61,6 @@ public class Chore implements Comparable{
     public Date getCompletedDate() {
         return completedDate;
     }
-
-
 
     private boolean setState(ChoreState aState)
     {
@@ -112,6 +112,10 @@ public class Chore implements Comparable{
         return wasSet;
     }
 
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
     public Date getDeadline(){
         return deadline;
     }
@@ -124,13 +128,17 @@ public class Chore implements Comparable{
         return reward;
     }
 
+    public UUID getId() {
+        return id;
+    }
 
+    public String getStringId() {
+        return this.id.toString();
+    }
 
     public Adult getCreator(){
         return creator;
     }
-
-
 
     public Profile getAssignedTo(){
         return assignedTo;
@@ -143,6 +151,7 @@ public class Chore implements Comparable{
     public void setAccount(Account account) {
         this.account = account;
     }
+
 
     //------------------------
     // METHOD

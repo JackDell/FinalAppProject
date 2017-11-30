@@ -125,13 +125,11 @@
                     android:text="Due Date:"
                     android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title" />
 
-                <EditText
-                    android:id="@+id/EnteDate_EditText_ChoreDetails"
-                    android:layout_width="match_parent"
+                <DatePicker
+                    android:id="@+id/DueDate_DatePicker_ChoreDetails"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:inputType="textNoSuggestions|textPersonName" />
+                    android:layout_weight="1" />
 
             </LinearLayout>
 
@@ -217,16 +215,8 @@
                     android:text="Assign"
                     android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title" />
 
-                <EditText
-                    android:id="@+id/Person_EditText_ChoreDetails"
-                    android:layout_width="140dp"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:inputType="textPersonName"
-                    android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large" />
-
                 <Spinner
-                    android:id="@+id/spinner"
+                    android:id="@+id/AssignToProfiles_Spinner_ChoreDetails"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
