@@ -25,6 +25,7 @@ public class Account {
     }
 
     /**
+     *
      * Compressed Constructor
      */
     public Account(String email, String password) {

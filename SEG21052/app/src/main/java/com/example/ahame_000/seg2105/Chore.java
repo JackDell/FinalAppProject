@@ -41,7 +41,7 @@ public class Chore implements Comparable {
 
     /**
      * Compressed Constructor
-     * 
+     *
      */
     public Chore(String name, String description, Date deadline, int reward, Account account) {
         this( name, description, null, deadline, null, null, reward, 0, account, UUID.randomUUID());
