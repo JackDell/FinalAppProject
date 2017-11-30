@@ -8,12 +8,12 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     public static final String DB_NAME = "appDatabase.db";
-    public static final String DB_TABLE_ACCOUNTS = "CREATE TABLE IF NOT EXISTS Accounts(summary TEXT, email TEXT, name TEXT, pass TEXT)";
-    public static final String DB_TABLE_PROFILES = "CREATE TABLE IF NOT EXISTS Profiles(summary TEXT, name TEXT, pass TEXT, icon TEXT, points INTEGER account TEXT)";
-    public static final String DB_TABLE_CHORES = "CREATE TABLE IF NOT EXISTS Chores(name TEXT, desc TEXT, completedDate INTEGER, deadline INTEGER, creator TEXT, assignedTo TEXT, reward INTEGER, penalty INTEGER, accEmail TEXT)";
+    public static final String DB_TABLE_ACCOUNTS = "CREATE TABLE IF NOT EXISTS Accounts(email TEXT, password TEXT)";
+    public static final String DB_TABLE_PROFILES = "CREATE TABLE IF NOT EXISTS Profiles(kind TEXT, name TEXT, pass TEXT, points INTEGER, accEmail TEXT)";
+    public static final String DB_TABLE_CHORES = "CREATE TABLE IF NOT EXISTS Chores(id TEXT, name TEXT, desc TEXT, completedDate INTEGER, deadline INTEGER, creator TEXT, assignedTo TEXT, reward INTEGER, penalty INTEGER, accEmail TEXT)";
 
     public DatabaseHelper(Context context) {
-        super(context, DB_NAME, null, 1);
+        super(context, DB_NAME, null, 6);
     }
 
     /**

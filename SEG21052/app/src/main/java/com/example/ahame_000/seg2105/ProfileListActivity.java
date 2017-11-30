@@ -8,6 +8,9 @@ import com.example.ahame_000.seg2105.databasing.DatabaseHelper;
 import com.example.ahame_000.seg2105.databasing.DatabaseManager;
 
 import java.util.List;
+import android.widget.AdapterView;
+import android.view.View;
+import android.content.Intent;
 
 public class ProfileListActivity extends AppCompatActivity {
 
@@ -24,5 +27,21 @@ public class ProfileListActivity extends AppCompatActivity {
 
         ProfileCustomAdapter adapter = new ProfileCustomAdapter(this.getApplicationContext(), DM.getDatabasedProfiles());
         profileList.setAdapter(adapter);
+
+        //when a profile is selected it is set as logged on and choreList is launched
+        profileList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, final View view, int position, long id) {
+
+                Profile selectedProfile = (Profile)parent.getItemAtPosition(position);
+                Session.setLoggedInProfile(selectedProfile);
+
+                Intent launchChoreList = new Intent(getApplicationContext(), ChoreListActivity.class);
+
+                startActivity(launchChoreList);
+
+            }
+        });
+
     }
 }

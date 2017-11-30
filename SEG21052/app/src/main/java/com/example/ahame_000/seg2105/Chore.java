@@ -3,11 +3,10 @@ package com.example.ahame_000.seg2105;
 
 import android.support.annotation.NonNull;
 
-
 import java.util.Date;
+import java.util.UUID;
 
-
-public class Chore implements Comparable{
+public class Chore implements Comparable {
 
     // Instance variables
     private String name;
@@ -20,18 +19,13 @@ public class Chore implements Comparable{
     private Adult creator;
     private Profile assignedTo;
     private Account account;
-
-
-
-
-
-    private int id = 0;
+    private UUID id;
 
     /**
      * Constructor
      */
     public Chore(String name, String description, Date completedDate, Date deadline, Adult creator, Profile assignedTo, int reward,
-                 int penalty, Account account, int id) {
+                 int penalty, Account account, UUID id) {
         this.name = name;
         this.description = description;
         this.state = ChoreState.UNASSIGNED;
@@ -49,7 +43,7 @@ public class Chore implements Comparable{
      * Compressed Constructor
      */
     public Chore(String name, String description, Date deadline, int reward, Account account) {
-        this( name, description, null, deadline, null, null, reward, 0, account, 0);
+        this( name, description, null, deadline, null, null, reward, 0, account, UUID.randomUUID());
     }
 
 
@@ -69,8 +63,6 @@ public class Chore implements Comparable{
     public Date getCompletedDate() {
         return completedDate;
     }
-
-
 
     private boolean setState(ChoreState aState)
     {
@@ -122,7 +114,7 @@ public class Chore implements Comparable{
         return wasSet;
     }
 
-    public void setId(int id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
@@ -138,15 +130,17 @@ public class Chore implements Comparable{
         return reward;
     }
 
-    public int getId() {
+    public UUID getId() {
         return id;
+    }
+
+    public String getStringId() {
+        return this.id.toString();
     }
 
     public Adult getCreator(){
         return creator;
     }
-
-
 
     public Profile getAssignedTo(){
         return assignedTo;
@@ -159,7 +153,6 @@ public class Chore implements Comparable{
     public void setAccount(Account account) {
         this.account = account;
     }
-
 
 
     //------------------------

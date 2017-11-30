@@ -1,5 +1,6 @@
 package com.example.ahame_000.seg2105.databasing;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 
 import com.example.ahame_000.seg2105.*;
@@ -7,6 +8,7 @@ import com.example.ahame_000.seg2105.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 public class DatabaseManager {
 
@@ -21,9 +23,14 @@ public class DatabaseManager {
      * @param account   the account object you wish to save to the database
      */
     public void saveAccount(Account account) {
-        String[] values = { account.getEmail(),  account.getPassword()};
-        DB_Helper.getWritableDatabase().execSQL("INSERT INTO Accounts VALUES (summary, email, pass)", values);
-        loginAccount(account.getEmail(),  account.getPassword());
+
+        ContentValues values = new ContentValues();
+        values.put("email", account.getEmail());
+        values.put("password", account.getPassword());
+
+        DB_Helper.getWritableDatabase().insert("Accounts", null, values);
+
+        this.loginAccount(account.getEmail(),  account.getPassword());
     }
 
     public Account getAccount(String accountEmail) {
@@ -32,7 +39,7 @@ public class DatabaseManager {
         if(c == null) return null;
         if(c.moveToFirst() == false) return null;
         String email = c.getString(c.getColumnIndex("email"));
-        String password = c.getString(c.getColumnIndex("pass"));
+        String password = c.getString(c.getColumnIndex("password"));
 
         for(Account acc : this.getDatabasedAccounts()) {
             if( acc.getEmail().equals(email) && acc.getPassword().equals(password)) return acc;
@@ -60,7 +67,7 @@ public class DatabaseManager {
         try {
             while(c.moveToNext()) {
                 String email = c.getString(c.getColumnIndex("email"));
-                String pass = c.getString(c.getColumnIndex("pass"));
+                String pass = c.getString(c.getColumnIndex("password"));
                 accounts.add(new Account(email, pass));
             }
         }
@@ -81,8 +88,8 @@ public class DatabaseManager {
             kind = "Child";
         }
 
-        String[] values = {profile.getName(), profile.getPassword(), kind, profile.getAccount().getEmail()};
-        DB_Helper.getWritableDatabase().execSQL("INSERT INTO Profiles VALUES (name, pass, kind, account)", values);
+        Object[] values = {kind, profile.getName(), profile.getPassword(), profile.getPoints(), profile.getAccount().getEmail()};
+        DB_Helper.getWritableDatabase().execSQL("INSERT INTO Profiles VALUES (kind, name, pass, points, accEmail)", values);
     }
 
     /**
@@ -138,6 +145,7 @@ public class DatabaseManager {
 
         if(this.getDatabasedChores().contains(chore)) return;
 
+        String id = chore.getStringId();
         String name = chore.getName();
         String desc = chore.getDescription();
         Date completedDate = chore.getCompletedDate();
@@ -148,8 +156,8 @@ public class DatabaseManager {
         Date deadline = chore.getDeadline();
         String accEmail = chore.getAccount().getEmail();
 
-        Object[] values = {name, desc, completedDate, creator.getName(), assignedTo.getName(), reward, penalty, deadline, accEmail};
-        DB_Helper.getWritableDatabase().execSQL("INSERT INTO Chores VALUES (name, description, completedDate, deadline, creator, assignedTo, reward, penalty, accEmail)", values);
+        Object[] values = {id, name, desc, completedDate, creator.getName(), assignedTo.getName(), reward, penalty, deadline, accEmail};
+        DB_Helper.getWritableDatabase().execSQL("INSERT INTO Chores VALUES (id, name, description, completedDate, deadline, creator, assignedTo, reward, penalty, accEmail)", values);
     }
 
     public List<Chore> getDatabasedChores() {
@@ -162,6 +170,7 @@ public class DatabaseManager {
 
         try {
             while(c.moveToNext()) {
+                UUID id = UUID.fromString(c.getString(c.getColumnIndex("id")));
                 Account account = this.getAccount(c.getString(c.getColumnIndex("accEmail")));
                 String name = c.getString(c.getColumnIndex("name"));
                 String desc = c.getString(c.getColumnIndex("description"));
@@ -173,7 +182,7 @@ public class DatabaseManager {
                 int penalty = c.getInt(c.getColumnIndex("penalty"));
 
             // TODO: Add id for chore
-                chores.add(new Chore(name, desc, completionDate, deadline, adult, assignedTo, reward, penalty, account,0));
+                chores.add(new Chore(name, desc, completionDate, deadline, adult, assignedTo, reward, penalty, account, id));
             }
         }
         finally {
