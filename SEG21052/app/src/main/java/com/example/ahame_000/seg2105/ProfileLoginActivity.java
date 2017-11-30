@@ -27,6 +27,5 @@ public class ProfileLoginActivity extends AppCompatActivity {
 
         DatabaseManager DM = new DatabaseManager(new DatabaseHelper(this.getApplicationContext()));
         DM.loginProfile(name, password);
-
     }
 }
