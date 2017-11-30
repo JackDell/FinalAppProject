@@ -19,24 +19,29 @@ public class Chore implements Comparable{
     private Date completedDate;
     private Adult creator;
     private Profile assignedTo;
+    private Account account;
 
     /**
      * Constructor
      */
-    public Chore(String name, String description,  Date deadline, int reward,int penalty) {
+    public Chore(String name, String description, Date completedDate, Date deadline, Adult creator, Profile assignedTo, int reward, int penalty, Account account) {
         this.name = name;
         this.description = description;
         this.state = ChoreState.UNASSIGNED;
         this.deadline = deadline;
+        this.creator = creator;
+        this.assignedTo = assignedTo;
         this.penalty = penalty;
         this.reward = reward;
+        this.account = account;
+        this.completedDate = completedDate;
     }
 
     /**
      * Compressed Constructor
      */
-    public Chore(String name, String description, Date deadline, int reward) {
-        this( name, description,  deadline, reward,0);
+    public Chore(String name, String description, Date deadline, int reward, Account account) {
+        this( name, description, null, deadline, null, null, reward, 0, account);
     }
 
     public String getName() {
@@ -129,6 +134,14 @@ public class Chore implements Comparable{
 
     public Profile getAssignedTo(){
         return assignedTo;
+    }
+
+    public Account getAccount() {
+        return this.account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
     }
 
     //------------------------

@@ -5,6 +5,7 @@ import android.database.Cursor;
 import com.example.ahame_000.seg2105.*;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class DatabaseManager {
@@ -34,7 +35,7 @@ public class DatabaseManager {
         String password = c.getString(c.getColumnIndex("pass"));
 
         for(Account acc : this.getDatabasedAccounts()) {
-            if( acc.getEmail() == email && acc.getPassword() == password) return acc;
+            if( acc.getEmail().equals(email) && acc.getPassword().equals(password)) return acc;
         }
 
         return null;
@@ -83,7 +84,7 @@ public class DatabaseManager {
             kind="Child";
         }
 
-        String[] values = { profile.getName(), profile.getPassword(), kind, profile.getAccount().getEmail()};
+        String[] values = {profile.getName(), profile.getPassword(), kind, profile.getAccount().getEmail()};
         DB_Helper.getWritableDatabase().execSQL("INSERT INTO Profiles VALUES ( name, pass, kind, account)", values);
     }
 
@@ -96,7 +97,7 @@ public class DatabaseManager {
         List<Profile> profiles = new ArrayList<>();
 
         // Points the SQL cursor at the accounts
-        Cursor c = DB_Helper.getReadableDatabase().rawQuery("SELECT * FROM Profile", null);
+        Cursor c = DB_Helper.getReadableDatabase().rawQuery("SELECT * FROM Profiles", null);
 
         // If the cursor object we attempted to create is null (db doesn't exist), or has a length of 0 (db exists but has no entries)
         // we want to return our empty list
@@ -124,19 +125,83 @@ public class DatabaseManager {
 
         return profiles;
     }
-    public List<Chore> getChore(Account account){
-        //TODO:
-        return new ArrayList<Chore>();
-    }
-    public List<Chore> getTodoChore(Profile profile){
-        //TODO:
-        return new ArrayList<Chore>();
-    }
-    public List<Chore> getCompletedChore(Profile profile){
-        //TODO:
-        return new ArrayList<Chore>();
+
+    public Profile getProfileByName(String name) {
+        for(Profile profile : this.getDatabasedProfiles()) {
+            if(profile.getName() == name) return profile;
+        }
+
+        return null;
     }
 
+    //name TEXT, desc TEXT, completedDate DATE, deadline DATE, creator TEXT, assignedTo TEXT, reward INTEGER, penalty INTEGER)";
+
+
+    public void saveChore(Chore chore) {
+
+        if(this.getDatabasedChores().contains(chore)) return;
+
+        String name = chore.getName();
+        String desc = chore.getDescription();
+        Date completedDate = chore.getCompletedDate();
+        Adult creator = chore.getCreator();
+        Profile assignedTo = chore.getAssignedTo();
+        int reward = chore.getReward();
+        int penalty = chore.getPenalty();
+        Date deadline = chore.getDeadline();
+        String accEmail = chore.getAccount().getEmail();
+
+        Object[] values = {name, desc, completedDate, creator.getName(), assignedTo.getName(), reward, penalty, deadline, accEmail};
+        DB_Helper.getWritableDatabase().execSQL("INSERT INTO Chores VALUES (name, description, completedDate, deadline, creator, assignedTo, reward, penalty, accEmail)", values);
+    }
+
+    public List<Chore> getDatabasedChores() {
+        List<Chore> chores = new ArrayList<>();
+
+        Cursor c = DB_Helper.getReadableDatabase().rawQuery("SELECT * FROM Chores", null);
+
+        if(c == null) return chores;
+        if(c.getCount() == 0) return chores;
+
+        try {
+            while(c.moveToNext()) {
+                Account account = this.getAccount(c.getString(c.getColumnIndex("accEmail")));
+                String name = c.getString(c.getColumnIndex("name"));
+                String desc = c.getString(c.getColumnIndex("description"));
+                Date completionDate = new Date(c.getLong(c.getColumnIndex("completeDate")));
+                Date deadline = new Date(c.getLong(c.getColumnIndex("deadline")));
+                Adult adult = (Adult) this.getProfileByName(c.getString(c.getColumnIndex("creator")));
+                Profile assignedTo = this.getProfileByName(c.getString(c.getColumnIndex("assignedTo")));
+                int reward = c.getInt(c.getColumnIndex("reward"));
+                int penalty = c.getInt(c.getColumnIndex("penalty"));
+
+                chores.add(new Chore(name, desc, completionDate, deadline, adult, assignedTo, reward, penalty, account));
+            }
+        }
+        finally {
+            c.close();
+        }
+
+        return chores;
+    }
+
+    public List<Chore> getDatabasedChores(Object obj) {
+
+        List<Chore> chores = new ArrayList<>();
+
+        for(Chore chore : this.getDatabasedChores()) {
+            if(obj instanceof Account) {
+                Account account = (Account) obj;
+                if(chore.getAccount().getEmail().equals(account.getEmail())) chores.add(chore);
+            }
+            else if(obj instanceof Profile) {
+                Profile profile = (Profile) obj;
+                if(chore.getAssignedTo().getName().equals(profile.getName())) chores.add(chore);
+            }
+        }
+
+        return chores;
+    }
 
     public boolean loginAccount(String email, String password) {
 
