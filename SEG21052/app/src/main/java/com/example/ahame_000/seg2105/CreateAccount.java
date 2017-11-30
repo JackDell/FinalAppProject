@@ -1,9 +1,12 @@
 package com.example.ahame_000.seg2105;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
+
+import com.example.ahame_000.seg2105.databasing.*;
 
 public class CreateAccount extends AppCompatActivity {
 
@@ -13,56 +16,73 @@ public class CreateAccount extends AppCompatActivity {
         setContentView(R.layout.activity_create_account);
     }
 
-    // takes user to Create New Account page
-    public void createAccBttnClick(View view){
-
-        EditText emailTxt = (EditText)findViewById(R.id.Email_EditText_AccountLogin);
-        String emailString = emailTxt.getText().toString();
-
-        setContentView(R.layout.activity_create_account);
-
-        EditText emailTxtCreateAcc = (EditText)findViewById(R.id.Email_EditText_CreateAccount);
-        emailTxtCreateAcc.setText(emailString);
-
-    }
 
     //creates a new DBmanager ( which creates a new account )
     public void doneCreateNewAccBttnClick(View view) {
 
-        EditText emailTxt = (EditText) findViewById(R.id.Email_EditText_CreateAccount);
+
+        EditText emailTxt = findViewById(R.id.Email_EditText_CreateAccount);
         String emailString = emailTxt.getText().toString();
 
-        EditText passwordTxt = (EditText) findViewById(R.id.Password_EditText_CreateAccount);
-        String passwordString = emailTxt.getText().toString();
+        EditText passwordTxt = findViewById(R.id.Password_EditText_CreateAccount);
+        String passwordString = passwordTxt.getText().toString();
 
-        EditText confirmPasswordTxt = (EditText) findViewById(R.id.ConfirmPassword_EditText_CreateAccount);
-        String confirmPasswordString = emailTxt.getText().toString();
+        EditText confirmPasswordTxt = findViewById(R.id.ConfirmPassword_EditText_CreateAccount);
+        String confirmPasswordString = confirmPasswordTxt.getText().toString();
 
 
-        if (passwordConfirm(passwordString, confirmPasswordString) == true) {
-            DBmangment newAcc = new DBmangment(emailString, passwordString);
-            setContentView(R.layout.activity_account_login);
+        if (passwordConfirmation(passwordString,confirmPasswordString)&&!emailString.isEmpty()) {
+            DatabaseManager DM = new DatabaseManager(new DatabaseHelper(this.getApplicationContext()));
+            DM.saveAccount(new Account(emailString, passwordString));
 
+
+            Intent intent = new Intent(this,AccountLogin.class);
+            startActivity(intent);
         }
     }
 
+    public void addMemberBttnClick (View view){
+        if(saveContent()) {
+            Intent intent = new Intent(this, AddMember.class);
+            startActivity(intent);
+        }
+    }
+    private boolean saveContent(){
+        EditText emailTxt = findViewById(R.id.Email_EditText_CreateAccount);
+        String emailString = emailTxt.getText().toString();
 
-    //confirm the users 2 passwords are the same, returns true if they are
-    public boolean passwordConfirm( String pass1, String pass2){
+        EditText passwordTxt = findViewById(R.id.Password_EditText_CreateAccount);
+        String passwordString = passwordTxt.getText().toString();
 
-        boolean confirmed = false;
+        EditText confirmPasswordTxt = findViewById(R.id.ConfirmPassword_EditText_CreateAccount);
+        String confirmPasswordString = confirmPasswordTxt.getText().toString();
+
+        boolean confirmaion = false;
+        if (passwordConfirmation(passwordString,confirmPasswordString)&&!emailString.isEmpty()) {
+            DatabaseManager DM = new DatabaseManager(new DatabaseHelper(this.getApplicationContext()));
+            DM.saveAccount(new Account(emailString, passwordString));
+            confirmaion = true;
+        }
+        return confirmaion;
+    }
+
+
+    //confirm the users 2 passwords are the same/ not empty, returns true if they are
+    private boolean passwordConfirmation( String pass1, String pass2) {
+
 
         View incorrectPopUp = findViewById(R.id.passNotSame_TextView_CreateAccount);
 
-        if(pass1 != pass2){
-
-            incorrectPopUp.setVisibility(View.VISIBLE);
-        }
-        else {
+        if (pass1.equals(pass2) && !pass1.isEmpty()) {
             incorrectPopUp.setVisibility(View.INVISIBLE);
-            confirmed = true;
+            return true;
+
+
         }
-        return confirmed;
+
+        incorrectPopUp.setVisibility(View.VISIBLE);
+        return false;
 
     }
+
 }

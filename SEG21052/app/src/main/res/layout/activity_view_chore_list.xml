@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.ahame_000.seg2105.HomePage">
+    tools:context="com.example.ahame_000.seg2105.ChoreListActivity">
 
     <LinearLayout
         android:layout_width="368dp"
@@ -14,7 +14,7 @@
         tools:layout_editor_absoluteX="8dp">
 
         <TextView
-            android:id="@+id/AllChoresTitle_TextView_HomePage"
+            android:id="@+id/ChoresListTitle_TextView_HomePage"
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:fontFamily="sans-serif"
@@ -28,6 +28,7 @@
             style="@style/Widget.AppCompat.ListView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:scrollbars="vertical"
             tools:layout_editor_absoluteX="8dp"
             tools:layout_editor_absoluteY="8dp" />
     </LinearLayout>

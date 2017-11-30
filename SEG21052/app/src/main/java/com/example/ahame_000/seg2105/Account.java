@@ -1,325 +1,118 @@
 package com.example.ahame_000.seg2105;
 
-/*This code was generated using the UMPLE 1.26.1-f40f105-3613 modeling language!*/
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 
-import android.graphics.drawable.Icon;
+public class Account {
 
-import java.util.*;
-import java.sql.Date;
+    // Instance Variables
+    private String email;
+    private String password;
+    private List<Profile> profiles;
+    private List<Chore> chores;
 
-// line 2 "model.ump"
-// line 67 "model.ump"
-public class Account
-{
-
-  //------------------------
-  // MEMBER VARIABLES
-  //------------------------
-
-  //Account Attributes
-  private String name;
-  private String email;
-  private String password;
-
-  //Account Associations
-  private List<Profile> profiles;
-  private List<Chore> chores;
-  private DBmangment dBmangment;
-
-  //------------------------
-  // CONSTRUCTOR
-  //------------------------
-
-  public Account( String aEmail, String aPassword, DBmangment aDBmangment)
-  {
-    email = aEmail;
-    password = aPassword;
-    profiles = new ArrayList<Profile>();
-    chores = new ArrayList<Chore>();
-    if (aDBmangment == null || aDBmangment.getAccount(email) != null)
-    {
-      throw new RuntimeException("Unable to create Account due to aDBmangment");
+    /**
+     * Constructor
+     */
+    public Account(String email,  String password, List<Profile> profiles, List<Chore> chores) {
+        this.email = email;
+        this.password = password;
+        this.profiles = profiles;
+        this.chores = chores;
     }
-    dBmangment = aDBmangment;
-  }
 
-  public Account( String aEmail, String aPassword)
-  {
-    email = aEmail;
-    password = aPassword;
-    profiles = new ArrayList<Profile>();
-    chores = new ArrayList<Chore>();
-    dBmangment = new DBmangment(this);
-  }
-
-  //------------------------
-  // INTERFACE
-  //------------------------
-
-
-  public boolean setEmail(String aEmail)
-  {
-    boolean wasSet = false;
-    email = aEmail;
-    wasSet = true;
-    return wasSet;
-  }
-
-  private boolean setPassword(String aPassword)
-  {
-    boolean wasSet = false;
-    password = aPassword;
-    wasSet = true;
-    return wasSet;
-  }
-
-
-
-  public String getEmail()
-  {
-    return email;
-  }
-
-  private String getPassword()
-  {
-    return password;
-  }
-
-  public Profile getProfile(int index)
-  {
-    Profile aProfile = profiles.get(index);
-    return aProfile;
-  }
-
-  public List<Profile> getProfiles()
-  {
-    List<Profile> newProfiles = Collections.unmodifiableList(profiles);
-    return newProfiles;
-  }
-
-  public int numberOfProfiles()
-  {
-    int number = profiles.size();
-    return number;
-  }
-
-  public boolean hasProfiles()
-  {
-    boolean has = profiles.size() > 0;
-    return has;
-  }
-
-  public int indexOfProfile(Profile aProfile)
-  {
-    int index = profiles.indexOf(aProfile);
-    return index;
-  }
-
-  public Chore getChore(int index)
-  {
-    Chore aChore = chores.get(index);
-    return aChore;
-  }
-
-  public List<Chore> getChores()
-  {
-    List<Chore> newChores = Collections.unmodifiableList(chores);
-    return newChores;
-  }
-
-  public int numberOfChores()
-  {
-    int number = chores.size();
-    return number;
-  }
-
-  public boolean hasChores()
-  {
-    boolean has = chores.size() > 0;
-    return has;
-  }
-
-  public int indexOfChore(Chore aChore)
-  {
-    int index = chores.indexOf(aChore);
-    return index;
-  }
-
-  public DBmangment getDBmangment()
-  {
-    return dBmangment;
-  }
-
-  public static int minimumNumberOfProfiles()
-  {
-    return 0;
-  }
-
-
-  public boolean addProfile(Profile aProfile)
-  {
-    boolean wasAdded = false;
-    if (profiles.contains(aProfile)) { return false; }
-    Account existingAccount = aProfile.getAccount();
-    boolean isNewAccount = existingAccount != null && !this.equals(existingAccount);
-    if (isNewAccount)
-    {
-      aProfile.setAccount(this);
+    /**
+     * Compressed Constructor
+     */
+    public Account(String email,  String password) {
+        this(email,  password, new ArrayList<Profile>(), new ArrayList<Chore>());
     }
-    else
-    {
-      profiles.add(aProfile);
+
+    /**
+     * @return a String object containing the email of the Account
+     */
+    public String getEmail() {
+        return this.email;
     }
-    wasAdded = true;
-    return wasAdded;
-  }
 
-  public boolean removeProfile(Profile aProfile)
-  {
-    boolean wasRemoved = false;
-    //Unable to remove aProfile, as it must always have a account
-    if (!this.equals(aProfile.getAccount()))
-    {
-      profiles.remove(aProfile);
-      wasRemoved = true;
+    /**
+     *
+     * @param email a String object containing the email in which you want to set as the Account email
+     */
+    private void setEmail(String email) {
+        this.email = email;
     }
-    return wasRemoved;
-  }
 
-  public boolean addProfileAt(Profile aProfile, int index)
-  {  
-    boolean wasAdded = false;
-    if(addProfile(aProfile))
-    {
-      if(index < 0 ) { index = 0; }
-      if(index > numberOfProfiles()) { index = numberOfProfiles() - 1; }
-      profiles.remove(aProfile);
-      profiles.add(index, aProfile);
-      wasAdded = true;
+    /**
+     * @return a String object containing the password associated with the account
+     */
+    public String getPassword() {
+        return this.password;
     }
-    return wasAdded;
-  }
 
-  public boolean addOrMoveProfileAt(Profile aProfile, int index)
-  {
-    boolean wasAdded = false;
-    if(profiles.contains(aProfile))
-    {
-      if(index < 0 ) { index = 0; }
-      if(index > numberOfProfiles()) { index = numberOfProfiles() - 1; }
-      profiles.remove(aProfile);
-      profiles.add(index, aProfile);
-      wasAdded = true;
-    } 
-    else 
-    {
-      wasAdded = addProfileAt(aProfile, index);
+    /**
+     * @param password a String object containing the password that you want to set as the Account password
+     */
+    private void setPassword(String password) {
+        this.password = password;
     }
-    return wasAdded;
-  }
 
-  public static int minimumNumberOfChores()
-  {
-    return 0;
-  }
-
-  public Chore addChore( String aName, String aDescription, Date aDeadline, int aPenalty, int aReward, Date aCompletedDate, Parent aParent, Profile aProfile)
-  {
-    return new Chore( aName, aDescription, aDeadline, aPenalty, aReward, aCompletedDate, aParent, this, aProfile);
-  }
-
-  public boolean addChore(Chore aChore)
-  {
-    boolean wasAdded = false;
-    if (chores.contains(aChore)) { return false; }
-    Account existingAccount = aChore.getAccount();
-    boolean isNewAccount = existingAccount != null && !this.equals(existingAccount);
-    if (isNewAccount)
-    {
-      aChore.setAccount(this);
+    /**
+     * @return a List object containing the profiles associated with the Account
+     */
+    public List<Profile> getProfiles() {
+        return this.profiles;
     }
-    else
-    {
-      chores.add(aChore);
+
+    /**
+     * @param profiles a List object containing all the profiles you want the Account to be associated with
+     */
+    private void setProfiles(List<Profile> profiles) {
+        this.profiles = profiles;
     }
-    wasAdded = true;
-    return wasAdded;
-  }
 
-  public boolean removeChore(Chore aChore)
-  {
-    boolean wasRemoved = false;
-    //Unable to remove aChore, as it must always have a account
-    if (!this.equals(aChore.getAccount()))
-    {
-      chores.remove(aChore);
-      wasRemoved = true;
+    /**
+     * @return a List object containing all of the chores associated with the Account
+     */
+    public List<Chore> getAllChores() {
+        return this.chores;
     }
-    return wasRemoved;
-  }
 
-  public boolean addChoreAt(Chore aChore, int index)
-  {  
-    boolean wasAdded = false;
-    if(addChore(aChore))
-    {
-      if(index < 0 ) { index = 0; }
-      if(index > numberOfChores()) { index = numberOfChores() - 1; }
-      chores.remove(aChore);
-      chores.add(index, aChore);
-      wasAdded = true;
+    /**
+     * @return a List object containing all of the 'unassigned chores', the chores associated with the Account
+     */
+    public List<Chore> getUnassignedChores(){
+        ArrayList<Chore> unassignedChores = new ArrayList<Chore>();
+        for (Chore chore:chores){
+            if(chore.getState()==ChoreState.UNASSIGNED){
+                unassignedChores.add(chore);
+            }
+        }
+        Collections.sort(unassignedChores);
+        return unassignedChores;
     }
-    return wasAdded;
-  }
 
-  public boolean addOrMoveChoreAt(Chore aChore, int index)
-  {
-    boolean wasAdded = false;
-    if(chores.contains(aChore))
-    {
-      if(index < 0 ) { index = 0; }
-      if(index > numberOfChores()) { index = numberOfChores() - 1; }
-      chores.remove(aChore);
-      chores.add(index, aChore);
-      wasAdded = true;
-    } 
-    else 
-    {
-      wasAdded = addChoreAt(aChore, index);
+    /**
+     * @param chores a List object containing all the chores that you want to set as the 'community chores'
+     */
+    private void setChores(List<Chore> chores) {
+        this.chores = chores;
     }
-    return wasAdded;
-  }
 
-  public void delete()
-  {
-    for(int i=profiles.size(); i > 0; i--)
-    {
-      Profile aProfile = profiles.get(i - 1);
-      aProfile.delete();
+    /**
+     * @param chore the Chore that you want to add to the Account
+     */
+    public void addChore(Chore chore) {
+        if(!(this.chores.contains(chore))) this.chores.add(chore);
     }
-    for(int i=chores.size(); i > 0; i--)
-    {
-      Chore aChore = chores.get(i - 1);
-      aChore.delete();
+
+    /**
+     * @param chore the Chore you wish to remove from the Account
+     */
+    public void removeChore(Chore chore) {
+        this.chores.remove(chore);
     }
-    DBmangment existingDBmangment = dBmangment;
-    dBmangment = null;
-    if (existingDBmangment != null)
-    {
-      existingDBmangment.delete();
-    }
-  }
 
-
-
-
-  public String toString()
-  {
-    return super.toString() + "["+
-            "email" + ":" + getEmail()+ "," +
-            "password" + ":" + getPassword()+ "]" + System.getProperties().getProperty("line.separator") +
-            "  " + "dBmangment = "+(getDBmangment()!=null?Integer.toHexString(System.identityHashCode(getDBmangment())):"null");
-  }
 }
-

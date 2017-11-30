@@ -1,298 +1,252 @@
 package com.example.ahame_000.seg2105;
-/*This code was generated using the UMPLE 1.26.1-f40f105-3613 modeling language!*/
 
 
-import java.sql.Date;
+import android.support.annotation.NonNull;
+
+import java.util.Date;
 
 
-public class Chore
-{
 
-  //------------------------
-  // MEMBER VARIABLES
-  //------------------------
+public class Chore implements Comparable{
 
-  public enum State  {UNASSIGNED , TODO, PASTDUE, COMPLETED, DELETED};
+    // Instance variables
+    private String name;
+    private String description;
+    private ChoreState state;
+    private Date deadline;
+    private int penalty;
+    private int reward;
+    private Date completedDate;
+    private Adult creator;
+    private Profile assignedTo;
+    private Account account;
 
-  //Chore Attributes
-  public State state;
-  public String name;
-  public String description;
-  public Date deadline;
-  public int penalty;
-  public int reward;
-  public Date completedDate;
+    /**
+     * Constructor
+     */
+    public Chore(String name, String description, Date completedDate, Date deadline, Adult creator, Profile assignedTo, int reward, int penalty, Account account) {
+        this.name = name;
+        this.description = description;
+        this.state = ChoreState.UNASSIGNED;
+        this.deadline = deadline;
+        this.creator = creator;
+        this.assignedTo = assignedTo;
+        this.penalty = penalty;
+        this.reward = reward;
+        this.account = account;
+        this.completedDate = completedDate;
+    }
 
-  //Chore Associations
-  private Parent creator;
-  private Account account;
-  private Profile assignedTo;
+    /**
+     * Compressed Constructor
+     */
+    public Chore(String name, String description, Date deadline, int reward, Account account) {
+        this( name, description, null, deadline, null, null, reward, 0, account);
+    }
 
-  //------------------------
-  // CONSTRUCTOR
-  //------------------------
+    public String getName() {
+        return name;
+    }
 
-  public Chore( String aName, String aDescription, Date aDeadline, int aPenalty, int aReward, Date aCompletedDate, Parent aParent, Account aAccount, Profile assignedTo)
-  {
-    state = State.UNASSIGNED;
-    name = aName;
-    description = aDescription;
-    deadline = aDeadline;
-    penalty = aPenalty;
-    reward = aReward;
-    completedDate = aCompletedDate;
-    boolean didAddParent = setParent(aParent);
-    if (!didAddParent)
+    public String getDescription() {
+        return description;
+    }
+
+    public ChoreState getState() {
+        return state;
+    }
+
+    public Date getCompletedDate() {
+        return completedDate;
+    }
+
+
+
+    private boolean setState(ChoreState aState)
     {
-      throw new RuntimeException("Unable to create chore due to creator");
+        boolean wasSet = false;
+        state = aState;
+        wasSet = true;
+        return wasSet;
     }
-    boolean didAddAccount = setAccount(aAccount);
-    if (!didAddAccount)
+
+    private boolean setName(String aName)
     {
-      throw new RuntimeException("Unable to create chore due to account");
+        boolean wasSet = false;
+        name = aName;
+        wasSet = true;
+        return wasSet;
     }
 
-    boolean didAddProfile = setAssignedTo(assignedTo);
+    private boolean setDescription(String aDescription) {
+        boolean wasSet = false;
+        description = aDescription;
+        wasSet = true;
+        return wasSet;
+    }
+    private boolean setDeadline(Date aDeadline) {
+        boolean wasSet = false;
+        deadline = aDeadline;
+        wasSet = true;
+        return wasSet;
+    }
 
-    if (!didAddProfile)
+    private boolean setPenalty(int aPenalty) {
+        boolean wasSet = false;
+        penalty = aPenalty;
+        wasSet = true;
+        return wasSet;
+    }
+
+    private boolean setReward(int aReward) {
+        boolean wasSet = false;
+        reward = aReward;
+        wasSet = true;
+        return wasSet;
+    }
+
+    public boolean setCompletedDate(Date aCompletedDate){
+        boolean wasSet = false;
+        completedDate = aCompletedDate;
+        wasSet = true;
+        return wasSet;
+    }
+
+    public Date getDeadline(){
+        return deadline;
+    }
+
+    public int getPenalty(){
+        return penalty;
+    }
+
+    public int getReward(){
+        return reward;
+    }
+
+
+
+    public Adult getCreator(){
+        return creator;
+    }
+
+
+
+    public Profile getAssignedTo(){
+        return assignedTo;
+    }
+
+    public Account getAccount() {
+        return this.account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
+    }
+
+    //------------------------
+    // METHOD
+    //------------------------
+
+    // changing state to TO-DO once assigned
+    public boolean assign(){
+        if (state == ChoreState.UNASSIGNED){
+            state = ChoreState.TODO;
+
+            return true;
+        }
+        return false;
+    }
+
+    // changing state from todo and pastdue to completed
+    public boolean complete(){
+        if (state == ChoreState.TODO || state == ChoreState.PASTDUE){
+            state = ChoreState.COMPLETED;
+            return true;
+        }
+
+
+
+        return false;
+    }
+
+    //changing state to pastdue when late
+    public  boolean isLate(){ return isLate(new Date()); }
+
+    private boolean isLate(Date today){
+        if (state == ChoreState.PASTDUE)
+            return true;
+        if (state == ChoreState.TODO && today.after(deadline)){
+            state = ChoreState.PASTDUE;
+            return true;
+        }
+
+        return false;
+
+    }
+
+    public boolean setParent(Adult aAdult) {
+        boolean wasSet = false;
+        if (aAdult == null) {
+            return wasSet;
+        }
+
+
+        Adult existingAdult = creator;
+        creator = aAdult;
+        if (existingAdult != null && !existingAdult.equals(aAdult)) {
+            existingAdult.removeChore(this);
+        }
+        creator.addChore(this);
+        wasSet = true;
+        return wasSet;
+    }
+
+
+    public boolean setAssignedTo(Profile aProfile)
     {
-      throw new RuntimeException("Unable to create chore due to assignedTo");
-    }
-  }
+        boolean wasSet = false;
+        if (aProfile == null)
+        {
+            return wasSet;
+        }
+        Profile existingProfile = assignedTo;
+        assignedTo = aProfile;
+        if (existingProfile != null &&
+                !existingProfile.equals(aProfile))
+        {
 
-  //------------------------
-  // INTERFACE
-  //------------------------
+            existingProfile.removeChore(this);
 
-  private boolean setState(State aState)
-  {
-    boolean wasSet = false;
-    state = aState;
-    wasSet = true;
-    return wasSet;
-  }
-
-  private boolean setName(String aName)
-  {
-    boolean wasSet = false;
-    name = aName;
-    wasSet = true;
-    return wasSet;
-  }
-
-  private boolean setDescription(String aDescription)
-  {
-    boolean wasSet = false;
-    description = aDescription;
-    wasSet = true;
-    return wasSet;
-  }
-
-  private boolean setDeadline(Date aDeadline)
-  {
-    boolean wasSet = false;
-    deadline = aDeadline;
-    wasSet = true;
-    return wasSet;
-  }
-
-  private boolean setPenalty(int aPenalty)
-  {
-    boolean wasSet = false;
-    penalty = aPenalty;
-    wasSet = true;
-    return wasSet;
-  }
-
-  private boolean setReward(int aReward)
-  {
-    boolean wasSet = false;
-    reward = aReward;
-    wasSet = true;
-    return wasSet;
-  }
-
-  public boolean setCompletedDate(Date aCompletedDate)
-  {
-    boolean wasSet = false;
-    completedDate = aCompletedDate;
-    wasSet = true;
-    return wasSet;
-  }
-
-  public State getState()
-  {
-    return state;
-  }
-
-  public String getName()
-  {
-    return name;
-  }
-
-  public String getDescription()
-  {
-    return description;
-  }
-
-  public Date getDeadline()
-  {
-    return deadline;
-  }
-
-  public int getPenalty()
-  {
-    return penalty;
-  }
-
-  public int getReward()
-  {
-    return reward;
-  }
-
-  public Date getCompletedDate()
-  {
-    return completedDate;
-  }
-
-  public Parent getCreator()
-  {
-    return creator;
-  }
-
-  public Account getAccount()
-  {
-    return account;
-  }
-
-  public Profile getAssignedTo()
-  {
-    return assignedTo;
-  }
-
-  //------------------------
-  // METHOD
-  //------------------------
-
-  // changing state to TODO once assigned
-  public boolean assign(){
-    if (state == State.UNASSIGNED){
-         state = State.TODO;
-
-         return true;
-          }
-          return false;
-  }
-
-// changing state from todo and pastdue to completed
-  public boolean complete(){
-    if (state == State.TODO || state == State.PASTDUE){
-      state = State.COMPLETED;
-      return true;
+        }
+        assignedTo.addChore(this);
+        wasSet = true;
+        return wasSet;
     }
 
-    return false;
-  }
+    public boolean delete() {
+        if (state == ChoreState.COMPLETED) {
+            state = ChoreState.DELETED;
+            this.assignedTo = null;
+            return true;
+        }
+        if (state == ChoreState.TODO || state == ChoreState.PASTDUE) {
+            state = ChoreState.UNASSIGNED;
+            this.assignedTo = null;
+            return true;
 
-  //changing state to pastdue when late
-
-  public boolean islate(Date today){
-
-    if (state == State.TODO && today.after(deadline)){
-      state = State.PASTDUE;
-      return true;
+        }
+        return false;
     }
 
-    return false;
+    @Override
+    public int compareTo(@NonNull Object o) {
+        Chore oo = (Chore) o;
+        if(this.getDeadline().before(oo.getDeadline()))
+            return -1;
+        if (this.getDeadline().after(oo.getDeadline()))
+            return 1;
+        return 0;
 
-  }
-
-   public boolean setParent(Parent aParent)
-  {
-    boolean wasSet = false;
-    if (aParent == null)
-    {
-      return wasSet;
     }
-
-    Parent existingParent = creator;
-    creator = aParent;
-    if (existingParent != null && !existingParent.equals(aParent))
-    {
-      existingParent.removeChore(this);
-    }
-    creator.addChore(this);
-    wasSet = true;
-    return wasSet;
-  }
-
-  public boolean setAccount(Account aAccount)
-  {
-    boolean wasSet = false;
-    if (aAccount == null)
-    {
-      return wasSet;
-    }
-
-    Account existingAccount = account;
-    account = aAccount;
-    if (existingAccount != null && !existingAccount.equals(aAccount))
-    {
-      existingAccount.removeChore(this);
-    }
-    account.addChore(this);
-    wasSet = true;
-    return wasSet;
-  }
-
-  public boolean setAssignedTo(Profile aProfile)
-  {
-    boolean wasSet = false;
-    if (aProfile == null)
-    {
-      return wasSet;
-    }
-
-    Profile existingProfile = assignedTo;
-    assignedTo = aProfile;
-    if (existingProfile != null && !existingProfile.equals(aProfile))
-    {
-      existingProfile.removeChore(this);
-    }
-    assignedTo.addChore(this);
-    wasSet = true;
-    return wasSet;
-  }
-
-  public boolean delete()
-  { if (state == State.COMPLETED){
-      state = State.DELETED;
-      this.assignedTo = null;
-       return true;
-  }
-
-    if(state == State.TODO || state == State.PASTDUE){
-      state = State.UNASSIGNED;
-      this.assignedTo = null;
-      return  true;
-    }
-    return false;
-
-  }
-
-
-  public String toString()
-  {
-    return super.toString() + "["+
-            "state" + ":" + getState()+ "," +
-            "name" + ":" + getName()+ "," +
-            "description" + ":" + getDescription()+ "," +
-            "penalty" + ":" + getPenalty()+ "," +
-            "reward" + ":" + getReward()+ "]" + System.getProperties().getProperty("line.separator") +
-            "  " + "deadline" + "=" + (getDeadline() != null ? !getDeadline().equals(this)  ? getDeadline().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator") +
-            "  " + "completedDate" + "=" + (getCompletedDate() != null ? !getCompletedDate().equals(this)  ? getCompletedDate().toString().replaceAll("  ","    ") : "this" : "null") + System.getProperties().getProperty("line.separator") +
-            "  " + "creator = "+(getCreator()!=null?Integer.toHexString(System.identityHashCode(getCreator())):"null") + System.getProperties().getProperty("line.separator") +
-            "  " + "account = "+(getAccount()!=null?Integer.toHexString(System.identityHashCode(getAccount())):"null") + System.getProperties().getProperty("line.separator") +
-            "  " + "assignedTo = "+(getAssignedTo()!=null?Integer.toHexString(System.identityHashCode(getAssignedTo())):"null");
-  }
 }
