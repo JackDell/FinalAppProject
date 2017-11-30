@@ -52,6 +52,8 @@ public class Chore implements Comparable{
         this( name, description, null, deadline, null, null, reward, 0, account, 0);
     }
 
+
+
     public String getName() {
         return name;
     }

@@ -73,6 +73,9 @@ public class EditViewChoreActivity extends AppCompatActivity {
         EditText rewardsField = (EditText)findViewById(R.id.EnterRewards_EditText_ChoreDetails);
         rewardsField.setText(chore.getReward());
 
+        EditText penaltyField = (EditText)findViewById(R.id.EnterPenalty_EditText_ChoreDetails);
+        penaltyField.setText(chore.getPenalty());
+
         //TODO
        // EditText personField = (EditText)findViewById(R.id.Person_EditText_ChoreDetails);
         //personField.setText(chore.getAssignedTo().toString());
