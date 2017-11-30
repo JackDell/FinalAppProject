@@ -105,6 +105,11 @@ public class EditViewChoreActivity extends AppCompatActivity {
         }
 
     }
+   public void addDateBttnClick(View view){
+
+        DatePicker enterDate = findViewById(R.id.DueDate_DatePicker_ChoreDetails);
+       enterDate.setVisibility(View.VISIBLE);
+   }
 
     public void onDoneBttnClick(View view){
         LinearLayout eLayout = (LinearLayout)findViewById(R.id.CreatedByDate_Layout_ChoreDetails);
