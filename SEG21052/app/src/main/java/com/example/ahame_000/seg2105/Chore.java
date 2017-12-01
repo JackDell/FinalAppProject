@@ -170,7 +170,7 @@ public class Chore implements Comparable {
         return false;
     }
 
-    // changing state from todo and pastdue to completed
+    // changing state from to-do and pastdue to completed
     public boolean complete(){
         if (state == ChoreState.TODO || state == ChoreState.PASTDUE){
             state = ChoreState.COMPLETED;

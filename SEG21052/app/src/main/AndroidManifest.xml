@@ -10,7 +10,13 @@ package="com.example.ahame_000.seg2105">
     android:supportsRtl="true"
     android:theme="@style/AppTheme">
 
-    <activity android:name=".CreateChoreActivity" />
+    <activity android:name=".CreateChoreActivity" >
+    <intent-filter>
+        <action android:name="android.intent.action.MAIN" />
+
+        <category android:name="android.intent.category.LAUNCHER" />
+    </intent-filter>
+    </activity>
     <activity android:name=".ProfileListActivity">
 
     </activity>
@@ -23,11 +29,6 @@ package="com.example.ahame_000.seg2105">
 
     </activity>
     <activity android:name=".AccountLoginActivity" >
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
 
 
     </activity>

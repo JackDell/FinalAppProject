@@ -1,18 +1,30 @@
 package com.example.ahame_000.seg2105;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.support.v7.app.AppCompatActivity;
+
+import android.widget.Spinner;
+
 import android.widget.TextView;
 
 import com.example.ahame_000.seg2105.databasing.DatabaseHelper;
 import com.example.ahame_000.seg2105.databasing.DatabaseManager;
 
+import java.sql.Time;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import java.util.List;
+
+import java.util.Locale;
 import java.util.UUID;
+import java.util.Calendar;
+import android.app.DatePickerDialog;
+import android.view.View.OnClickListener;
 
 public class CreateChoreActivity extends AppCompatActivity {
 
@@ -21,18 +33,52 @@ public class CreateChoreActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_chore);
-/*
-        duedate.setYear(dueDateField.getYear());
-        duedate.setMonth(dueDateField.getMonth());
-        duedate.setDate(dueDateField.getDayOfMonth());
-
-        */
 
         View incorrectPopUp = findViewById(R.id.IncorrectCreds_TextView_NewChore);
         incorrectPopUp.setVisibility(View.INVISIBLE);
 
 
+        Spinner spinner = findViewById(R.id.AssignTo_Spinner_CreateChore);
+        List<Profile> profiles =Session.getLoggedInAccount().getChildren();
+        profiles.add(Session.getLoggedInProfile());
+        Profile unassignedProfile = new Adult("Unassigned","",null);
+        profiles.add(unassignedProfile);
+        ProfileSpinnerAdapter adapter = new ProfileSpinnerAdapter(this.getApplicationContext(),profiles);
+        adapter.setDropDownViewResource(R.layout.assign_to_profile_item_layout);
+        spinner.setAdapter(adapter);
+
+
+
+        final EditText edittext= (EditText) findViewById(R.id.EnterDueDate_EditText_NewChore);
+        final DatePicker enterDate = (DatePicker)findViewById(R.id.DueDate_DatePicker_ChoreDetails);
+
+
+        edittext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                DatePickerDialog.OnDateSetListener dpd = new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int monthOfYear,
+                                          int dayOfMonth) {
+
+                        int s=monthOfYear+1;
+                        String a = dayOfMonth+"/"+s+"/"+year;
+                        edittext.setText(""+a);
+                    }
+                };
+
+
+
+            }
+        });
+
+
+
     }
+
+
+
 
     public void onAddBttnClick(View view){
 

@@ -137,7 +137,7 @@ public class DatabaseManager {
 
     public Profile getProfileByName(String name) {
         for(Profile profile : this.getDatabasedProfiles()) {
-            if(profile.getName() == name) return profile;
+            if(profile.getName().equals(name)) return profile;
         }
 
         return null;
@@ -187,7 +187,6 @@ public class DatabaseManager {
                 int reward = c.getInt(c.getColumnIndex("reward"));
                 int penalty = c.getInt(c.getColumnIndex("penalty"));
 
-            // TODO: Add id for chore
                 chores.add(new Chore(name, desc, completionDate, deadline, adult, assignedTo, reward, penalty, account, id));
             }
         }
