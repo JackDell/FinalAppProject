@@ -33,7 +33,7 @@ public class ProfileCustomAdapter extends ArrayAdapter {
         TextView profilePoints = rowView.findViewById(R.id.tvProfilePointsDisplay);
 
         profileName.setText(this.profiles.get(position).getName());
-        profilePoints.setText(this.profiles.get(position).getPoints());
+        profilePoints.setText(String.valueOf(this.profiles.get(position).getPoints()));
 
         return rowView;
     }

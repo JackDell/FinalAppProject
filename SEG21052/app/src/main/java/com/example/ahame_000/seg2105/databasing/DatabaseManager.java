@@ -118,7 +118,7 @@ public class DatabaseManager {
                 String name = c.getString(c.getColumnIndex("name"));
                 String password = c.getString(c.getColumnIndex("password"));
                 int points = c.getInt(c.getColumnIndex("points"));
-                String account = c.getString(c.getColumnIndex("account"));
+                String account = c.getString(c.getColumnIndex("accEmail"));
                 String kind = c.getString(c.getColumnIndex("kind"));
                 if(kind.equals("Adult")) {
                     profiles.add(new Adult(name, password,  points, this.getAccount(account), new ArrayList<Chore>()));
@@ -137,7 +137,7 @@ public class DatabaseManager {
 
     public Profile getProfileByName(String name) {
         for(Profile profile : this.getDatabasedProfiles()) {
-            if(profile.getName() == name) return profile;
+            if(profile.getName().equals(name)) return profile;
         }
 
         return null;

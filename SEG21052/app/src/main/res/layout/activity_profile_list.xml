@@ -29,6 +29,9 @@
         <ListView
             android:id="@+id/ProfilesLoginListView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            style="@style/Widget.AppCompat.ListView"
+            android:scrollbars="vertical"
+            tools:layout_editor_absoluteX="8dp" />
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>
