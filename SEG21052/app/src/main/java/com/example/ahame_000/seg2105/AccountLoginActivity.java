@@ -9,10 +9,23 @@ import android.widget.EditText;
 import com.example.ahame_000.seg2105.databasing.DatabaseHelper;
 import com.example.ahame_000.seg2105.databasing.DatabaseManager;
 
+import java.util.List;
+
 public class AccountLoginActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        DatabaseManager DM = new DatabaseManager(new DatabaseHelper(this.getApplicationContext()));
+        List<Profile> profiles = DM.getDatabasedProfiles();
+        List<Account> accounts = DM.getDatabasedAccounts();
+
+        for(Profile p : profiles) {
+            System.out.println(p.toString());
+        }
+
+        for(Account a : accounts) {
+            System.out.println(a.toString());
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_login);
     }
