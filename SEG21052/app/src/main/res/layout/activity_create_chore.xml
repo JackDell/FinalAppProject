@@ -139,17 +139,8 @@
                     android:text="Assign"
                     android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title" />
 
-                <EditText
-                    android:id="@+id/Person_EditText_NewChore"
-                    android:layout_width="153dp"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:hint="person"
-                    android:inputType="textPersonName"
-                    android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large" />
-
                 <Spinner
-                    android:id="@+id/DropDown_Spinner_NewChore"
+                    android:id="@+id/Assign_Spinner_CreateChore"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
