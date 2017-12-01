@@ -37,7 +37,7 @@ public class ProfileListActivity extends AppCompatActivity {
                 Session.setLoggedInProfile(selectedProfile);
 
                 Intent launchChoreList = new Intent(getApplicationContext(), ChoreListActivity.class);
-                launchChoreList.putExtra("LIST_TYPE", ChoreState.UNASSIGNED);
+                launchChoreList.putExtra("LIST_TYPE", ChoreState.UNASSIGNED.toString());
                 startActivity(launchChoreList);
 
             }
