@@ -45,11 +45,11 @@ public class ChoreListActivity extends AppCompatActivity {
 
                 Chore selectedChore = (Chore)parent.getItemAtPosition(position);
 
-               // selectedChore.getID();
+               String choreID = selectedChore.getStringId();
 
 
                 Intent launchChoreEdit = new Intent(getApplicationContext(), EditViewChoreActivity.class);
-
+                launchChoreEdit.putExtra("Chore_ID",choreID);
                 startActivity(launchChoreEdit);
 
             }
