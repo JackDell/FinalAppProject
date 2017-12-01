@@ -49,29 +49,6 @@
                 android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large" />
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.19"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/CreatedBy_TextView_NewChore"
-                    android:layout_width="180dp"
-                    android:layout_height="wrap_content"
-                    android:text="Created By:"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title" />
-
-                <EditText
-                    android:id="@+id/EnterUsername_EditText_NewChore"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:hint="Enter username"
-                    android:inputType="textNoSuggestions|textPersonName" />
-            </LinearLayout>
-
-            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.19"
@@ -123,7 +100,7 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title" />
 
             <EditText
-                android:id="@+id/EnterDescription_EditText_NewChore"
+                android:id="@+id/EnterRewards_EditText_NewChore"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
@@ -186,6 +163,17 @@
                 android:layout_weight="0.19"
                 android:orientation="horizontal">
 
+                <TextView
+                    android:id="@+id/IncorrectCreds_TextView_NewChore"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/holo_red_dark"
+                    android:textSize="18sp"
+                    android:textStyle="italic"
+                    android:visibility="invisible" />
+
                 <Button
                     android:id="@+id/Add_Button_NewChore"
                     style="@android:style/Widget.DeviceDefault.Button.Inset"
@@ -193,6 +181,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Add" />
+
             </LinearLayout>
 
         </LinearLayout>

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
@@ -27,13 +26,12 @@ public class ProfileSpinnerAdapter extends ArrayAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View rowView = inflater.inflate(R.layout.profile_row_layout, parent, false);
+        View rowView = inflater.inflate(R.layout.assign_to_profile_item_layout, parent, false);
 
-        TextView profileName = rowView.findViewById(R.id.tvProfileNameDisplay);
-        TextView profilePoints = rowView.findViewById(R.id.tvProfilePointsDisplay);
+        TextView profileName = rowView.findViewById(R.id.ProfileName_TextView_AssignToSpinner);
 
         profileName.setText(this.profiles.get(position).getName());
-        profilePoints.setText(this.profiles.get(position).getPoints());
+
 
         return rowView;
     }

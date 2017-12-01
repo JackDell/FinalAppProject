@@ -16,17 +16,18 @@ package="com.example.ahame_000.seg2105">
     </activity>
     <activity android:name=".CreateAccountActivity"/>
     <activity android:name=".EditViewChoreActivity" >
-    <intent-filter>
-        <action android:name="android.intent.action.MAIN" />
 
-        <category android:name="android.intent.category.LAUNCHER" />
-    </intent-filter>
     </activity>
     <activity android:name=".AddMemberActivity" />
     <activity android:name=".ChoreListActivity">
 
     </activity>
     <activity android:name=".AccountLoginActivity" >
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
 
 
     </activity>

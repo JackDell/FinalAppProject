@@ -19,20 +19,20 @@ public class ChoreListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_chore_list);
 
-        ChoreState listType = ChoreState.valueOf(getIntent().getStringExtra("LIST_TYPE"));
-        Profile profile = Session.getViewedChild();
-        if(profile == null)
-            profile = Session.getLoggedInProfile();
+       // ChoreState listType = ChoreState.valueOf(getIntent().getStringExtra("LIST_TYPE"));
+        //Profile profile = Session.getViewedChild();
+        //if(profile == null)
+          //  profile = Session.getLoggedInProfile();
         Account account = Session.getLoggedInAccount();
         ArrayList<Chore> choreList = ( ArrayList<Chore>) account.getUnassignedChores();
-        switch (listType){
+        /*switch (listType){
             case TODO:
                 choreList = ( ArrayList<Chore>) profile.getTodoChores();
             case COMPLETED:
                 choreList = ( ArrayList<Chore>) profile.getCompletedChores();
             case UNASSIGNED:
                 choreList = ( ArrayList<Chore>) account.getUnassignedChores();
-        }
+        }*/
 
 
         ListView listView = findViewById(R.id.GeneralChoresList_ListView_HomePage);
@@ -54,8 +54,5 @@ public class ChoreListActivity extends AppCompatActivity {
 
             }
         });
-
-
-
     }
 }
