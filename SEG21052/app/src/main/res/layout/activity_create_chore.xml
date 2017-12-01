@@ -140,7 +140,7 @@
                     android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title" />
 
                 <Spinner
-                    android:id="@+id/Assign_Spinner_CreateChore"
+                    android:id="@+id/AssignTo_Spinner_CreateChore"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
