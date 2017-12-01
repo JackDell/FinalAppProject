@@ -2,6 +2,7 @@ package com.example.ahame_000.seg2105;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -19,6 +20,16 @@ public class ChoreListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_chore_list);
 
+
+        final ActionBar actionBar = getSupportActionBar();
+        if(actionBar!=null)
+        {
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_drawer);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+
+
+
         ChoreState listType = ChoreState.valueOf(getIntent().getStringExtra("LIST_TYPE"));
         Profile profile = Session.getViewedChild();
         if(profile == null)
@@ -33,6 +44,8 @@ public class ChoreListActivity extends AppCompatActivity {
             case UNASSIGNED:
                 choreList = ( ArrayList<Chore>) account.getUnassignedChores();
         }
+        //TODO : set the display name of the list
+
 
 
         ListView listView = findViewById(R.id.GeneralChoresList_ListView_HomePage);
