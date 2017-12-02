@@ -12,8 +12,6 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.AdapterView;
-import android.widget.ListView;
 
 public class ChoreListActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -66,18 +64,12 @@ public class ChoreListActivity extends AppCompatActivity
         int id = item.getItemId();
         FragmentManager fragmentManager = getFragmentManager();
         if (id == R.id.nav_completed_list) {
-            ChoreListFragment fragment = new ChoreListFragment();
-            fragment.setListType(ChoreState.COMPLETED);
-            fragmentManager.beginTransaction().replace(R.id.content_frame,fragment).commit();
+            fragmentManager.beginTransaction().replace(R.id.content_frame,new ChoreCompletedListFragment()).commit();
 
         } else if (id == R.id.nav_general_list) {
-            ChoreListFragment fragment = new ChoreListFragment();
-            fragment.setListType(ChoreState.UNASSIGNED);
-            fragmentManager.beginTransaction().replace(R.id.content_frame,fragment).commit();
+            fragmentManager.beginTransaction().replace(R.id.content_frame,new ChoreGeneralListFragment()).commit();
         } else if (id == R.id.nav_todo_list) {
-            ChoreListFragment fragment = new ChoreListFragment();
-            fragment.setListType(ChoreState.TODO);
-            fragmentManager.beginTransaction().replace(R.id.content_frame,fragment).commit();
+            fragmentManager.beginTransaction().replace(R.id.content_frame,new ChoreTodoListFragment()).commit();
         } else if (id == R.id.nav_viewOthers) {
             //Todo
 
