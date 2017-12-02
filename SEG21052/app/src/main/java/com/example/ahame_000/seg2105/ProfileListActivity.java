@@ -7,8 +7,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.example.ahame_000.seg2105.databasing.DatabaseHelper;
-import com.example.ahame_000.seg2105.databasing.DatabaseManager;
 
 import java.util.List;
 
@@ -38,5 +36,10 @@ public class ProfileListActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    public void onCreateChoreBttnClick(View view) {
+        Intent intent = new Intent(this, CreateChoreActivity.class);
+        startActivity(intent);
     }
 }

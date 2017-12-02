@@ -141,4 +141,12 @@ public class Account {
 
      }
 
+     public Profile getProfile(String name) {
+         for(Profile profile : this.profiles) {
+             if(profile.getName().equals(name)) return profile;
+         }
+
+         return null;
+     }
+
 }

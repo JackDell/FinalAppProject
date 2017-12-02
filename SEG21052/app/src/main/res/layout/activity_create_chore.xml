@@ -23,6 +23,29 @@
             tools:layout_editor_absoluteX="8dp"
             tools:layout_editor_absoluteY="10dp">
 
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_weight="0.19"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <DatePicker
+                    android:id="@+id/dueDate_DatePicker_ChoreDetails"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/DueDate_TextView_NewChore"
+                    android:layout_width="174dp"
+                    android:layout_height="20dp"
+                    android:text="Due Date:"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title" />
+
+            </LinearLayout>
+
             <TextView
                 android:id="@+id/NewChore_TextView_NewChore"
                 android:layout_width="wrap_content"
@@ -47,38 +70,6 @@
                 android:hint="Enter Chore."
                 android:inputType="textPersonName"
                 android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.19"
-                android:orientation="horizontal"
-                android:visibility="gone">
-
-                <DatePicker
-                    android:id="@+id/dueDate_DatePicker_ChoreDetails"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:visibility="gone" />
-
-                <TextView
-                    android:id="@+id/DueDate_TextView_NewChore"
-                    android:layout_width="174dp"
-                    android:layout_height="wrap_content"
-                    android:text="Due Date:"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title" />
-
-                <EditText
-                    android:id="@+id/EnterDueDate_EditText_NewChore"
-                    android:layout_width="175dp"
-                    android:layout_height="wrap_content"
-                    android:clickable="true"
-                    android:ems="10"
-                    android:hint="Enter date due"
-                    android:inputType="textNoSuggestions|textPersonName" />
-
-            </LinearLayout>
 
             <TextView
                 android:id="@+id/Description_TextView_NewChore"
@@ -134,6 +125,15 @@
                 android:hint="Enter penalty"
                 android:inputType="textPersonName"
                 android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large" />
+
+            <EditText
+                android:id="@+id/EnterDueDate_EditText_NewChore"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.19"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="Date" />
 
             <LinearLayout
                 android:layout_width="wrap_content"

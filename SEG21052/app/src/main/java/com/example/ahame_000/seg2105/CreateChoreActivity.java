@@ -30,18 +30,16 @@ public class CreateChoreActivity extends AppCompatActivity {
         View incorrectPopUp = findViewById(R.id.IncorrectCreds_TextView_NewChore);
         incorrectPopUp.setVisibility(View.INVISIBLE);
 
-
-        Spinner spinner = findViewById(R.id.AssignTo_Spinner_CreateChore);
+        //Spinner spinner = findViewById(R.id.AssignTo_Spinner_CreateChore);
         List<Profile> profiles = Session.getLoggedInAccount().getChildren();
         profiles.add(Session.getLoggedInProfile());
         Profile unassignedProfile = new Adult("Unassigned","",null);
         profiles.add(unassignedProfile);
-        ProfileSpinnerAdapter adapter = new ProfileSpinnerAdapter(this.getApplicationContext(),profiles);
-        adapter.setDropDownViewResource(R.layout.assign_to_profile_item_layout);
-        spinner.setAdapter(adapter);
+        //ProfileSpinnerAdapter adapter = new ProfileSpinnerAdapter(this.getApplicationContext(),profiles);
+        //adapter.setDropDownViewResource(R.layout.assign_to_profile_item_layout);
+        //spinner.setAdapter(adapter);
 
         EditText dateEditText = (EditText) findViewById(R.id.EnterDueDate_EditText_NewChore);
-        DatePicker enterDate = (DatePicker)findViewById(R.id.DueDate_DatePicker_ChoreDetails);
 
         setDate fromDate = new setDate(dateEditText, this);
     }
@@ -107,8 +105,8 @@ public class CreateChoreActivity extends AppCompatActivity {
             incorrectPopUp.setVisibility(View.VISIBLE);
         }*/
         else{
-            //TODO add profile instead of null
-            Chore chore = new Chore(choreName,description, null,duedate,(Adult)Session.getLoggedInProfile(),
+            //TODO add profile instead of null, and fix chorestate
+            Chore chore = new Chore(choreName, description, ChoreState.UNASSIGNED, null, duedate,(Adult)Session.getLoggedInProfile(),
                     null, reward, penalty, Session.getLoggedInAccount(), UUID.randomUUID());
 
             DatabaseManager DM = new DatabaseManager(new DatabaseHelper(this.getApplicationContext()));
