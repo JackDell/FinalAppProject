@@ -1,5 +1,6 @@
 package com.example.ahame_000.seg2105;
 
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -8,13 +9,9 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.TextView;
-
-import java.util.ArrayList;
 
 public class ChoreListActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -23,7 +20,6 @@ public class ChoreListActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_chore_list);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        // setSupportActionBar(toolbar);
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -32,72 +28,9 @@ public class ChoreListActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView =  findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-
-/*
-
->>>>>>> 32ad7dc7b3b99fdd7bc99b123d8e369f54288c8e
-        ChoreState listType = ChoreState.valueOf(getIntent().getStringExtra("LIST_TYPE"));
-        //Profile profile = Session.getViewedChild();
-        //if(profile == null)
-          //  profile = Session.getLoggedInProfile();
-        Account account = Session.getLoggedInAccount();
-        ArrayList<Chore> choreList = ( ArrayList<Chore>) account.getUnassignedChores();
-        /*switch (listType){
-//=======
-        ChoreState listType = ChoreState.valueOf(getIntent().getStringExtra("LIST_TYPE"));
-
-
-        TextView listTittleField = findViewById(R.id.ChoresListTitle_TextView_HomePage);
-
-
-        Profile profile = Session.getViewedChild();
-        if (profile == null)
-            profile = Session.getLoggedInProfile();
-        Account account = Session.getLoggedInAccount();
-        ArrayList<Chore> choreList = (ArrayList<Chore>) account.getUnassignedChores();
-        switch (listType) {
->>>>>>> 2cec231e2a92dd411ef1b43b280b1fa5b3071bea
-            case TODO:
-                choreList = (ArrayList<Chore>) profile.getTodoChores();
-                listTittleField.setText("To-Do List");
-            case COMPLETED:
-                choreList = (ArrayList<Chore>) profile.getCompletedChores();
-                listTittleField.setText("Completed List");
-
-            case UNASSIGNED:
-<<<<<<< HEAD
-                choreList = ( ArrayList<Chore>) account.getUnassignedChores();
-        }
-//=======
-              //  choreList = (ArrayList<Chore>) account.getUnassignedChores();
-              //  listTittleField.setText("General List");
-
-     //   }
-//>>>>>>> 2cec231e2a92dd411ef1b43b280b1fa5b3071bea
-
-
-        ListView listView = findViewById(R.id.GeneralChoresList_ListView_HomePage);
-        ChoreCustomAdapter adapter = new ChoreCustomAdapter(this, choreList);
-        listView.setAdapter(adapter);
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, final View view, int position, long id) {
-
-                Chore selectedChore = (Chore) parent.getItemAtPosition(position);
-
-                String choreID = selectedChore.getStringId();
-
-
-                Intent launchChoreEdit = new Intent(getApplicationContext(), EditViewChoreActivity.class);
-                launchChoreEdit.putExtra("Chore_ID", choreID);
-                startActivity(launchChoreEdit);
-
-            }
-        });*/
 
     }
     @Override
@@ -110,14 +43,14 @@ public class ChoreListActivity extends AppCompatActivity
         }
     }
 
-/*
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.nav, menu);
         return true;
     }
-*/
+
 
 
 
@@ -125,20 +58,18 @@ public class ChoreListActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
-        int id = item.getItemId();
 
+        Log.d("nour","   in S onNavigationItemSelected of ChoreListAvtivity");
+
+        int id = item.getItemId();
+        FragmentManager fragmentManager = getFragmentManager();
         if (id == R.id.nav_completed_list) {
-            Intent intent = new Intent(this,ChoreListActivity.class);
-            intent.putExtra("LIST_TYPE", ChoreState.COMPLETED);
-            startActivity(intent);
+            fragmentManager.beginTransaction().replace(R.id.content_frame,new ChoreCompletedListFragment()).commit();
+
         } else if (id == R.id.nav_general_list) {
-            Intent intent = new Intent(this,ChoreListActivity.class);
-            intent.putExtra("LIST_TYPE", ChoreState.UNASSIGNED);
-            startActivity(intent);
+            fragmentManager.beginTransaction().replace(R.id.content_frame,new ChoreGeneralListFragment()).commit();
         } else if (id == R.id.nav_todo_list) {
-            Intent intent = new Intent(this,ChoreListActivity.class);
-            intent.putExtra("LIST_TYPE", ChoreState.TODO);
-            startActivity(intent);
+            fragmentManager.beginTransaction().replace(R.id.content_frame,new ChoreTodoListFragment()).commit();
         } else if (id == R.id.nav_viewOthers) {
             //Todo
 

@@ -2,7 +2,6 @@ package com.example.ahame_000.seg2105;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 
 public abstract class Profile {
@@ -101,11 +100,11 @@ public abstract class Profile {
      * @return a List containing the Profile's Chores that have not been completed yet
      */
     public List<Chore> getTodoChores() {
-        LinkedList<Chore> todoChores = new LinkedList<Chore>();
+        ArrayList<Chore> todoChores = new ArrayList<>();
         for (Chore chore:chores){
             chore.isLate();//check and update if chore is late
             if(chore.getState()==ChoreState.TODO ||chore.getState()==ChoreState.PASTDUE)
-              todoChores.addLast(chore);
+              todoChores.add(chore);
 
         }
         Collections.sort(todoChores);
@@ -116,11 +115,11 @@ public abstract class Profile {
      * @return a List containing the Profile's Chores that have been completed
      */
     public List<Chore> getCompletedChores() {
-        LinkedList<Chore> completedChores = new LinkedList<Chore>();
+        ArrayList<Chore> completedChores = new ArrayList<>();
         for (Chore chore:chores){
             chore.isLate();//check and update if chore is late
             if(chore.getState()==ChoreState.COMPLETED)
-                completedChores.addLast(chore);
+                completedChores.add(chore);
 
         }
         return completedChores;

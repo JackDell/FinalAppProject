@@ -24,11 +24,11 @@ public class Chore implements Comparable {
     /**
      * Constructor
      */
-    public Chore(String name, String description, Date completedDate, Date deadline, Adult creator, Profile assignedTo, int reward,
+    public Chore(String name, String description, ChoreState state, Date completedDate, Date deadline, Adult creator, Profile assignedTo, int reward,
                  int penalty, Account account, UUID id) {
         this.name = name;
         this.description = description;
-        this.state = ChoreState.UNASSIGNED;
+        this.state = state;
         this.deadline = deadline;
         this.creator = creator;
         this.assignedTo = assignedTo;
@@ -44,7 +44,7 @@ public class Chore implements Comparable {
      *
      */
     public Chore(String name, String description, Date deadline, int reward, Account account) {
-        this( name, description, null, deadline, null, null, reward, 0, account, UUID.randomUUID());
+        this( name, description, ChoreState.UNASSIGNED, null, deadline, null, null, reward, 0, account, UUID.randomUUID());
     }
 
     /**
