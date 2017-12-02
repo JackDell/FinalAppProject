@@ -29,21 +29,35 @@ public class DatabaseManager {
 
         DB_Helper.getWritableDatabase().insert("Accounts", null, values);
 
-        this.loginAccount(account.getEmail(),  account.getPassword());
+        for(Chore chore : account.getAllChores()) {
+            this.saveChore(chore);
+        }
     }
 
     public Account getAccount(String accountEmail) {
         String select = "SELECT * FROM Accounts WHERE email = '" + accountEmail + "'";
-        Cursor c = DB_Helper.getReadableDatabase().rawQuery(select, new String[]{});
+        Cursor c = DB_Helper.getReadableDatabase().rawQuery(select, null);
+
+
         if(c == null) return null;
-        if(c.moveToFirst() == false) return null;
+        if(c.getCount() == 0) {
+            c.close();
+            return null;
+        }
+
+        c.moveToFirst();
+
         String email = c.getString(c.getColumnIndex("email"));
         String password = c.getString(c.getColumnIndex("password"));
 
         for(Account acc : this.getDatabasedAccounts()) {
-            if( acc.getEmail().equals(email) && acc.getPassword().equals(password)) return acc;
+            if( acc.getEmail().equals(email) && acc.getPassword().equals(password)) {
+                c.close();
+                return acc;
+            }
         }
 
+        c.close();
         return null;
     }
 
@@ -61,13 +75,25 @@ public class DatabaseManager {
         // If the cursor object we attempted to create is null (db doesn't exist), or has a length of 0 (db exists but has no entries)
         // we want to return our empty list
         if(c == null) return accounts;
-        if(c.getCount() == 0) return accounts;
+        if(c.getCount() == 0) {
+            c.close();
+            return accounts;
+        }
 
         try {
             while(c.moveToNext()) {
                 String email = c.getString(c.getColumnIndex("email"));
                 String pass = c.getString(c.getColumnIndex("password"));
-                accounts.add(new Account(email, pass));
+                Account account = new Account(email, pass);
+
+                List<Profile> accProfiles = new ArrayList<>();
+
+                for(Profile profile : this.getDatabasedProfiles()) {
+                    if(account.getEmail().equals(profile.getAccount().getEmail()));
+                }
+                account.setProfiles(accProfiles);
+                account.setChores(this.getDatabasedChores(account));
+                accounts.add(account);
             }
         }
         finally {
@@ -95,6 +121,10 @@ public class DatabaseManager {
         values.put("accEmail", profile.getAccount().getEmail());
 
         DB_Helper.getWritableDatabase().insert("Profiles", null, values);
+
+        for(Chore chore : profile.getAllChores()) {
+            this.saveChore(chore);
+        }
     }
 
     /**
@@ -110,8 +140,13 @@ public class DatabaseManager {
 
         // If the cursor object we attempted to create is null (db doesn't exist), or has a length of 0 (db exists but has no entries)
         // we want to return our empty list
-        if(c == null) return profiles;
-        if(c.getCount() == 0) return profiles;
+        if(c == null) {
+            return profiles;
+        }
+        if(c.getCount() == 0) {
+            c.close();
+            return profiles;
+        }
 
         try {
             while(c.moveToNext()) {
@@ -121,10 +156,14 @@ public class DatabaseManager {
                 String account = c.getString(c.getColumnIndex("accEmail"));
                 String kind = c.getString(c.getColumnIndex("kind"));
                 if(kind.equals("Adult")) {
-                    profiles.add(new Adult(name, password,  points, this.getAccount(account), new ArrayList<Chore>()));
+                    Adult adult = new Adult(name, password,  points, this.getAccount(account), new ArrayList<Chore>());
+                    adult.setChores(this.getDatabasedChores(adult));
+                    profiles.add(adult);
                 }
                 else {
-                    profiles.add(new Child(name, password, points, this.getAccount(account), new ArrayList<Chore>()));
+                    Child child = new Child(name, password, points, this.getAccount(account), new ArrayList<Chore>());
+                    child.setChores(this.getDatabasedChores(child));
+                    profiles.add(child);
                 }
             }
         }
@@ -172,7 +211,10 @@ public class DatabaseManager {
         Cursor c = DB_Helper.getReadableDatabase().rawQuery("SELECT * FROM Chores", null);
 
         if(c == null) return chores;
-        if(c.getCount() == 0) return chores;
+        if(c.getCount() == 0) {
+            c.close();
+            return chores;
+        }
 
         try {
             while(c.moveToNext()) {
