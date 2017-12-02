@@ -33,11 +33,11 @@ public class ProfileListActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, final View view, int position, long id) {
 
-                Profile selectedProfile = (Profile) parent.getItemAtPosition(position);
+                //Profile selectedProfile = (Profile) parent.getItemAtPosition(position);
 
-                Intent launchProfileLogin = new Intent(getApplicationContext(), ProfileLoginActivity.class);
-                launchProfileLogin.putExtra("profileName", selectedProfile.getName());
-                startActivity(launchProfileLogin);
+                //Intent launchProfileLogin = new Intent(getApplicationContext(), ProfileLoginActivity.class);
+                //launchProfileLogin.putExtra("profileName", selectedProfile.getName());
+                //startActivity(launchProfileLogin);
             }
         });
 

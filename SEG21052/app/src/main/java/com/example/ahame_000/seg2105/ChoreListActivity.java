@@ -35,6 +35,18 @@ public class ChoreListActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+
+/*
+
+>>>>>>> 32ad7dc7b3b99fdd7bc99b123d8e369f54288c8e
+        ChoreState listType = ChoreState.valueOf(getIntent().getStringExtra("LIST_TYPE"));
+        //Profile profile = Session.getViewedChild();
+        //if(profile == null)
+          //  profile = Session.getLoggedInProfile();
+        Account account = Session.getLoggedInAccount();
+        ArrayList<Chore> choreList = ( ArrayList<Chore>) account.getUnassignedChores();
+        /*switch (listType){
+//=======
         ChoreState listType = ChoreState.valueOf(getIntent().getStringExtra("LIST_TYPE"));
 
 
@@ -47,6 +59,7 @@ public class ChoreListActivity extends AppCompatActivity
         Account account = Session.getLoggedInAccount();
         ArrayList<Chore> choreList = (ArrayList<Chore>) account.getUnassignedChores();
         switch (listType) {
+>>>>>>> 2cec231e2a92dd411ef1b43b280b1fa5b3071bea
             case TODO:
                 choreList = (ArrayList<Chore>) profile.getTodoChores();
                 listTittleField.setText("To-Do List");
@@ -55,10 +68,15 @@ public class ChoreListActivity extends AppCompatActivity
                 listTittleField.setText("Completed List");
 
             case UNASSIGNED:
-                choreList = (ArrayList<Chore>) account.getUnassignedChores();
-                listTittleField.setText("General List");
-
+<<<<<<< HEAD
+                choreList = ( ArrayList<Chore>) account.getUnassignedChores();
         }
+//=======
+              //  choreList = (ArrayList<Chore>) account.getUnassignedChores();
+              //  listTittleField.setText("General List");
+
+     //   }
+//>>>>>>> 2cec231e2a92dd411ef1b43b280b1fa5b3071bea
 
 
         ListView listView = findViewById(R.id.GeneralChoresList_ListView_HomePage);
@@ -79,7 +97,7 @@ public class ChoreListActivity extends AppCompatActivity
                 startActivity(launchChoreEdit);
 
             }
-        });
+        });*/
 
     }
     @Override

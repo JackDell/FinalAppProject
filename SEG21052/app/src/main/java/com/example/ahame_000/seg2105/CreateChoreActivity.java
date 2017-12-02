@@ -1,23 +1,27 @@
 package com.example.ahame_000.seg2105;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.support.v7.app.AppCompatActivity;
+
 import android.widget.Spinner;
+
 import android.widget.TextView;
 
 import com.example.ahame_000.seg2105.databasing.DatabaseHelper;
 import com.example.ahame_000.seg2105.databasing.DatabaseManager;
 
 import java.util.Date;
+
 import java.util.List;
+
 import java.util.UUID;
+import android.app.DatePickerDialog;
 
 public class CreateChoreActivity extends AppCompatActivity {
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +33,7 @@ public class CreateChoreActivity extends AppCompatActivity {
 
 
         Spinner spinner = findViewById(R.id.AssignTo_Spinner_CreateChore);
-        List<Profile> profiles =Session.getLoggedInAccount().getChildren();
+        List<Profile> profiles = Session.getLoggedInAccount().getChildren();
         profiles.add(Session.getLoggedInProfile());
         Profile unassignedProfile = new Adult("Unassigned","",null);
         profiles.add(unassignedProfile);
@@ -37,7 +41,17 @@ public class CreateChoreActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(R.layout.assign_to_profile_item_layout);
         spinner.setAdapter(adapter);
 
+        EditText dateEditText = (EditText) findViewById(R.id.EnterDueDate_EditText_NewChore);
+        DatePicker enterDate = (DatePicker)findViewById(R.id.DueDate_DatePicker_ChoreDetails);
+
+        setDate fromDate = new setDate(dateEditText, this);
     }
+
+
+    public void onEditDateBttnClick(View view) {
+
+    }
+
 
     public void onAddBttnClick(View view){
 
@@ -78,11 +92,9 @@ public class CreateChoreActivity extends AppCompatActivity {
             penalty = 0;
         }
 
-        Spinner assignToSpinner = findViewById(R.id.AssignTo_Spinner_CreateChore);
-        Profile assignToProfile = (Profile)assignToSpinner.getSelectedItem();
-        if(assignToProfile.getAccount()==null){
-            assignToProfile = null;
-        }
+
+        //TODO the spinner for assigning to someone
+
 
         // TODO if statement in saving
 
@@ -99,14 +111,45 @@ public class CreateChoreActivity extends AppCompatActivity {
         else{
             //TODO add profile instead of null
             Chore chore = new Chore(choreName,description, null,duedate,(Adult)Session.getLoggedInProfile(),
-                    assignToProfile, reward, penalty, Session.getLoggedInAccount(), UUID.randomUUID());
+                    null, reward, penalty, Session.getLoggedInAccount(), UUID.randomUUID());
 
             DatabaseManager DM = new DatabaseManager(new DatabaseHelper(this.getApplicationContext()));
+
             DM.saveChore(chore);
-            this.dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK));
+        }
+
+
+        /*
+        if(chore.getName()== null){
+            addButton.setVisibility(View.INVISIBLE);
+        }
+
+        if (chore.getPenalty() == 0){
+            addButton.setVisibility(View.INVISIBLE);
 
         }
 
+        if(chore.getReward() == 0){
+            addButton.setVisibility(View.INVISIBLE);
+
+        }
+
+        if(chore.getDeadline() == null){
+            addButton.setVisibility(View.INVISIBLE);
+
+        }
+
+        if (chore.getCreator() == null){
+            addButton.setVisibility(View.INVISIBLE);
+
+        }
+
+        if (chore.getAccount() == null){
+            addButton.setVisibility(View.INVISIBLE);
+
+        }
+
+        ****/
     }
 
 }

@@ -129,6 +129,8 @@ public class Account {
 
     }
      public List<Profile> getChildren(){
+
+
         ArrayList <Profile> children= new ArrayList<Profile>();
          for (Profile profile:profiles){
              if(profile instanceof Child){
@@ -136,6 +138,7 @@ public class Account {
              }
          }
          return children;
+
      }
 
 }

@@ -45,13 +45,6 @@ public class CreateAccountActivity extends AppCompatActivity {
         }
     }
 
-    public void addMemberBttnClick (View view){
-
-        if(saveContent()) {
-            Intent intent = new Intent(this, AddMemberActivity.class);
-            startActivity(intent);
-        }
-    }
     private boolean saveContent(){
         EditText emailTxt = findViewById(R.id.Email_EditText_CreateAccount);
         String emailString = emailTxt.getText().toString();

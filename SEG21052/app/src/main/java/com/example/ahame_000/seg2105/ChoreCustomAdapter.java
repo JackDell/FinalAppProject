@@ -26,8 +26,10 @@ public class ChoreCustomAdapter extends ArrayAdapter {
     public View getView(int position, View convertView, ViewGroup parent){
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View rowView = inflater.inflate(R.layout.chore_item_layout, parent, false);
+
         TextView choreNameTextField = (TextView) rowView.findViewById(R.id.ChoreName_TextView_ItemLayout);
         TextView choreDueDateTextField = (TextView) rowView.findViewById(R.id.DueDate_TextView_ItemLayout);
+
         choreNameTextField.setText(myChores.get(position).getName());
         choreDueDateTextField.setText(DateHelper.getDateString(myChores.get(position).getDeadline()));
 
