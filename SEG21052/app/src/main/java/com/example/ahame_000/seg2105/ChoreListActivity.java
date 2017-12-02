@@ -28,8 +28,6 @@ public class ChoreListActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
-
-
         ChoreState listType = ChoreState.valueOf(getIntent().getStringExtra("LIST_TYPE"));
         Profile profile = Session.getViewedChild();
         if(profile == null)
