@@ -55,6 +55,12 @@ public class AccountLoginActivity extends AppCompatActivity {
 
         if (DM.loginAccount(emailString, passwordString)){
 
+            if(DM.getDatabasedChores(Session.getLoggedInAccount()).size() == 0) {
+                Intent intent = new Intent(this, AddMemberActivity.class);
+                startActivity(intent);
+                return;
+            }
+
             Intent intent = new Intent(this,ProfileListActivity.class);
             startActivity(intent);
 

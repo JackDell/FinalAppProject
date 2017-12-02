@@ -11,11 +11,7 @@ package="com.example.ahame_000.seg2105">
     android:theme="@style/AppTheme">
 
     <activity android:name=".CreateChoreActivity" >
-    <intent-filter>
-        <action android:name="android.intent.action.MAIN" />
 
-        <category android:name="android.intent.category.LAUNCHER" />
-    </intent-filter>
     </activity>
     <activity android:name=".ProfileListActivity">
 
@@ -29,13 +25,14 @@ package="com.example.ahame_000.seg2105">
 
     </activity>
     <activity android:name=".AccountLoginActivity" >
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
 
 
     </activity>
-    <activity
-        android:name=".NavigationActivity"
-        android:label="@string/title_activity_navigation"
-        android:theme="@style/AppTheme.NoActionBar"></activity>
 </application>
 
 

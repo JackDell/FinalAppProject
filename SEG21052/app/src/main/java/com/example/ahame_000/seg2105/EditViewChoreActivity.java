@@ -83,7 +83,7 @@ public class EditViewChoreActivity extends AppCompatActivity {
 
 
         // instance of the spinner
-        Spinner spinner = findViewById(R.id.AssignToProfiles_Spinner_ChoreDetails);
+        /*Spinner spinner = findViewById(R.id.AssignToProfiles_Spinner_ChoreDetails);
         List<Profile> profiles =Session.getLoggedInAccount().getChildren();
 
         profiles.add(profile);
@@ -110,10 +110,10 @@ public class EditViewChoreActivity extends AppCompatActivity {
             saveButton.setVisibility(View.VISIBLE);
             deleteButton.setVisibility(View.INVISIBLE);
             assignToMeButton.setVisibility(View.VISIBLE);
-        }
+        }*/
 
     }
-   
+
 
     public void onDoneBttnClick(View view){
         LinearLayout eLayout = (LinearLayout)findViewById(R.id.CreatedByDate_Layout_ChoreDetails);

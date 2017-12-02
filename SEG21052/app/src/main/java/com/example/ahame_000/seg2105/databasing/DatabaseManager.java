@@ -12,10 +12,10 @@ import java.util.UUID;
 
 public class DatabaseManager {
 
-    private DatabaseHelper DB_Helper;
+    private static DatabaseHelper DB_Helper;
 
     public DatabaseManager(DatabaseHelper DB_Helper) {
-        this.DB_Helper = DB_Helper;
+        DB_Helper = DB_Helper;
     }
 
     /**

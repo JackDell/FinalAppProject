@@ -39,7 +39,7 @@ public class CreateChoreActivity extends AppCompatActivity {
 
 
         Spinner spinner = findViewById(R.id.AssignTo_Spinner_CreateChore);
-        List<Profile> profiles =Session.getLoggedInAccount().getChildren();
+        List<Profile> profiles = Session.getLoggedInAccount().getChildren();
         profiles.add(Session.getLoggedInProfile());
         Profile unassignedProfile = new Adult("Unassigned","",null);
         profiles.add(unassignedProfile);

@@ -130,16 +130,14 @@ public class Account {
     }
      public List<Profile> getChildren(){
 
-        //TODO
-         return null;
 
-       /* ArrayList <Profile> children= new ArrayList<Profile>();
+        ArrayList <Profile> children= new ArrayList<Profile>();
          for (Profile profile:profiles){
              if(profile instanceof Child){
                  children.add((Child)profile);
              }
          }
-         return children;*/
+         return children;
 
      }
 
