@@ -105,8 +105,8 @@ public class CreateChoreActivity extends AppCompatActivity {
             incorrectPopUp.setVisibility(View.VISIBLE);
         }*/
         else{
-            //TODO add profile instead of null
-            Chore chore = new Chore(choreName,description, null,duedate,(Adult)Session.getLoggedInProfile(),
+            //TODO add profile instead of null, and fix chorestate
+            Chore chore = new Chore(choreName, description, ChoreState.UNASSIGNED, null, duedate,(Adult)Session.getLoggedInProfile(),
                     null, reward, penalty, Session.getLoggedInAccount(), UUID.randomUUID());
 
             DatabaseManager DM = new DatabaseManager(new DatabaseHelper(this.getApplicationContext()));

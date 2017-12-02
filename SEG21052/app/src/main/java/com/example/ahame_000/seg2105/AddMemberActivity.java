@@ -25,7 +25,7 @@ public class AddMemberActivity extends AppCompatActivity {
         DatabaseManager DM = new DatabaseManager(new DatabaseHelper(getApplicationContext()));
         RadioButton childBttn = findViewById(R.id.Child_RadioButton_AddMember);
 
-        if(DM.getDatabasedProfiles().size() == 0){
+        if(Session.getLoggedInAccount().getProfiles().isEmpty()){
             childBttn.setVisibility(View.INVISIBLE);
 
         }
