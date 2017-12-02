@@ -1,16 +1,16 @@
 package com.example.ahame_000.seg2105;
 
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.ahame_000.seg2105.databasing.DatabaseHelper;
 import com.example.ahame_000.seg2105.databasing.DatabaseManager;
 
 import java.util.List;
-import android.widget.AdapterView;
-import android.view.View;
-import android.content.Intent;
 
 public class ProfileListActivity extends AppCompatActivity {
 
@@ -37,7 +37,7 @@ public class ProfileListActivity extends AppCompatActivity {
                 Session.setLoggedInProfile(selectedProfile);
 
                 Intent launchChoreList = new Intent(getApplicationContext(), ChoreListActivity.class);
-
+                launchChoreList.putExtra("LIST_TYPE", ChoreState.UNASSIGNED.toString());
                 startActivity(launchChoreList);
 
             }

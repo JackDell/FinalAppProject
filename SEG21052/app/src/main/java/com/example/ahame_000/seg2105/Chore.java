@@ -41,6 +41,7 @@ public class Chore implements Comparable {
 
     /**
      * Compressed Constructor
+     *
      */
     public Chore(String name, String description, Date deadline, int reward, Account account) {
         this( name, description, null, deadline, null, null, reward, 0, account, UUID.randomUUID());
@@ -226,6 +227,7 @@ public class Chore implements Comparable {
     }
 
 
+
     /**
      * Only if the Chore state is TODO or PASTDUE
      * the Chore state can be changed to COMPLETED
@@ -233,6 +235,7 @@ public class Chore implements Comparable {
      * Otherwise,
      * @return false;
      */
+
     public boolean complete(){
         if (state == ChoreState.TODO || state == ChoreState.PASTDUE){
             state = ChoreState.COMPLETED;

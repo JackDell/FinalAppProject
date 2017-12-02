@@ -17,15 +17,17 @@
 
     <item>
         <menu>
-            <item
-                android:id="@+id/nav_addChore"
-                android:title="@string/addChore_textView" />
-            <item
-                android:id="@+id/nav_addOtherMember"
-                android:title="@string/addNewMember_textView" />
-            <item
-                android:id="@+id/nav_viewOthers"
-                android:title="@string/viewOthers_textView" />
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_addChore"
+                    android:title="@string/addChore_textView" />
+                <item
+                    android:id="@+id/nav_addOtherMember"
+                    android:title="@string/addNewMember_textView" />
+                <item
+                    android:id="@+id/nav_viewOthers"
+                    android:title="@string/viewOthers_textView" />
+            </group>
         </menu>
     </item>
 

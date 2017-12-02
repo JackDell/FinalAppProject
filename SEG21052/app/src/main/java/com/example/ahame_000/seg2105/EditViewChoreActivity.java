@@ -27,7 +27,7 @@ public class EditViewChoreActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_view_chore);
 
         //DatabaseManager DM = new DatabaseManager(new DatabaseHelper(this.getApplicationContext()));
-        String id = getIntent().getStringExtra("chore ID");
+        String id = getIntent().getStringExtra("Chore_ID");
         Account account = Session.getLoggedInAccount();
         Profile profile = Session.getLoggedInProfile();
 
@@ -81,6 +81,9 @@ public class EditViewChoreActivity extends AppCompatActivity {
         // instance of the spinner
         Spinner spinner = findViewById(R.id.AssignToProfiles_Spinner_ChoreDetails);
         List<Profile> profiles =Session.getLoggedInAccount().getChildren();
+        profiles.add(profile);
+        Profile unassignedProfile = new Adult("Unassigned","",null);
+        profiles.add(unassignedProfile);
        ProfileSpinnerAdapter adapter = new ProfileSpinnerAdapter(this.getApplicationContext(),profiles);
 
         adapter.setDropDownViewResource(R.layout.assign_to_profile_item_layout);

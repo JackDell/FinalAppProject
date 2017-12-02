@@ -25,6 +25,7 @@ public class Account {
     }
 
     /**
+     *
      * Compressed Constructor
      */
     public Account(String email, String password) {
@@ -128,8 +129,13 @@ public class Account {
 
     }
      public List<Profile> getChildren(){
-        //TODO
-         return null;
+        ArrayList <Profile> children= new ArrayList<Profile>();
+         for (Profile profile:profiles){
+             if(profile instanceof Child){
+                 children.add((Child)profile);
+             }
+         }
+         return children;
      }
 
 }
