@@ -28,10 +28,6 @@ package="com.example.ahame_000.seg2105">
         </intent-filter>
 
     </activity>
-    <activity
-        android:name=".NavigationActivity"
-        android:label="@string/title_activity_navigation"
-        android:theme="@style/AppTheme.NoActionBar"></activity>
 </application>
 
 

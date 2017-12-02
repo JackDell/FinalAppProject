@@ -47,7 +47,9 @@ public class Chore implements Comparable {
         this( name, description, null, deadline, null, null, reward, 0, account, UUID.randomUUID());
     }
 
-
+    /**
+     * Getters
+     */
 
     public String getName() {
         return name;
@@ -64,6 +66,45 @@ public class Chore implements Comparable {
     public Date getCompletedDate() {
         return completedDate;
     }
+
+    public Date getDeadline(){
+        return deadline;
+    }
+
+    public int getPenalty(){
+        return penalty;
+    }
+
+    public int getReward(){
+        return reward;
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public String getStringId() {
+        return this.id.toString();
+    }
+
+    public Adult getCreator(){
+        return creator;
+    }
+
+    public Profile getAssignedTo(){
+        return assignedTo;
+    }
+
+    public Account getAccount() {
+        return this.account;
+    }
+
+
+    /**
+     * Setters
+     *
+     */
+
 
     private boolean setState(ChoreState aState)
     {
@@ -115,87 +156,14 @@ public class Chore implements Comparable {
         return wasSet;
     }
 
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public Date getDeadline(){
-        return deadline;
-    }
-
-    public int getPenalty(){
-        return penalty;
-    }
-
-    public int getReward(){
-        return reward;
-    }
-
-    public UUID getId() {
-        return id;
-    }
-
-    public String getStringId() {
-        return this.id.toString();
-    }
-
-    public Adult getCreator(){
-        return creator;
-    }
-
-    public Profile getAssignedTo(){
-        return assignedTo;
-    }
-
-    public Account getAccount() {
-        return this.account;
-    }
-
     public void setAccount(Account account) {
         this.account = account;
     }
 
-
-    //------------------------
-    // METHOD
-    //------------------------
-
-    // changing state to TO-DO once assigned
-    public boolean assign(){
-        if (state == ChoreState.UNASSIGNED){
-            state = ChoreState.TODO;
-
-            return true;
-        }
-        return false;
+    public void setId(UUID id) {
+        this.id = id;
     }
 
-    // changing state from to-do and pastdue to completed
-    public boolean complete(){
-        if (state == ChoreState.TODO || state == ChoreState.PASTDUE){
-            state = ChoreState.COMPLETED;
-            return true;
-        }
-
-
-
-        return false;
-    }
-
-    //changing state to pastdue when late
-    public  boolean isLate(){ return isLate(new Date()); }
-
-    private boolean isLate(Date today){
-        if (state == ChoreState.PASTDUE)
-            return true;
-        if (state == ChoreState.TODO && today.after(deadline)){
-            state = ChoreState.PASTDUE;
-            return true;
-        }
-
-        return false;
-
-    }
 
     public boolean setParent(Adult aAdult) {
         boolean wasSet = false;
@@ -235,6 +203,83 @@ public class Chore implements Comparable {
         wasSet = true;
         return wasSet;
     }
+
+
+
+
+    //------------------------
+    // METHOD
+    //------------------------
+
+    /**
+     * Only if Chore state is UNASSIGNED, the state of chore can be changed to TODO
+     * @return true
+     * else if the Chore state is anything else
+     * @return false
+     */
+    public boolean assign(){
+        if (state == ChoreState.UNASSIGNED){
+            state = ChoreState.TODO;
+
+            return true;
+        }
+        return false;
+    }
+
+
+
+    /**
+     * Only if the Chore state is TODO or PASTDUE
+     * the Chore state can be changed to COMPLETED
+     * @return true
+     * Otherwise,
+     * @return false;
+     */
+
+    public boolean complete(){
+        if (state == ChoreState.TODO || state == ChoreState.PASTDUE){
+            state = ChoreState.COMPLETED;
+            return true;
+        }
+        return false;
+    }
+
+    //changing state to pastdue when late
+    public  boolean isLate(){ return isLate(new Date()); }
+
+
+    /**
+     * When Chore state is PASTDUE, the method
+     * @return true
+     * When Chore state is today and the today's date is after the deadline
+     * Chore state is changed  to PASTDUE
+     * @param today
+     * @return true
+     * in any other case,
+     * @return false
+     *
+     */
+
+    private boolean isLate(Date today){
+        if (state == ChoreState.PASTDUE)
+            return true;
+        if (state == ChoreState.TODO && today.after(deadline)){
+            state = ChoreState.PASTDUE;
+            return true;
+        }
+
+        return false;
+
+    }
+
+    /**
+     * Chore can be deleted if state is COMPLETED or TODO or PASTDUE
+     * the chore assignment is then changed to null
+     * @return true
+     * else
+     * @return false
+     *
+     */
 
     public boolean delete() {
         if (state == ChoreState.COMPLETED) {
