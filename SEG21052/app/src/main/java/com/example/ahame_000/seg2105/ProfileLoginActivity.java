@@ -8,6 +8,7 @@ import android.widget.EditText;
 
 import com.example.ahame_000.seg2105.databasing.DatabaseHelper;
 import com.example.ahame_000.seg2105.databasing.DatabaseManager;
+import android.widget.TextView;
 
 public class ProfileLoginActivity extends AppCompatActivity {
 
@@ -15,7 +16,7 @@ public class ProfileLoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         String profileName = getIntent().getStringExtra("profileName");
-        EditText etName = findViewById(R.id.etProfileName);
+        TextView etName = findViewById(R.id.profileName_TextView_ProfileLogin);
         etName.setText(profileName);
 
         super.onCreate(savedInstanceState);
@@ -24,7 +25,7 @@ public class ProfileLoginActivity extends AppCompatActivity {
 
     public void onProfileLoginClick(View view) {
 
-        EditText etName = findViewById(R.id.etProfileName);
+        TextView etName = findViewById(R.id.profileName_TextView_ProfileLogin);
         EditText etPassword = findViewById(R.id.etProfilePass);
 
         String name = etName.getText().toString();
