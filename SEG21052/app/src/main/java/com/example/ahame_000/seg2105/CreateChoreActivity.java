@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -42,7 +41,6 @@ public class CreateChoreActivity extends AppCompatActivity {
     public void onAddBttnClick(View view){
 
 
-        Button addButton = (Button)findViewById(R.id.Add_Button_NewChore);
 
         EditText choreNameField = (EditText) findViewById(R.id.EnterChore_EditText_NewChore);
         String choreName = choreNameField.getText().toString();
@@ -91,11 +89,11 @@ public class CreateChoreActivity extends AppCompatActivity {
             incorrectPopUp.setText("Chore name is mandatory!");
             incorrectPopUp.setVisibility(View.VISIBLE);
         }
-        else if (duedate == null ){ //TODO make sure date is given
+       /* else if (duedate == null ){ //TODO make sure date is given
             TextView incorrectPopUp = findViewById(R.id.IncorrectCreds_TextView_NewChore);
             incorrectPopUp.setText("Due date is mandatory!");
             incorrectPopUp.setVisibility(View.VISIBLE);
-        }
+        }*/
         else{
             //TODO add profile instead of null
             Chore chore = new Chore(choreName,description, null,duedate,(Adult)Session.getLoggedInProfile(),
@@ -104,6 +102,7 @@ public class CreateChoreActivity extends AppCompatActivity {
             DatabaseManager DM = new DatabaseManager(new DatabaseHelper(this.getApplicationContext()));
             DM.saveChore(chore);
             this.dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK));
+            onBackPressed();
 
         }
 
