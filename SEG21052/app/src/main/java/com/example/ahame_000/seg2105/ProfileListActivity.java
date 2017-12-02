@@ -19,13 +19,10 @@ public class ProfileListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_list);
 
-        DatabaseManager DM = new DatabaseManager(new DatabaseHelper(this.getApplicationContext()));
-
-        List<Profile> profiles = DM.getDatabasedProfiles();
-
+        List<Profile> profiles = Session.getLoggedInAccount().getProfiles();
         ListView profileList = findViewById(R.id.ProfilesLoginListView);
 
-        ProfileCustomAdapter adapter = new ProfileCustomAdapter(this.getApplicationContext(), DM.getDatabasedProfiles());
+        ProfileCustomAdapter adapter = new ProfileCustomAdapter(this.getApplicationContext(), profiles);
         profileList.setAdapter(adapter);
 
         //when a profile is selected it is set as logged on and choreList is launched
