@@ -14,20 +14,14 @@ import android.widget.TextView;
 import com.example.ahame_000.seg2105.databasing.DatabaseHelper;
 import com.example.ahame_000.seg2105.databasing.DatabaseManager;
 
-import java.sql.Time;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import java.util.List;
 
-import java.util.Locale;
 import java.util.UUID;
-import java.util.Calendar;
 import android.app.DatePickerDialog;
-import android.view.View.OnClickListener;
 
 public class CreateChoreActivity extends AppCompatActivity {
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,37 +41,16 @@ public class CreateChoreActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(R.layout.assign_to_profile_item_layout);
         spinner.setAdapter(adapter);
 
+        EditText dateEditText = (EditText) findViewById(R.id.EnterDueDate_EditText_NewChore);
+        DatePicker enterDate = (DatePicker)findViewById(R.id.DueDate_DatePicker_ChoreDetails);
 
-
-        final EditText edittext= (EditText) findViewById(R.id.EnterDueDate_EditText_NewChore);
-        final DatePicker enterDate = (DatePicker)findViewById(R.id.DueDate_DatePicker_ChoreDetails);
-
-
-        edittext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                DatePickerDialog.OnDateSetListener dpd = new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int monthOfYear,
-                                          int dayOfMonth) {
-
-                        int s=monthOfYear+1;
-                        String a = dayOfMonth+"/"+s+"/"+year;
-                        edittext.setText(""+a);
-                    }
-                };
-
-
-
-            }
-        });
-
-
-
+        setDate fromDate = new setDate(dateEditText, this);
     }
 
 
+    public void onEditDateBttnClick(View view) {
+
+    }
 
 
     public void onAddBttnClick(View view){

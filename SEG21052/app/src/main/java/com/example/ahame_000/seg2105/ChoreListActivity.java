@@ -38,6 +38,7 @@ public class ChoreListActivity extends AppCompatActivity
 
 /*
 
+>>>>>>> 32ad7dc7b3b99fdd7bc99b123d8e369f54288c8e
         ChoreState listType = ChoreState.valueOf(getIntent().getStringExtra("LIST_TYPE"));
         //Profile profile = Session.getViewedChild();
         //if(profile == null)

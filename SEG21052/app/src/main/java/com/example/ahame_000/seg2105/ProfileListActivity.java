@@ -30,13 +30,11 @@ public class ProfileListActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, final View view, int position, long id) {
 
-                Profile selectedProfile = (Profile)parent.getItemAtPosition(position);
-                Session.setLoggedInProfile(selectedProfile);
+                //Profile selectedProfile = (Profile) parent.getItemAtPosition(position);
 
-                Intent launchChoreList = new Intent(getApplicationContext(), ChoreListActivity.class);
-                launchChoreList.putExtra("LIST_TYPE", ChoreState.UNASSIGNED.toString());
-                startActivity(launchChoreList);
-
+                //Intent launchProfileLogin = new Intent(getApplicationContext(), ProfileLoginActivity.class);
+                //launchProfileLogin.putExtra("profileName", selectedProfile.getName());
+                //startActivity(launchProfileLogin);
             }
         });
 

@@ -21,6 +21,7 @@ public class AddMemberActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_member);
+
         DatabaseManager DM = new DatabaseManager(new DatabaseHelper(getApplicationContext()));
         RadioButton childBttn = findViewById(R.id.Child_RadioButton_AddMember);
 
@@ -28,8 +29,6 @@ public class AddMemberActivity extends AppCompatActivity {
             childBttn.setVisibility(View.INVISIBLE);
 
         }
-
-
     }
 
 
