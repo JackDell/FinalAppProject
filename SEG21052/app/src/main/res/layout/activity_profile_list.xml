@@ -12,6 +12,13 @@
         tools:layout_editor_absoluteX="8dp"
         tools:layout_editor_absoluteY="8dp">
 
+        <Button
+            android:id="@+id/btnCreateChoreTester"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onCreateChoreBttnClick"
+            android:text="Create Chore" />
+
         <TextView
             android:id="@+id/tvProfilesText"
             android:layout_width="match_parent"

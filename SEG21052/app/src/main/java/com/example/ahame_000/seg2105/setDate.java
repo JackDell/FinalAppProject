@@ -31,10 +31,12 @@ public class setDate implements View.OnFocusChangeListener, DatePickerDialog.OnD
     @Override
     public void onDateSet(DatePicker picker, int year, int month, int day) {
         String format = "dd/MM/yyyy";
-        SimpleDateFormat formatted = new SimpleDateFormat(format, Locale.CANADA);
+        SimpleDateFormat formatter = new SimpleDateFormat(format, Locale.CANADA);
         calendar.set(Calendar.YEAR, year);
         calendar.set(Calendar.MONTH, month);
         calendar.set(Calendar.DAY_OF_MONTH, day);
+
+        et.setText(formatter.format(calendar.getTime()));
     }
 
     @Override

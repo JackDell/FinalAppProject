@@ -38,27 +38,25 @@ public class DatabaseManager {
         String select = "SELECT * FROM Accounts WHERE email = '" + accountEmail + "'";
         Cursor c = DB_Helper.getReadableDatabase().rawQuery(select, null);
 
+        Account account = null;
+        String email = "";
+        String password = "";
 
         if(c == null) return null;
-        if(c.getCount() == 0) {
+
+        try {
+            c.moveToFirst();
+            email = c.getString(c.getColumnIndex("email"));
+            password = c.getString(c.getColumnIndex("password"));
+        }
+        finally {
             c.close();
-            return null;
+            account = new Account(email, password);
+            account.setProfiles(this.getDatabasedProfiles(email));
+            account.setChores(this.getDatabasedChores(account));
         }
 
-        c.moveToFirst();
-
-        String email = c.getString(c.getColumnIndex("email"));
-        String password = c.getString(c.getColumnIndex("password"));
-
-        for(Account acc : this.getDatabasedAccounts()) {
-            if( acc.getEmail().equals(email) && acc.getPassword().equals(password)) {
-                c.close();
-                return acc;
-            }
-        }
-
-        c.close();
-        return null;
+        return account;
     }
 
     /**
@@ -75,10 +73,6 @@ public class DatabaseManager {
         // If the cursor object we attempted to create is null (db doesn't exist), or has a length of 0 (db exists but has no entries)
         // we want to return our empty list
         if(c == null) return accounts;
-        if(c.getCount() == 0) {
-            c.close();
-            return accounts;
-        }
 
         try {
             while(c.moveToNext()) {
@@ -89,7 +83,7 @@ public class DatabaseManager {
                 List<Profile> accProfiles = new ArrayList<>();
 
                 for(Profile profile : this.getDatabasedProfiles()) {
-                    if(account.getEmail().equals(profile.getAccount().getEmail()));
+                    if(account.getEmail().equals(profile.getAccount().getEmail())) accProfiles.add(profile);
                 }
                 account.setProfiles(accProfiles);
                 account.setChores(this.getDatabasedChores(account));
@@ -143,10 +137,6 @@ public class DatabaseManager {
         if(c == null) {
             return profiles;
         }
-        if(c.getCount() == 0) {
-            c.close();
-            return profiles;
-        }
 
         try {
             while(c.moveToNext()) {
@@ -169,6 +159,45 @@ public class DatabaseManager {
         }
         finally {
             c.close();
+        }
+
+        return profiles;
+    }
+
+    public List<Profile> getDatabasedProfiles(String accEmail) {
+
+        List<Profile> profiles = new ArrayList<>();
+
+        Cursor c = DB_Helper.getReadableDatabase().rawQuery("SELECT * FROM Profiles WHERE accEmail='" + accEmail + "'", null);
+
+        try {
+            if(c == null) return profiles;
+            if(c.moveToFirst() == false) {
+                c.close();
+                return profiles;
+            }
+
+            while(c.moveToNext()) {
+                String name = c.getString(c.getColumnIndex("name"));
+                String password = c.getString(c.getColumnIndex("password"));
+                int points = c.getInt(c.getColumnIndex("points"));
+                String account = accEmail;
+                String kind = c.getString(c.getColumnIndex("kind"));
+                if(kind.equals("Adult")) {
+                    Adult adult = new Adult(name, password,  points, this.getAccount(account), new ArrayList<Chore>());
+                    profiles.add(adult);
+                }
+                else {
+                    Child child = new Child(name, password, points, this.getAccount(account), new ArrayList<Chore>());
+                    profiles.add(child);
+                }
+            }
+        }
+        finally {
+            c.close();
+            for(Profile profile : profiles) {
+                profile.setChores(this.getDatabasedChores(profile));
+            }
         }
 
         return profiles;
@@ -211,10 +240,6 @@ public class DatabaseManager {
         Cursor c = DB_Helper.getReadableDatabase().rawQuery("SELECT * FROM Chores", null);
 
         if(c == null) return chores;
-        if(c.getCount() == 0) {
-            c.close();
-            return chores;
-        }
 
         try {
             while(c.moveToNext()) {
@@ -266,23 +291,30 @@ public class DatabaseManager {
 
     public boolean loginAccount(String email, String password) {
 
-        for(Account account : this.getDatabasedAccounts()) {
-            if(account.getEmail().equals(email) && account.getPassword().equals(password)) {
-                Session.setLoggedInAccount(account);
-                return true;
-            }
+        Cursor c = DB_Helper.getReadableDatabase().rawQuery("SELECT * FROM Accounts WHERE email='" + email + "' AND password='" + password + "'", null);
+
+        if(c == null) return false;
+        if(c.moveToFirst() == false) {
+            c.close();
+            return false;
         }
-        return false;
+
+        Session.setLoggedInAccount(this.getAccount(email));
+        return true;
     }
 
     public boolean loginProfile(String name, String password) {
 
-        for(Profile profile : this.getDatabasedProfiles()) {
-            if(profile.getName().equals(name) && profile.getPassword().equals(password)) {
-                Session.setLoggedInProfile(profile);
-                return true;
-            }
+        Cursor c = DB_Helper.getReadableDatabase().rawQuery("SELECT * FROM Profiles WHERE name='" + name + "' AND password='" + password + "'", null);
+
+        if(c == null) return false;
+        if(c.moveToFirst() == false) {
+            c.close();
+            return false;
         }
-        return false;
+
+        Session.setLoggedInProfile(this.getProfileByName(name));
+        
+        return true;
     }
 }

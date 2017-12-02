@@ -56,8 +56,5 @@ public class AddMemberActivity extends AppCompatActivity {
             Intent intent = new Intent(this,ProfileListActivity.class);
             startActivity(intent);
         }
-
     }
-
-
 }
