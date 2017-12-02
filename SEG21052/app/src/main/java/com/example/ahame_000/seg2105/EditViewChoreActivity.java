@@ -95,7 +95,10 @@ public class EditViewChoreActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(R.layout.assign_to_profile_item_layout);
         spinner.setAdapter(adapter);
 
-        //turning off visibility of some fields and components based on the profile type
+
+        /**
+         * Depending on the profile type, the widgets on the activity is VISIBLE or INVISIBLE
+         */
         if (profile instanceof  Adult) {
             assignLayout.setVisibility(View.VISIBLE);
             doneButton.setVisibility(View.VISIBLE);
@@ -110,7 +113,7 @@ public class EditViewChoreActivity extends AppCompatActivity {
             saveButton.setVisibility(View.VISIBLE);
             deleteButton.setVisibility(View.INVISIBLE);
             assignToMeButton.setVisibility(View.VISIBLE);
-        }*/
+        }
 
     }
 
