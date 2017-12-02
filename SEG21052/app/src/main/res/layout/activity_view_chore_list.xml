@@ -48,8 +48,12 @@
                     tools:layout_editor_absoluteX="8dp"
                     tools:layout_editor_absoluteY="8dp" />
             </LinearLayout>
+<<<<<<< HEAD
             -->
 
+=======
+-->
+>>>>>>> 6f7d5530755e619fbc479b3a1be2c5e7ccfc9bff
 
 
 </android.support.v4.widget.DrawerLayout>

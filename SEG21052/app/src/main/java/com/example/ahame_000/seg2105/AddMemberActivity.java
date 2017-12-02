@@ -21,6 +21,14 @@ public class AddMemberActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_member);
+
+        DatabaseManager DM = new DatabaseManager(new DatabaseHelper(getApplicationContext()));
+        RadioButton childBttn = findViewById(R.id.Child_RadioButton_AddMember);
+
+        if(DM.getDatabasedProfiles().size() == 0){
+            childBttn.setVisibility(View.INVISIBLE);
+
+        }
     }
 
 
@@ -45,7 +53,7 @@ public class AddMemberActivity extends AppCompatActivity {
             else if (childBttn.isChecked()){
                 DM.saveProfile(new Child(nameString,passwordString,currentAccount));
             }
-            Intent intent = new Intent(this,CreateAccountActivity.class);
+            Intent intent = new Intent(this,ProfileListActivity.class);
             startActivity(intent);
         }
 

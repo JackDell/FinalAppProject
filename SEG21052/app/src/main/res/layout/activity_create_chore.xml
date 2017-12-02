@@ -52,7 +52,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.19"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <DatePicker
+                    android:id="@+id/dueDate_DatePicker_ChoreDetails"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:visibility="gone" />
 
                 <TextView
                     android:id="@+id/DueDate_TextView_NewChore"
@@ -65,6 +73,7 @@
                     android:id="@+id/EnterDueDate_EditText_NewChore"
                     android:layout_width="175dp"
                     android:layout_height="wrap_content"
+                    android:clickable="true"
                     android:ems="10"
                     android:hint="Enter date due"
                     android:inputType="textNoSuggestions|textPersonName" />

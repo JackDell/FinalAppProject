@@ -13,6 +13,11 @@ public class ProfileLoginActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        String profileName = getIntent().getStringExtra("profileName");
+        EditText etName = findViewById(R.id.etProfileName);
+        etName.setText(profileName);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_login);
     }

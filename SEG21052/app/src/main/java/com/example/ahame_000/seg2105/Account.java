@@ -42,7 +42,7 @@ public class Account {
     /**
      * @param email a String object containing the email in which you want to set as the Account email
      */
-    private void setEmail(String email) {
+    public void setEmail(String email) {
         this.email = email;
     }
 
@@ -56,7 +56,7 @@ public class Account {
     /**
      * @param password a String object containing the password that you want to set as the Account password
      */
-    private void setPassword(String password) {
+    public void setPassword(String password) {
         this.password = password;
     }
 
@@ -70,7 +70,7 @@ public class Account {
     /**
      * @param profiles a List object containing all the profiles you want the Account to be associated with
      */
-    private void setProfiles(List<Profile> profiles) {
+    public void setProfiles(List<Profile> profiles) {
         this.profiles = profiles;
     }
 
@@ -98,7 +98,7 @@ public class Account {
     /**
      * @param chores a List object containing all the chores that you want to set as the 'community chores'
      */
-    private void setChores(List<Chore> chores) {
+    public void setChores(List<Chore> chores) {
         this.chores = chores;
     }
 
@@ -129,6 +129,8 @@ public class Account {
 
     }
      public List<Profile> getChildren(){
+
+
         ArrayList <Profile> children= new ArrayList<Profile>();
          for (Profile profile:profiles){
              if(profile instanceof Child){
@@ -136,6 +138,7 @@ public class Account {
              }
          }
          return children;
+
      }
 
 }

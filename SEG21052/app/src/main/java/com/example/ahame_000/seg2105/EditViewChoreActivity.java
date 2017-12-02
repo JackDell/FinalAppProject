@@ -27,7 +27,9 @@ public class EditViewChoreActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_view_chore);
 
         //DatabaseManager DM = new DatabaseManager(new DatabaseHelper(this.getApplicationContext()));
+
         String id = getIntent().getStringExtra("Chore_ID");
+
         Account account = Session.getLoggedInAccount();
         Profile profile = Session.getLoggedInProfile();
 
@@ -70,8 +72,10 @@ public class EditViewChoreActivity extends AppCompatActivity {
         EditText rewardsField = (EditText)findViewById(R.id.EnterRewards_EditText_ChoreDetails);
         rewardsField.setText(chore.getReward());
 
+
         EditText penaltyField = (EditText)findViewById(R.id.EnterPenalty_EditText_ChoreDetails);
         penaltyField.setText(chore.getPenalty());
+
 
         //TODO
        // EditText personField = (EditText)findViewById(R.id.Person_EditText_ChoreDetails);
@@ -79,17 +83,22 @@ public class EditViewChoreActivity extends AppCompatActivity {
 
 
         // instance of the spinner
-        Spinner spinner = findViewById(R.id.AssignToProfiles_Spinner_ChoreDetails);
+        /*Spinner spinner = findViewById(R.id.AssignToProfiles_Spinner_ChoreDetails);
         List<Profile> profiles =Session.getLoggedInAccount().getChildren();
+
         profiles.add(profile);
         Profile unassignedProfile = new Adult("Unassigned","",null);
         profiles.add(unassignedProfile);
+
        ProfileSpinnerAdapter adapter = new ProfileSpinnerAdapter(this.getApplicationContext(),profiles);
 
         adapter.setDropDownViewResource(R.layout.assign_to_profile_item_layout);
         spinner.setAdapter(adapter);
 
-        //turning off visibility of some fields and components based on the profile type
+
+        /**
+         * Depending on the profile type, the widgets on the activity is VISIBLE or INVISIBLE
+         */
         if (profile instanceof  Adult) {
             assignLayout.setVisibility(View.VISIBLE);
             doneButton.setVisibility(View.VISIBLE);
@@ -107,6 +116,7 @@ public class EditViewChoreActivity extends AppCompatActivity {
         }
 
     }
+
 
     public void onDoneBttnClick(View view){
         LinearLayout eLayout = (LinearLayout)findViewById(R.id.CreatedByDate_Layout_ChoreDetails);

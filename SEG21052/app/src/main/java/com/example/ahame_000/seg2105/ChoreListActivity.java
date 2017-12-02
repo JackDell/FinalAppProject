@@ -12,6 +12,8 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
+import android.widget.ListView;
 
 public class ChoreListActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -31,10 +33,6 @@ public class ChoreListActivity extends AppCompatActivity
         NavigationView navigationView =  findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        FragmentManager fragmentManager = getFragmentManager();
-        ChoreListFragment fragment = new ChoreListFragment();
-        fragment.setListType(ChoreState.UNASSIGNED);
-        fragmentManager.beginTransaction().replace(R.id.content_frame,fragment).commit();
 
     }
     @Override
