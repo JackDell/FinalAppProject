@@ -2,6 +2,7 @@ package com.example.ahame_000.seg2105.databasing;
 
 import android.content.ContentValues;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 
 import com.example.ahame_000.seg2105.Account;
 import com.example.ahame_000.seg2105.Adult;
@@ -135,9 +136,6 @@ public class DatabaseManager {
 
     public void saveChore(Chore chore) {
 
-        // Database already contains chore, returning
-        if(Session.getLoggedInAccount().getAllChores().contains(chore)) return;
-
         ContentValues values = new ContentValues();
         values.put("id", chore.getStringId());
         values.put("name", chore.getName());
@@ -160,7 +158,13 @@ public class DatabaseManager {
         values.put("reward", chore.getReward());
         values.put("penalty", chore.getPenalty());
         values.put("accEmail", chore.getAccount().getEmail());
-        DB_Helper.getWritableDatabase().insert("Profiles", null, values);
+
+        if(Session.getLoggedInAccount().getChore(chore.getId()) == null) {
+            DB_Helper.getWritableDatabase().insert("Chores", null, values);
+        }
+        else {
+            DB_Helper.getWritableDatabase().insertWithOnConflict("Chores", null, values, SQLiteDatabase.CONFLICT_REPLACE);
+        }
     }
 
 
