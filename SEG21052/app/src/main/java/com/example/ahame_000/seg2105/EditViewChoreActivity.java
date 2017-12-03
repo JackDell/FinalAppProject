@@ -23,80 +23,44 @@ public class EditViewChoreActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_view_chore);
 
-        //DatabaseManager DM = new DatabaseManager(new DatabaseHelper(this.getApplicationContext()));
-
+        // Getting the passed chore ID
         String id = getIntent().getStringExtra("Chore_ID");
 
         Account account = Session.getLoggedInAccount();
         Profile profile = Session.getLoggedInProfile();
 
-        chore = account.getChore(UUID.fromString(id));
+        Chore chore = account.getChore(UUID.fromString(id));
 
         //initializing the buttons
-        Button doneButton = (Button)findViewById(R.id.Done_Button_ChoreDetails);
-        Button assignToMeButton = (Button)findViewById(R.id.AssignToMe_Button_ChoreDetails);
-        Button saveButton = (Button)findViewById(R.id.Save_Button_ChoreDetails);
-        Button deleteButton = (Button)findViewById(R.id.Delete_Button_ChoreDetails);
+        Button doneButton = findViewById(R.id.Done_Button_ChoreDetails);
+        Button assignToMeButton = findViewById(R.id.AssignToMe_Button_ChoreDetails);
+        Button saveButton = findViewById(R.id.Save_Button_ChoreDetails);
+        Button deleteButton = findViewById(R.id.Delete_Button_ChoreDetails);
 
         //initialize the layout
-        LinearLayout assignLayout = (LinearLayout)findViewById(R.id.Assign_Layout_ChoreDetails);
+        LinearLayout assignLayout = findViewById(R.id.Assign_Layout_ChoreDetails);
 
-        EditText choreField = (EditText) findViewById(R.id.Chore_EditText_ChoreDetails);
-        choreField.setText(chore.getName());
+        EditText choreDescriptionField = findViewById(R.id.Chore_EditText_ChoreDetails);
+        choreDescriptionField.setText(chore.getName());
 
-        EditText creatorField = (EditText) findViewById(R.id.Creator_EditText_ChoreDetails);
+        EditText creatorField = findViewById(R.id.Creator_EditText_ChoreDetails);
         creatorField.setText(chore.getCreator().toString());
 
-        EditText completedDateField = (EditText)findViewById(R.id.CompletedDate_EditText_ChoreDetails);
+        EditText completedDateField = findViewById(R.id.CompletedDate_EditText_ChoreDetails);
         completedDateField.setText(chore.getCompletedDate().toString());
 
-        DatePicker dueDateField = (DatePicker) findViewById(R.id.DueDate_DatePicker_ChoreDetails);
-         Date duedate =  chore.getDeadline();
-
-
-         /*dueDateField.getYear(duedate.setYear());
-         dueDateField.set()(duedate.getMonth());
-         dueDateField.setDate()(duedate.getDayOfMonth);
-
-            duedate.setYear(dueDateField.getYear());
-            duedate.setMonth(dueDateField.getMonth());
-            duedate.setDate(dueDateField.getDayOfMonth());
-
-        */
-
-        EditText descriptionField = (EditText)findViewById(R.id.Description_EditText_ChoreDetails);
+        EditText descriptionField = findViewById(R.id.Description_EditText_ChoreDetails);
         descriptionField.setText(chore.getDescription());
 
-        EditText rewardsField = (EditText)findViewById(R.id.Rewards_EditText_ChoreDetails);
+        EditText rewardsField = findViewById(R.id.Rewards_EditText_ChoreDetails);
         rewardsField.setText(chore.getReward());
 
-
-        EditText penaltyField = (EditText)findViewById(R.id.Penalty_EditText_ChoreDetails);
+        EditText penaltyField = findViewById(R.id.Penalty_EditText_ChoreDetails);
         penaltyField.setText(chore.getPenalty());
 
+        EditText editTextFromDate = findViewById(R.id.etEditDeadlineDate);
+        setDate fromDate = new setDate(editTextFromDate, this);
 
-        //TODO
-       // EditText personField = (EditText)findViewById(R.id.Person_EditText_ChoreDetails);
-        //personField.setText(chore.getAssignedTo().toString());
-
-
-        // instance of the spinner
-        /*Spinner spinner = findViewById(R.id.AssignToProfiles_Spinner_ChoreDetails);
-        List<Profile> profiles =Session.getLoggedInAccount().getChildren();
-
-        profiles.add(profile);
-        Profile unassignedProfile = new Adult("Unassigned","",null);
-        profiles.add(unassignedProfile);
-
-       ProfileSpinnerAdapter adapter = new ProfileSpinnerAdapter(this.getApplicationContext(),profiles);
-
-        adapter.setDropDownViewResource(R.layout.assign_to_profile_item_layout);
-        spinner.setAdapter(adapter);
-
-
-        /**
-         * Depending on the profile type, the widgets on the activity is VISIBLE or INVISIBLE
-         */
         if (profile instanceof  Adult) {
             assignLayout.setVisibility(View.VISIBLE);
             doneButton.setVisibility(View.VISIBLE);
