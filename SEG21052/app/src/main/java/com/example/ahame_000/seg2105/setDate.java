@@ -10,11 +10,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
-/**
- * Created by Jack on 2017-12-02.
- */
-
-//TODO: ask Jack about this //NOUR
 
 public class setDate implements View.OnFocusChangeListener, DatePickerDialog.OnDateSetListener {
 

@@ -1,15 +1,11 @@
 package com.example.ahame_000.seg2105;
 
 import android.os.Bundle;
-import android.view.View;
-
-import android.widget.ArrayAdapter;
-import android.widget.DatePicker;
-import android.widget.EditText;
 import android.support.v7.app.AppCompatActivity;
-
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
-
 import android.widget.TextView;
 
 import com.example.ahame_000.seg2105.databasing.DatabaseHelper;
@@ -17,13 +13,12 @@ import com.example.ahame_000.seg2105.databasing.DatabaseManager;
 
 import java.util.ArrayList;
 import java.util.Date;
-
 import java.util.List;
-
 import java.util.UUID;
 
-public class CreateChoreActivity extends AppCompatActivity {
 
+public class CreateChoreActivity extends AppCompatActivity {
+private final String UNASSIGNED = "Unassigned";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,10 +29,11 @@ public class CreateChoreActivity extends AppCompatActivity {
 
         List<String> profileNames = new ArrayList<>();
 
-        for(Profile profile : Session.getLoggedInAccount().getProfiles()) {
+        for (Profile profile : Session.getLoggedInAccount().getChildren()) {
             profileNames.add(profile.getName());
         }
-
+        profileNames.add(Session.getLoggedInProfile().getName());
+        profileNames.add(UNASSIGNED);
         Spinner spinner = (Spinner) findViewById(R.id.AssignTo_Spinner_CreateChore);
 
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this,
@@ -46,25 +42,23 @@ public class CreateChoreActivity extends AppCompatActivity {
                 profileNames);
 
         spinner.setAdapter(spinnerAdapter);
+
+        EditText dateEditText = (EditText) findViewById(R.id.DueDate_EditText_NewChore);
+
+        setDate fromDate = new setDate(dateEditText, this);
     }
 
 
-    public void onEditDateBttnClick(View view) {
 
-    }
 
 
     public void onAddBttnClick(View view){
 
-
-
         EditText choreNameField = (EditText) findViewById(R.id.EnterChore_EditText_NewChore);
         String choreName = choreNameField.getText().toString();
 
-
-        //TODO: to be done later
-        //DatePicker dueDateField = (DatePicker) findViewById(R.id.DueDate_DatePicker_ChoreDetails);
-        Date duedate = new Date();
+        EditText dueDateField = findViewById(R.id.DueDate_EditText_NewChore);
+        Date duedate = DateHelper.dateFromString(dueDateField.getText());
 
         EditText descriptionField = (EditText)findViewById(R.id.EnterDescription_EditText_NewChore);
         String description = descriptionField.getText().toString();
@@ -93,22 +87,25 @@ public class CreateChoreActivity extends AppCompatActivity {
         }
 
 
-        //TODO the spinner for assigning to someone
-
-
-        // TODO if statement in saving
+        Spinner assignToSpinner = findViewById(R.id.AssignTo_Spinner_CreateChore);
+        String assignToName = (String) assignToSpinner.getSelectedItem(); //TODO: make sure this works
+        Profile assignTo;
+        if(assignToName == UNASSIGNED){
+            assignTo = null;
+        } else {
+            assignTo = Session.getLoggedInAccount().getProfile(assignToName);
+        }
 
         if(choreName.isEmpty() ) {
             TextView incorrectPopUp = findViewById(R.id.IncorrectCreds_TextView_NewChore);
             incorrectPopUp.setText("Chore name is mandatory!");
             incorrectPopUp.setVisibility(View.VISIBLE);
         }
-       /* else if (duedate == null ){ //TODO make sure date is given
+       else if (duedate == null ){
             TextView incorrectPopUp = findViewById(R.id.IncorrectCreds_TextView_NewChore);
             incorrectPopUp.setText("Due date is mandatory!");
             incorrectPopUp.setVisibility(View.VISIBLE);
-        }*/
-        else{
+        } else{
             //TODO add profile instead of null, and fix chorestate
             Chore chore = new Chore(choreName, description, ChoreState.UNASSIGNED, null, duedate,(Adult)Session.getLoggedInProfile(),
                     null, reward, penalty, Session.getLoggedInAccount(), UUID.randomUUID());
@@ -119,37 +116,6 @@ public class CreateChoreActivity extends AppCompatActivity {
 
         }
 
-        //TODO
-        /*
-        if(chore.getName()== null){
-            addButton.setVisibility(View.INVISIBLE);
-        }
-
-        if (chore.getPenalty() == 0){
-            addButton.setVisibility(View.INVISIBLE);
-
-        }
-
-        if(chore.getReward() == 0){
-            addButton.setVisibility(View.INVISIBLE);
-
-        }
-
-        if(chore.getDeadline() == null){
-            addButton.setVisibility(View.INVISIBLE);
-
-        }
-
-        if (chore.getCreator() == null){
-            addButton.setVisibility(View.INVISIBLE);
-
-        }
-
-        if (chore.getAccount() == null){
-            addButton.setVisibility(View.INVISIBLE);
-
-        }
-        */
 
     }
 
