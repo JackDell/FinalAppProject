@@ -10,11 +10,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String DB_NAME = "appDatabase.db";
     public static final String DB_TABLE_ACCOUNTS = "CREATE TABLE IF NOT EXISTS Accounts(email TEXT, password TEXT)";
     public static final String DB_TABLE_PROFILES = "CREATE TABLE IF NOT EXISTS Profiles(kind TEXT, name TEXT, password TEXT, points INTEGER, accEmail TEXT)";
-    public static final String DB_TABLE_CHORES = "CREATE TABLE IF NOT EXISTS Chores(id TEXT, name TEXT, desc TEXT, state TEXT, completedDate INTEGER, deadline INTEGER, creator TEXT, assignedTo TEXT, reward INTEGER, penalty INTEGER, accEmail TEXT)";
+    public static final String DB_TABLE_CHORES = "CREATE TABLE IF NOT EXISTS Chores(id TEXT, name TEXT, desc TEXT, state TEXT, completedDate TEXT, deadline TEXT, creator TEXT, assignedTo TEXT, reward INTEGER, penalty INTEGER, accEmail TEXT)";
 
 
     public DatabaseHelper(Context context) {
-        super(context, DB_NAME, null, 15);
+        super(context, DB_NAME, null, 16);
     }
 
     /**

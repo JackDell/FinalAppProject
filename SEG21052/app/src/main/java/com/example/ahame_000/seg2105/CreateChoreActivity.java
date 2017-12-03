@@ -15,11 +15,13 @@ import android.widget.TextView;
 import com.example.ahame_000.seg2105.databasing.DatabaseHelper;
 import com.example.ahame_000.seg2105.databasing.DatabaseManager;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
 import java.util.List;
 
+import java.util.Locale;
 import java.util.UUID;
 
 public class CreateChoreActivity extends AppCompatActivity {
@@ -48,15 +50,7 @@ public class CreateChoreActivity extends AppCompatActivity {
         spinner.setAdapter(spinnerAdapter);
     }
 
-
-    public void onEditDateBttnClick(View view) {
-
-    }
-
-
     public void onAddBttnClick(View view){
-
-
 
         EditText choreNameField = (EditText) findViewById(R.id.EnterChore_EditText_NewChore);
         String choreName = choreNameField.getText().toString();
