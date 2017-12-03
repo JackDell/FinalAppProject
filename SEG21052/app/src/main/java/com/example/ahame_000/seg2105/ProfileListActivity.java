@@ -15,8 +15,13 @@ public class ProfileListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_list);
+        final List<Profile> profiles;
+        if (Session.getLoggedInProfile() == null) {
 
-        final List<Profile> profiles = Session.getLoggedInAccount().getProfiles();
+            profiles = Session.getLoggedInAccount().getProfiles();
+        } else {
+            profiles = Session.getLoggedInAccount().getChildren();
+        }
         ListView profileList = findViewById(R.id.ProfilesLoginListView);
 
         ProfileCustomAdapter adapter = new ProfileCustomAdapter(this.getApplicationContext(), profiles);
@@ -26,10 +31,15 @@ public class ProfileListActivity extends AppCompatActivity {
         profileList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, final View view, int position, long id) {
-
-                Intent intent = new Intent(getApplicationContext(), ProfileLoginActivity.class);
-                intent.putExtra("profileName", profiles.get(position).getName());
-                startActivity(intent);
+                if (Session.getLoggedInProfile() == null) {
+                    Intent intent = new Intent(getApplicationContext(), ProfileLoginActivity.class);
+                    intent.putExtra("profileName", profiles.get(position).getName());
+                    startActivity(intent);
+                }else {
+                    Intent intent = new Intent(getApplicationContext(), NavigationActivity.class);
+                    Session.setViewedChild((Child)profiles.get(position));
+                    startActivity(intent);
+                }
             }
         });
 

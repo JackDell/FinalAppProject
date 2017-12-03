@@ -9,16 +9,14 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 
-public class ChoreListActivity extends AppCompatActivity
+public class NavigationActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_chore_list);
+        setContentView(R.layout.activity_navigation);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
 
@@ -32,6 +30,16 @@ public class ChoreListActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
 
+        if(Session.getLoggedInProfile() instanceof Child){
+            navigationView.getMenu().findItem(R.id.nav_adult_options).setVisible(false);
+        }
+
+
+        FragmentManager fragmentManager = getFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.content_frame,new ChoreGeneralListFragment()).commit();
+
+
+
     }
     @Override
     public void onBackPressed() {
@@ -39,29 +47,27 @@ public class ChoreListActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            if(Session.getViewedChild() == null){
+                Session.logoutProfile();
+                Intent intent = new Intent(this, ProfileListActivity.class);
+                startActivity(intent);
+            }
+            else {
+                Session.setViewedChild(null);
+                Intent intent = new Intent(this, NavigationActivity.class);
+                startActivity(intent);
+            }
+
         }
 
 
     }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.nav, menu);
-        return true;
-    }
-
-
-
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
 
-        Log.d("nour","   in S onNavigationItemSelected of ChoreListAvtivity");
 
         int id = item.getItemId();
         FragmentManager fragmentManager = getFragmentManager();
@@ -70,16 +76,21 @@ public class ChoreListActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_general_list) {
             fragmentManager.beginTransaction().replace(R.id.content_frame,new ChoreGeneralListFragment()).commit();
+
         } else if (id == R.id.nav_todo_list) {
             fragmentManager.beginTransaction().replace(R.id.content_frame,new ChoreTodoListFragment()).commit();
+
         } else if (id == R.id.nav_viewOthers) {
-            //Todo
+            Intent intent = new Intent(this,ProfileListActivity.class);
+            startActivity(intent);
 
         } else if (id == R.id.nav_addChore) {
             Intent intent = new Intent(this,CreateChoreActivity.class);
             startActivity(intent);
-        }else if (id == R.id.nav_addOtherMember){
-            //TODO:
+
+        } else if (id == R.id.nav_addOtherMember){
+            Intent intent = new Intent(this,AddMemberActivity.class);
+            startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

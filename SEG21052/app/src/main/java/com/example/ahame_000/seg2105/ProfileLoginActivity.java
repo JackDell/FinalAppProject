@@ -26,12 +26,12 @@ private String profileName = "";
 
         String password = etPassword.getText().toString();
         if (Session.loginProfile(profileName,password)){
-            Intent intent = new Intent(getApplicationContext(), ChoreListActivity.class);
+            Intent intent = new Intent(getApplicationContext(), NavigationActivity.class);
             startActivity(intent);
         } else {
-            //TODO error message
-            Intent intent = new Intent(getApplicationContext(), ProfileListActivity.class);
-            startActivity(intent);
+            etPassword.setText("");
+            View incorrectPopUp = findViewById(R.id.incorrectCreds_TextView_ProfileLogin);
+            incorrectPopUp.setVisibility(View.VISIBLE);
         }
     }
 }

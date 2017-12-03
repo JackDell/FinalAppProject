@@ -30,10 +30,6 @@ public class ChoreGeneralListFragment extends Fragment {
 
         TextView listTittleField =  this.view.findViewById(R.id.ChoresListTitle_TextView_GeneralList);
 
-
-        Profile profile = Session.getViewedChild();
-        if (profile == null)
-            profile = Session.getLoggedInProfile();
         Account account = Session.getLoggedInAccount();
         ArrayList<Chore> choreList = (ArrayList<Chore>) account.getUnassignedChores();
 

@@ -42,10 +42,9 @@ public class AccountLoginActivity extends AppCompatActivity {
 
         if (DM.loginAccount(emailString, passwordString)){
 
-            if(Session.getLoggedInAccount().getProfiles().size() == 0) {
+            if(Session.getLoggedInAccount().getProfiles().isEmpty()) {
                 Intent intent = new Intent(this, AddMemberActivity.class);
                 startActivity(intent);
-                return;
             }
             else {
                 Intent intent = new Intent(this, ProfileListActivity.class);

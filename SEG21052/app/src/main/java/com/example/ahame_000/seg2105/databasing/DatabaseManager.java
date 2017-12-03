@@ -140,6 +140,7 @@ public class DatabaseManager {
         values.put("id", chore.getStringId());
         values.put("name", chore.getName());
         values.put("desc", chore.getDescription());
+        //TODO: check if date is null
         values.put("completedDate", chore.getCompletedDate().getTime());
         values.put("deadline", chore.getCompletedDate().getTime());
         values.put("creatorName", chore.getCreator().getName());

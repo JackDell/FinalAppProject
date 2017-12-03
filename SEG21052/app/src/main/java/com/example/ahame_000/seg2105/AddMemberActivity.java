@@ -47,8 +47,13 @@ public class AddMemberActivity extends AppCompatActivity {
             else if (childBttn.isChecked()){
                 DM.saveProfile(new Child(nameString,passwordString,currentAccount));
             }
-            Intent intent = new Intent(this, ProfileListActivity.class);
-            startActivity(intent);
+            if(Session.getLoggedInProfile()==null){
+                Intent intent = new Intent(this, ProfileListActivity.class);
+                startActivity(intent);
+            } else {
+                Intent intent = new Intent(this, NavigationActivity.class);
+                startActivity(intent);
+            }
         }
     }
 }
