@@ -7,9 +7,14 @@
     tools:context="com.example.ahame_000.seg2105.ProfileLoginActivity">
 
     <LinearLayout
-        android:layout_width="300dp"
+        android:layout_width="match_parent"
+
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="20dp" />
 
         <TextView
             android:id="@+id/txtEnterProfile"
@@ -25,7 +30,7 @@
             android:id="@+id/profileName_TextView_ProfileLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView"
+            android:textAlignment="center"
             android:textSize="18sp" />
 
 
@@ -41,7 +46,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:textAlignment="center" />
+
         <TextView
             android:id="@+id/incorrectCreds_TextView_ProfileLogin"
             android:layout_width="match_parent"
