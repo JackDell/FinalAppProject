@@ -17,6 +17,9 @@ package="com.example.ahame_000.seg2105">
     <activity android:name=".ProfileListActivity">
 
     </activity>
+    <activity android:name=".ProfileLoginActivity">
+
+    </activity>
     <activity android:name=".CreateAccountActivity"/>
     <activity android:name=".EditViewChoreActivity" >
 
