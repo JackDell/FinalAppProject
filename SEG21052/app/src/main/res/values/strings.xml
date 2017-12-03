@@ -22,13 +22,13 @@
     <string name="enterCreatedBy_hint">Enter Username</string>
     <string name="dueDate_textView">Due Date: </string>
     <string name="enterDueDate_hint">Enter Date due</string>
-    <string name="description_textView">Description</string>
+    <string name="description_textView">Description:</string>
     <string name="description_hint">Enter Description</string>
     <string name="rewards_textView">Rewards:</string>
     <string name="enterRewards_hint">Enter Rewards</string>
     <string name="penalty_textView">Penalty:</string>
     <string name="enterPenalty_hint">Enter Penalty</string>
-    <string name="assign_textView">Assign</string>
+    <string name="assign_textView">Assign:</string>
     <string name="enterPerson_hint">Person</string>
     <string name="add_button">Add</string>
     <string name="choreDetails_textView">Chore Details</string>

@@ -37,7 +37,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.19"
-                android:text="New Chore"
+                android:text="@string/newChore_textView"
                 android:textAppearance="@style/TextAppearance.AppCompat.Display1"
                 android:visibility="visible" />
 
@@ -70,7 +70,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Deadline Date:"
+                    android:text="@string/dueDate_textView"
                     android:textAlignment="viewStart"
                     android:textColor="@android:color/black"
                     android:textSize="20dp" />
@@ -94,7 +94,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif"
-                android:text="Description:"
+                android:text="@string/description_textView"
                 android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
                 android:visibility="visible" />
 
@@ -117,7 +117,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif"
-                android:text="Reward:"
+                android:text="@string/rewards_textView"
                 android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title" />
 
             <EditText
@@ -135,7 +135,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.19"
                 android:fontFamily="sans-serif"
-                android:text="Penalty:"
+                android:text="@string/penalty_textView"
                 android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title" />
 
             <EditText
@@ -158,7 +158,7 @@
                     android:id="@+id/Assign_TextView_NewChore"
                     android:layout_width="129dp"
                     android:layout_height="wrap_content"
-                    android:text="Assign"
+                    android:text="@string/assign_textView"
                     android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title" />
 
                 <Spinner
@@ -194,7 +194,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:onClick="onAddBttnClick"
-                    android:text="Add" />
+                    android:text="@string/add_button" />
 
             </LinearLayout>
 
