@@ -2,6 +2,7 @@ package com.example.ahame_000.seg2105.databasing;
 
 import android.content.ContentValues;
 import android.database.Cursor;
+import android.util.Log;
 
 import com.example.ahame_000.seg2105.*;
 

@@ -3,6 +3,7 @@ package com.example.ahame_000.seg2105;
 import android.os.Bundle;
 import android.view.View;
 
+import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import com.example.ahame_000.seg2105.databasing.DatabaseHelper;
 import com.example.ahame_000.seg2105.databasing.DatabaseManager;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import java.util.List;
@@ -30,18 +32,20 @@ public class CreateChoreActivity extends AppCompatActivity {
         View incorrectPopUp = findViewById(R.id.IncorrectCreds_TextView_NewChore);
         incorrectPopUp.setVisibility(View.INVISIBLE);
 
-        //Spinner spinner = findViewById(R.id.AssignTo_Spinner_CreateChore);
-        List<Profile> profiles = Session.getLoggedInAccount().getChildren();
-        profiles.add(Session.getLoggedInProfile());
-        Profile unassignedProfile = new Adult("Unassigned","",null);
-        profiles.add(unassignedProfile);
-        //ProfileSpinnerAdapter adapter = new ProfileSpinnerAdapter(this.getApplicationContext(),profiles);
-        //adapter.setDropDownViewResource(R.layout.assign_to_profile_item_layout);
-        //spinner.setAdapter(adapter);
+        List<String> profileNames = new ArrayList<>();
 
-        EditText dateEditText = (EditText) findViewById(R.id.EnterDueDate_EditText_NewChore);
+        for(Profile profile : Session.getLoggedInAccount().getProfiles()) {
+            profileNames.add(profile.getName());
+        }
 
-        setDate fromDate = new setDate(dateEditText, this);
+        Spinner spinner = (Spinner) findViewById(R.id.AssignTo_Spinner_CreateChore);
+
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this,
+                R.layout.assign_spinner_layout,
+                R.id.spinner_text,
+                profileNames);
+
+        spinner.setAdapter(spinnerAdapter);
     }
 
 
