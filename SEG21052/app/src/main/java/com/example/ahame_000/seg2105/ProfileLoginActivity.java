@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 
 public class ProfileLoginActivity extends AppCompatActivity {
 private String profileName = "";
@@ -13,8 +12,8 @@ private String profileName = "";
     protected void onCreate(Bundle savedInstanceState) {
 
          profileName = getIntent().getStringExtra("profileName");
-        TextView etName = findViewById(R.id.profileName_TextView_ProfileLogin);
-        etName.setText(profileName);
+       // TextView etName = findViewById(R.id.profileName_TextView_ProfileLogin);
+        // etName.setText(profileName);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_login);
@@ -30,6 +29,8 @@ private String profileName = "";
             startActivity(intent);
         } else {
             //TODO error message
+            Intent intent = new Intent(getApplicationContext(), ProfileListActivity.class);
+            startActivity(intent);
         }
     }
 }

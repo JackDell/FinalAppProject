@@ -22,7 +22,7 @@ public class Session {
 
     public static boolean loginProfile(String name, String password){
         Profile profile = loggedInAccount.getProfile(name);
-        if (profile.getPassword().equals(name)){
+        if (profile.getPassword().equals(password)){
             loggedInProfile = profile;
             return true;
         }
