@@ -8,10 +8,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
-import android.widget.Spinner;
-
 import java.util.Date;
-import java.util.List;
 import java.util.UUID;
 
 
@@ -44,13 +41,13 @@ public class EditViewChoreActivity extends AppCompatActivity {
         //initialize the layout
         LinearLayout assignLayout = (LinearLayout)findViewById(R.id.Assign_Layout_ChoreDetails);
 
-        EditText choreField = (EditText) findViewById(R.id.EnterChore_EditText_ChoreDetails);
+        EditText choreField = (EditText) findViewById(R.id.Chore_EditText_ChoreDetails);
         choreField.setText(chore.getName());
 
-        EditText creatorField = (EditText) findViewById(R.id.EnterCreator_EditText_ChoreDetails);
+        EditText creatorField = (EditText) findViewById(R.id.Creator_EditText_ChoreDetails);
         creatorField.setText(chore.getCreator().toString());
 
-        EditText completedDateField = (EditText)findViewById(R.id.EnterCompletedDate_EditText_ChoreDetails);
+        EditText completedDateField = (EditText)findViewById(R.id.CompletedDate_EditText_ChoreDetails);
         completedDateField.setText(chore.getCompletedDate().toString());
 
         DatePicker dueDateField = (DatePicker) findViewById(R.id.DueDate_DatePicker_ChoreDetails);
@@ -67,14 +64,14 @@ public class EditViewChoreActivity extends AppCompatActivity {
 
         */
 
-        EditText descriptionField = (EditText)findViewById(R.id.EnterDescription_EditText_ChoreDetails);
+        EditText descriptionField = (EditText)findViewById(R.id.Description_EditText_ChoreDetails);
         descriptionField.setText(chore.getDescription());
 
-        EditText rewardsField = (EditText)findViewById(R.id.EnterRewards_EditText_ChoreDetails);
+        EditText rewardsField = (EditText)findViewById(R.id.Rewards_EditText_ChoreDetails);
         rewardsField.setText(chore.getReward());
 
 
-        EditText penaltyField = (EditText)findViewById(R.id.EnterPenalty_EditText_ChoreDetails);
+        EditText penaltyField = (EditText)findViewById(R.id.Penalty_EditText_ChoreDetails);
         penaltyField.setText(chore.getPenalty());
 
 

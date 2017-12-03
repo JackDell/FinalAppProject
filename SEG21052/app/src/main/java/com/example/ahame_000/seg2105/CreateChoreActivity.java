@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.View;
 
 import android.widget.ArrayAdapter;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.support.v7.app.AppCompatActivity;
 
@@ -51,8 +50,7 @@ public class CreateChoreActivity extends AppCompatActivity {
     }
 
     public void onAddBttnClick(View view){
-
-        EditText choreNameField = (EditText) findViewById(R.id.EnterChore_EditText_NewChore);
+        EditText choreNameField = (EditText) findViewById(R.id.Chore_EditText_NewChore);
         String choreName = choreNameField.getText().toString();
 
 
@@ -60,10 +58,10 @@ public class CreateChoreActivity extends AppCompatActivity {
         //DatePicker dueDateField = (DatePicker) findViewById(R.id.DueDate_DatePicker_ChoreDetails);
         Date duedate = new Date();
 
-        EditText descriptionField = (EditText)findViewById(R.id.EnterDescription_EditText_NewChore);
+        EditText descriptionField = (EditText)findViewById(R.id.Description_EditText_NewChore);
         String description = descriptionField.getText().toString();
 
-        EditText rewardsField = (EditText)findViewById(R.id.EnterRewards_EditText_NewChore);
+        EditText rewardsField = (EditText)findViewById(R.id.Rewards_EditText_NewChore);
 
 
         int reward;
@@ -75,7 +73,7 @@ public class CreateChoreActivity extends AppCompatActivity {
             reward =0;
         }
 
-        EditText penaltyField = (EditText)findViewById(R.id.EnterPenalty_EditText_NewChore);
+        EditText penaltyField = (EditText)findViewById(R.id.Penalty_EditText_NewChore);
         int penalty;
 
         //assigning penalty to the field
