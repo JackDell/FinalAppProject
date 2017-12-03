@@ -5,18 +5,19 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 public class ProfileLoginActivity extends AppCompatActivity {
 private String profileName = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-         profileName = getIntent().getStringExtra("profileName");
-       // TextView etName = findViewById(R.id.profileName_TextView_ProfileLogin);
-        // etName.setText(profileName);
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_login);
+//TODO: make this activity look nice
+
+        profileName = getIntent().getStringExtra("profileName");
+        TextView etName = findViewById(R.id.profileName_TextView_ProfileLogin);
+        etName.setText(profileName);
     }
 
     public void onProfileLoginClick(View view) {
