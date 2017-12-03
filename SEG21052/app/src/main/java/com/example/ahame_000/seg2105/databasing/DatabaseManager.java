@@ -151,7 +151,7 @@ public class DatabaseManager {
         }
 
         values.put("deadline", DateHelper.getDateString(chore.getDeadline()));
-        values.put("creatorName", chore.getCreator().getName());
+        values.put("creator", chore.getCreator().getName());
         if(chore.getAssignedTo() == null) {
             values.put("assignedTo", "null");
         }

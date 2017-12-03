@@ -1,6 +1,7 @@
 package com.example.ahame_000.seg2105;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,19 +24,22 @@ public class ChoreCustomAdapter extends ArrayAdapter {
 
     /**
      * Populates the list with chore name and due date
+     *
      * @param position
      * @param convertView
      * @param parent
      * @return rowView
      */
     @Override
-    public View getView(int position, View convertView, ViewGroup parent){
+    public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View rowView = inflater.inflate(R.layout.chore_item_layout, parent, false);
 
-        TextView choreNameTextField = (TextView) rowView.findViewById(R.id.ChoreName_TextView_ItemLayout);
-        TextView choreDueDateTextField = (TextView) rowView.findViewById(R.id.DueDate_TextView_ItemLayout);
-
+        TextView choreNameTextField =  rowView.findViewById(R.id.ChoreName_TextView_ItemLayout);
+        TextView choreDueDateTextField =  rowView.findViewById(R.id.DueDate_TextView_ItemLayout);
+        if(myChores.get(position).isLate()) {
+            choreDueDateTextField.setTextColor(Color.RED);
+        }
         choreNameTextField.setText(myChores.get(position).getName());
         choreDueDateTextField.setText(DateHelper.getDateString(myChores.get(position).getDeadline()));
 
