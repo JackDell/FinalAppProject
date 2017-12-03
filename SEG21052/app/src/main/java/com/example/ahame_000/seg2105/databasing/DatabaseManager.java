@@ -38,9 +38,6 @@ public class DatabaseManager {
 
         DB_Helper.getWritableDatabase().insert("Accounts", null, values);
 
-        for (Chore chore : account.getAllChores()) {
-            this.saveChore(chore);
-        }
     }
 
     public Account getAccount(String accEmail) {
@@ -94,7 +91,6 @@ public class DatabaseManager {
         for (Chore chore : profile.getAllChores()) {
             saveChore(chore);
         }
-        profile.getAccount().getProfiles().add(profile);
     }
 
     public List<Profile> getAccountProfiles(Account account) {

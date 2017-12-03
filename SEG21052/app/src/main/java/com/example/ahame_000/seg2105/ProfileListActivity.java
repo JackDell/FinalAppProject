@@ -44,4 +44,11 @@ public class ProfileListActivity extends AppCompatActivity {
         });
 
     }
+
+    @Override
+    public void onBackPressed() {
+        if(Session.getLoggedInProfile() == null)
+            Session.logoutAccount();;//log out of the account
+        super.onBackPressed();
+    }
 }
