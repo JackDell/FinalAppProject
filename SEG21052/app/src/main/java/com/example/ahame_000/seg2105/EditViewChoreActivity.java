@@ -8,6 +8,9 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
+import com.example.ahame_000.seg2105.databasing.DatabaseHelper;
+import com.example.ahame_000.seg2105.databasing.DatabaseManager;
+
 import java.util.Date;
 import java.util.UUID;
 
@@ -16,6 +19,11 @@ import java.util.UUID;
 public class EditViewChoreActivity extends AppCompatActivity {
 
     private Chore chore;
+
+    /**
+     * Initializes layout according to profile type
+     * @param savedInstanceState
+     */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +37,7 @@ public class EditViewChoreActivity extends AppCompatActivity {
         Account account = Session.getLoggedInAccount();
         Profile profile = Session.getLoggedInProfile();
 
-        Chore chore = account.getChore(UUID.fromString(id));
+        this.chore = account.getChore(UUID.fromString(id));
 
         //initializing the buttons
         Button doneButton = findViewById(R.id.Done_Button_ChoreDetails);
@@ -63,13 +71,16 @@ public class EditViewChoreActivity extends AppCompatActivity {
 
         if (profile instanceof  Adult) {
             assignLayout.setVisibility(View.VISIBLE);
-            doneButton.setVisibility(View.VISIBLE);
+            doneButton.setVisibility(View.INVISIBLE);
             saveButton.setVisibility(View.VISIBLE);
             deleteButton.setVisibility(View.VISIBLE);
             assignToMeButton.setVisibility(View.VISIBLE);
 
+            if(profile.getName().equals(chore.getAssignedTo().getName())) {
+                doneButton.setVisibility(View.VISIBLE);
+            }
         }
-        if (profile instanceof  Child){
+        else {
             assignLayout.setVisibility(View.INVISIBLE);
             doneButton.setVisibility(View.VISIBLE);
             saveButton.setVisibility(View.VISIBLE);
@@ -77,36 +88,43 @@ public class EditViewChoreActivity extends AppCompatActivity {
             assignToMeButton.setVisibility(View.VISIBLE);
         }
 
-    }
 
-
-    public void onDoneBttnClick(View view){
-        LinearLayout eLayout = (LinearLayout)findViewById(R.id.CreatedByDate_Layout_ChoreDetails);
-        Button doneButton = (Button)findViewById(R.id.Done_Button_ChoreDetails);
-
-        if (chore.complete()){
-            eLayout.setVisibility(View.VISIBLE);
-            doneButton.setVisibility(View.INVISIBLE);
-        }
 
     }
 
+    public void onDoneBttnClick(View view) {
+
+        chore.setCompletedDate(new Date());
+        chore.updateState();
+        Profile p = Session.getLoggedInProfile();
+        p.addPoints(chore.getTodaysReward());
+        DatabaseManager DM = new DatabaseManager(new DatabaseHelper(getApplicationContext()));
+        DM.saveChore(chore);
+        this.onBackPressed();
+    }
+
+    /**
+     * Assigns chore to current logged in profile
+     * @param view
+     */
     public void onAssignToMeBttnClick(View view){
         Button assignToMeButton = (Button)findViewById(R.id.AssignToMe_Button_ChoreDetails);
 
         Button doneButton = (Button)findViewById(R.id.Done_Button_ChoreDetails);
         Profile currentProfile = Session.getLoggedInProfile();
-        Account currentAccount = Session.getLoggedInAccount();
 
-        if (chore.getState()== ChoreState.UNASSIGNED){
+        if (chore.getState() == ChoreState.UNASSIGNED){
             currentProfile.addChore(chore);
-            currentAccount.removeChore(chore);
             chore.setAssignedTo(currentProfile);
             assignToMeButton.setVisibility(View.INVISIBLE);
             doneButton.setVisibility(View.VISIBLE);
         }
     }
 
+    /**
+     * Deletes chore from logged in account
+     * @param view
+     */
     public void onDeleteBttnClick(View view){
         Button deleteButton = (Button)findViewById(R.id.Delete_Button_ChoreDetails);
 
@@ -120,5 +138,8 @@ public class EditViewChoreActivity extends AppCompatActivity {
     }
 
 
-
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
 }

@@ -70,8 +70,12 @@ public abstract class Profile {
     /**
      * @param points the amount of points the profile will be set to
      */
-    private void setPoints(int points) {
+    public void setPoints(int points) {
         this.points = points;
+    }
+
+    public void addPoints(int points) {
+        this.points += points;
     }
 
     /**

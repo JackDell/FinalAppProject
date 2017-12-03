@@ -3,7 +3,7 @@ package com.example.ahame_000.seg2105;
 
 
 public class Session {
-    
+
     private static Account loggedInAccount;
     private static Profile loggedInProfile;
     private static Child viewedChild;
@@ -31,8 +31,13 @@ public class Session {
     public static Profile getLoggedInProfile() {
         return loggedInProfile;
     }
-     public static void logoutProfile(){
-         loggedInProfile = null;
-     }
+
+    public static void logoutProfile(){
+        loggedInProfile = null;
+    }
+
+    public static void logoutAccount(){
+        loggedInAccount = null;
+    }
 
 }

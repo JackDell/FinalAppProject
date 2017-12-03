@@ -18,7 +18,13 @@ public class ChoreGeneralListFragment extends Fragment {
 
     private View view;
 
-
+    /**
+     * Brings user to view of list of all unassigned chores for logged in account
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return view
+     */
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {

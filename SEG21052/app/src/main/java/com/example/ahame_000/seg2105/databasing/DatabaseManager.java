@@ -11,7 +11,6 @@ import com.example.ahame_000.seg2105.Chore;
 import com.example.ahame_000.seg2105.ChoreState;
 import com.example.ahame_000.seg2105.DateHelper;
 import com.example.ahame_000.seg2105.Profile;
-import com.example.ahame_000.seg2105.ProfileLoginActivity;
 import com.example.ahame_000.seg2105.Session;
 
 import java.util.ArrayList;
@@ -22,7 +21,8 @@ import java.util.UUID;
 public class DatabaseManager {
 
     private DatabaseHelper DB_Helper;
-
+    private final String ADULT = "Adult";
+    private final String CHILD = "Child";
     public DatabaseManager(DatabaseHelper DB_Helper) {
         this.DB_Helper = DB_Helper;
     }
@@ -33,15 +33,13 @@ public class DatabaseManager {
      * @param account the account object you wish to save to the database
      */
     public void saveAccount(Account account) {
+        //TODO: check there is no account with that email 
         ContentValues values = new ContentValues();
         values.put("email", account.getEmail());
         values.put("password", account.getPassword());
 
         DB_Helper.getWritableDatabase().insert("Accounts", null, values);
 
-        for (Chore chore : account.getAllChores()) {
-            this.saveChore(chore);
-        }
     }
 
     /**
@@ -81,11 +79,11 @@ public class DatabaseManager {
     public void saveProfile(Profile profile) {
 
         // Database already contains profile, return
-        if(Session.getLoggedInAccount().getProfiles().contains(profile)) return;
+        //if(Session.getLoggedInAccount().getProfiles().contains(profile)) return;
 
-        String kind = "Adult";
+        String kind = ADULT;
         if (profile instanceof Child) {
-            kind = "Child";
+            kind = CHILD;
         }
 
         ContentValues values = new ContentValues();
@@ -100,7 +98,6 @@ public class DatabaseManager {
         for (Chore chore : profile.getAllChores()) {
             saveChore(chore);
         }
-        profile.getAccount().getProfiles().add(profile);
     }
 
     public List<Profile> getAccountProfiles(Account account) {
@@ -121,7 +118,7 @@ public class DatabaseManager {
                 String password = c.getString(c.getColumnIndex("password"));
                 int points = c.getInt(c.getColumnIndex("points"));
                 String kind = c.getString(c.getColumnIndex("kind"));
-                if (kind.equals("Adult")) {
+                if (kind.equals(ADULT)) {
                     Adult adult = new Adult(name, password, points, account, new ArrayList<Chore>());
                     profiles.add(adult);
                 } else {
@@ -214,11 +211,11 @@ public class DatabaseManager {
                     assignedTo = account.getProfile(assignStr);
                 }
 
-                Adult adult = (Adult) account.getProfile(c.getString(c.getColumnIndex("creator")));
+                Adult creator = (Adult) account.getProfile(c.getString(c.getColumnIndex("creator")));
                 int reward = c.getInt(c.getColumnIndex("reward"));
                 int penalty = c.getInt(c.getColumnIndex("penalty"));
 
-                Chore chore = new Chore(name, desc, state, completedDate, deadline, adult, assignedTo, reward, penalty, account, id);
+                Chore chore = new Chore(name, desc, state, completedDate, deadline, creator, assignedTo, reward, penalty, account, id);
 
                 chores.add(chore);
 

@@ -73,7 +73,7 @@
                     android:text="@string/dueDate_textView"
                     android:textAlignment="viewStart"
                     android:textColor="@android:color/black"
-                    android:textSize="20dp" />
+                    android:textSize="20dp"/>
 
                 <EditText
                     android:id="@+id/DueDate_EditText_NewChore"

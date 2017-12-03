@@ -27,7 +27,9 @@ public class ProfileListActivity extends AppCompatActivity {
         ProfileCustomAdapter adapter = new ProfileCustomAdapter(this.getApplicationContext(), profiles);
         profileList.setAdapter(adapter);
 
-        //when a profile is selected it is set as logged on and choreList is launched
+        /**
+         * when a profile is selected it is set as logged on and choreList is launched
+         */
         profileList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, final View view, int position, long id) {
@@ -43,5 +45,12 @@ public class ProfileListActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(Session.getLoggedInProfile() == null)
+            Session.logoutAccount();;//log out of the account
+        super.onBackPressed();
     }
 }

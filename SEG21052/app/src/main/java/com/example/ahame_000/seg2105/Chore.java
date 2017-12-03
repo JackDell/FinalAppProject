@@ -245,7 +245,9 @@ public class Chore implements Comparable {
     }
 
     //changing state to pastdue when late
-    public  boolean isLate(){ return isLate(new Date()); }
+    public  boolean isLate() {
+        return isLate(new Date());
+    }
 
 
     /**
@@ -305,5 +307,38 @@ public class Chore implements Comparable {
             return 1;
         return 0;
 
+    }
+
+    public int getTodaysReward() {
+        if(this.state != ChoreState.COMPLETED) {
+            return 0;
+        }
+
+        if(this.completedDate.after(this.deadline)) {
+            return reward - penalty;
+        }
+
+        return reward;
+    }
+
+    public void updateState() {
+
+        Date today = new Date();
+        if(this.assignedTo == null) {
+            this.state = ChoreState.UNASSIGNED;
+            return;
+        }
+
+        if(this.completedDate != null) {
+            this.state = ChoreState.COMPLETED;
+            return;
+        }
+
+        else if(today.after(this.deadline)) {
+            this.state = ChoreState.PASTDUE;
+            return;
+        }
+
+        this.state = ChoreState.TODO;
     }
 }
