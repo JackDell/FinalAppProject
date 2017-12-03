@@ -7,9 +7,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.example.ahame_000.seg2105.databasing.DatabaseHelper;
-import com.example.ahame_000.seg2105.databasing.DatabaseManager;
-
 import java.util.List;
 
 public class ProfileListActivity extends AppCompatActivity {
@@ -18,28 +15,31 @@ public class ProfileListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_list);
+        final List<Profile> profiles;
+        if (Session.getLoggedInProfile() == null) {
 
-        DatabaseManager DM = new DatabaseManager(new DatabaseHelper(this.getApplicationContext()));
-
-        List<Profile> profiles = DM.getDatabasedProfiles();
-
+            profiles = Session.getLoggedInAccount().getProfiles();
+        } else {
+            profiles = Session.getLoggedInAccount().getChildren();
+        }
         ListView profileList = findViewById(R.id.ProfilesLoginListView);
 
-        ProfileCustomAdapter adapter = new ProfileCustomAdapter(this.getApplicationContext(), DM.getDatabasedProfiles());
+        ProfileCustomAdapter adapter = new ProfileCustomAdapter(this.getApplicationContext(), profiles);
         profileList.setAdapter(adapter);
 
         //when a profile is selected it is set as logged on and choreList is launched
         profileList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, final View view, int position, long id) {
-
-                Profile selectedProfile = (Profile)parent.getItemAtPosition(position);
-                Session.setLoggedInProfile(selectedProfile);
-
-                Intent launchChoreList = new Intent(getApplicationContext(), ChoreListActivity.class);
-                launchChoreList.putExtra("LIST_TYPE", ChoreState.UNASSIGNED.toString());
-                startActivity(launchChoreList);
-
+                if (Session.getLoggedInProfile() == null) {
+                    Intent intent = new Intent(getApplicationContext(), ProfileLoginActivity.class);
+                    intent.putExtra("profileName", profiles.get(position).getName());
+                    startActivity(intent);
+                }else {
+                    Intent intent = new Intent(getApplicationContext(), NavigationActivity.class);
+                    Session.setViewedChild((Child)profiles.get(position));
+                    startActivity(intent);
+                }
             }
         });
 

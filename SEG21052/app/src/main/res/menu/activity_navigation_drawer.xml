@@ -6,28 +6,27 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_general_list"
-            android:title="@string/generalList_textView" />
+            android:title="@string/generalList_textView"/>
         <item
             android:id="@+id/nav_todo_list"
-            android:title="@string/todoList_textView" />
+            android:title="@string/todoList_textView"/>
         <item
             android:id="@+id/nav_completed_list"
-            android:title="@string/completed_textView" />
+            android:title="@string/completed_textView"/>
     </group>
 
-    <item>
+    <item android:title="Settings"
+        android:id="@+id/nav_adult_options">
         <menu>
-            <group android:checkableBehavior="single">
                 <item
                     android:id="@+id/nav_addChore"
                     android:title="@string/addChore_textView" />
                 <item
                     android:id="@+id/nav_addOtherMember"
-                    android:title="@string/addNewMember_textView" />
+                    android:title="@string/addNewMember_textView"/>
                 <item
                     android:id="@+id/nav_viewOthers"
                     android:title="@string/viewOthers_textView" />
-            </group>
         </menu>
     </item>
 

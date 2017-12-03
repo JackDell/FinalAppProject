@@ -10,14 +10,22 @@ package="com.example.ahame_000.seg2105">
     android:supportsRtl="true"
     android:theme="@style/AppTheme">
 
-    <activity android:name=".CreateChoreActivity" />
+    <activity android:name=".CreateChoreActivity" >
+
+    </activity>
+    <activity android:name=".ProfileLoginActivity"></activity>
     <activity android:name=".ProfileListActivity">
 
     </activity>
+    <activity android:name=".ProfileLoginActivity">
+
+    </activity>
     <activity android:name=".CreateAccountActivity"/>
-    <activity android:name=".EditViewChoreActivity" />
+    <activity android:name=".EditViewChoreActivity" >
+
+    </activity>
     <activity android:name=".AddMemberActivity" />
-    <activity android:name=".ChoreListActivity">
+    <activity android:name=".NavigationActivity">
 
     </activity>
     <activity android:name=".AccountLoginActivity" >
@@ -26,6 +34,7 @@ package="com.example.ahame_000.seg2105">
 
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
+
 
     </activity>
 </application>

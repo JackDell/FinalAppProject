@@ -24,11 +24,11 @@ public class Chore implements Comparable {
     /**
      * Constructor
      */
-    public Chore(String name, String description, Date completedDate, Date deadline, Adult creator, Profile assignedTo, int reward,
+    public Chore(String name, String description, ChoreState state, Date completedDate, Date deadline, Adult creator, Profile assignedTo, int reward,
                  int penalty, Account account, UUID id) {
         this.name = name;
         this.description = description;
-        this.state = ChoreState.UNASSIGNED;
+        this.state = state;
         this.deadline = deadline;
         this.creator = creator;
         this.assignedTo = assignedTo;
@@ -44,7 +44,7 @@ public class Chore implements Comparable {
      *
      */
     public Chore(String name, String description, Date deadline, int reward, Account account) {
-        this( name, description, null, deadline, null, null, reward, 0, account, UUID.randomUUID());
+        this( name, description, ChoreState.UNASSIGNED, null, deadline, null, null, reward, 0, account, UUID.randomUUID());
     }
 
     /**
@@ -212,7 +212,7 @@ public class Chore implements Comparable {
     //------------------------
 
     /**
-     * Only if Chore state is UNASSIGNED, the state of chore can be changed to TODO
+     * Only if Chore state is UNASSIGNED, the state of chore can be changed to TO-DO
      * @return true
      * else if the Chore state is anything else
      * @return false
@@ -229,7 +229,7 @@ public class Chore implements Comparable {
 
 
     /**
-     * Only if the Chore state is TODO or PASTDUE
+     * Only if the Chore state is TO-DO or PAST DUE
      * the Chore state can be changed to COMPLETED
      * @return true
      * Otherwise,
@@ -273,7 +273,7 @@ public class Chore implements Comparable {
     }
 
     /**
-     * Chore can be deleted if state is COMPLETED or TODO or PASTDUE
+     * Chore can be deleted if state is COMPLETED or TO-DO or PAST DUE
      * the chore assignment is then changed to null
      * @return true
      * else

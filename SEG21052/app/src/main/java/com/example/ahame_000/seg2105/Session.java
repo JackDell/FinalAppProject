@@ -20,11 +20,19 @@ public class Session {
         Session.loggedInAccount = loggedInAccount;
     }
 
+    public static boolean loginProfile(String name, String password){
+        Profile profile = loggedInAccount.getProfile(name);
+        if (profile.getPassword().equals(password)){
+            loggedInProfile = profile;
+            return true;
+        }
+        return false;
+    }
     public static Profile getLoggedInProfile() {
         return loggedInProfile;
     }
+     public static void logoutProfile(){
+         loggedInProfile = null;
+     }
 
-    public static void setLoggedInProfile(Profile loggedInProfile) {
-        Session.loggedInProfile = loggedInProfile;
-    }
 }

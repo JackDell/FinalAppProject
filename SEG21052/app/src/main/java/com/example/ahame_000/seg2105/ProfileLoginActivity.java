@@ -1,31 +1,37 @@
 package com.example.ahame_000.seg2105;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
-
-import com.example.ahame_000.seg2105.databasing.DatabaseHelper;
-import com.example.ahame_000.seg2105.databasing.DatabaseManager;
+import android.widget.TextView;
 
 public class ProfileLoginActivity extends AppCompatActivity {
-
+private String profileName = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_login);
+//TODO: make this activity look nice
+
+        profileName = getIntent().getStringExtra("profileName");
+        TextView etName = findViewById(R.id.profileName_TextView_ProfileLogin);
+        etName.setText(profileName);
     }
 
     public void onProfileLoginClick(View view) {
 
-        EditText etName = findViewById(R.id.etProfileName);
-        EditText etPassword = findViewById(R.id.etProfilePass);
+        EditText etPassword = findViewById(R.id.profilePassword_editText_profileLogin);
 
-        String name = etName.getText().toString();
         String password = etPassword.getText().toString();
-
-        DatabaseManager DM = new DatabaseManager(new DatabaseHelper(this.getApplicationContext()));
-        DM.loginProfile(name, password);
+        if (Session.loginProfile(profileName,password)){
+            Intent intent = new Intent(getApplicationContext(), NavigationActivity.class);
+            startActivity(intent);
+        } else {
+            etPassword.setText("");
+            View incorrectPopUp = findViewById(R.id.incorrectCreds_TextView_ProfileLogin);
+            incorrectPopUp.setVisibility(View.VISIBLE);
+        }
     }
 }

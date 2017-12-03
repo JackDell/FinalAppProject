@@ -9,32 +9,25 @@
     <LinearLayout
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        tools:layout_editor_absoluteX="42dp"
-        tools:layout_editor_absoluteY="39dp">
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/txtEnterProfile"
             android:layout_width="match_parent"
             android:layout_height="82dp"
-            android:text="Please enter your loggedInProfile information:"
+            android:text="Enter profile password "
             android:textAlignment="center"
             android:textSize="18sp"
             android:textStyle="bold" />
 
+
         <TextView
-            android:id="@+id/txtAskForName"
+            android:id="@+id/profileName_TextView_ProfileLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Email:"
+            android:text="TextView"
             android:textSize="18sp" />
 
-        <EditText
-            android:id="@+id/etProfileName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textEmailAddress" />
 
         <TextView
             android:id="@+id/txtAskForPass"
@@ -44,11 +37,21 @@
             android:textSize="18sp" />
 
         <EditText
-            android:id="@+id/etProfilePass"
+            android:id="@+id/profilePassword_editText_profileLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPassword" />
+        <TextView
+            android:id="@+id/incorrectCreds_TextView_ProfileLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Incorrect password. Try again"
+            android:textAlignment="center"
+            android:textColor="@android:color/holo_red_dark"
+            android:textSize="18sp"
+            android:textStyle="italic"
+            android:visibility="invisible" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -64,13 +67,6 @@
                 android:text="Login"
                 android:textStyle="bold" />
 
-            <Button
-                android:id="@+id/btnNewAccount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:onClick="onBtnNewAccountClick"
-                android:text="New Account" />
         </LinearLayout>
     </LinearLayout>
 

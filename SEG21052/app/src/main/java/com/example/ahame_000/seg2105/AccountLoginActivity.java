@@ -9,23 +9,10 @@ import android.widget.EditText;
 import com.example.ahame_000.seg2105.databasing.DatabaseHelper;
 import com.example.ahame_000.seg2105.databasing.DatabaseManager;
 
-import java.util.List;
-
 public class AccountLoginActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        DatabaseManager DM = new DatabaseManager(new DatabaseHelper(this.getApplicationContext()));
-        List<Profile> profiles = DM.getDatabasedProfiles();
-        List<Account> accounts = DM.getDatabasedAccounts();
-
-        for(Profile p : profiles) {
-            System.out.println(p.toString());
-        }
-
-        for(Account a : accounts) {
-            System.out.println(a.toString());
-        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_login);
     }
@@ -35,7 +22,7 @@ public class AccountLoginActivity extends AppCompatActivity {
         EditText emailTxt = (EditText) findViewById(R.id.Email_EditText_AccountLogin);
         String emailString = emailTxt.getText().toString();
 
-        setContentView(R.layout.activity_create_account);
+
         Intent intent = new Intent(this,CreateAccountActivity.class);
         intent.putExtra("email",emailString);
         startActivity(intent);
@@ -55,9 +42,14 @@ public class AccountLoginActivity extends AppCompatActivity {
 
         if (DM.loginAccount(emailString, passwordString)){
 
-            Intent intent = new Intent(this,ProfileListActivity.class);
-            startActivity(intent);
-
+            if(Session.getLoggedInAccount().getProfiles().isEmpty()) {
+                Intent intent = new Intent(this, AddMemberActivity.class);
+                startActivity(intent);
+            }
+            else {
+                Intent intent = new Intent(this, ProfileListActivity.class);
+                startActivity(intent);
+            }
         }
         else {
             emailTxt.setText("");
