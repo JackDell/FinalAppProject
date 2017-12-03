@@ -18,7 +18,6 @@ public class AddMemberActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_member);
 
-        DatabaseManager DM = new DatabaseManager(new DatabaseHelper(getApplicationContext()));
         RadioButton childBttn = findViewById(R.id.Child_RadioButton_AddMember);
 
         if(Session.getLoggedInAccount().getProfiles().isEmpty()){
