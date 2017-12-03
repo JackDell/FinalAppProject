@@ -9,8 +9,6 @@ import android.widget.EditText;
 import com.example.ahame_000.seg2105.databasing.DatabaseHelper;
 import com.example.ahame_000.seg2105.databasing.DatabaseManager;
 
-import java.util.List;
-
 public class AccountLoginActivity extends AppCompatActivity {
 
     @Override
@@ -49,10 +47,10 @@ public class AccountLoginActivity extends AppCompatActivity {
                 startActivity(intent);
                 return;
             }
-
-            Intent intent = new Intent(this,ProfileListActivity.class);
-            startActivity(intent);
-
+            else {
+                Intent intent = new Intent(this, ProfileListActivity.class);
+                startActivity(intent);
+            }
         }
         else {
             emailTxt.setText("");

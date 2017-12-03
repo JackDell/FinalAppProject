@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-
 import java.util.List;
 
 public class ProfileListActivity extends AppCompatActivity {
@@ -28,18 +27,13 @@ public class ProfileListActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, final View view, int position, long id) {
 
-                //Profile selectedProfile = (Profile) parent.getItemAtPosition(position);
+                Profile selectedProfile = (Profile) parent.getItemAtPosition(position);
 
-                //Intent launchProfileLogin = new Intent(getApplicationContext(), ProfileLoginActivity.class);
-                //launchProfileLogin.putExtra("profileName", selectedProfile.getName());
-                //startActivity(launchProfileLogin);
+                Intent launchProfileLogin = new Intent(getApplicationContext(), ProfileLoginActivity.class);
+                launchProfileLogin.putExtra("profileName", selectedProfile.getName());
+                startActivity(launchProfileLogin);
             }
         });
 
-    }
-
-    public void onCreateChoreBttnClick(View view) {
-        Intent intent = new Intent(this, CreateChoreActivity.class);
-        startActivity(intent);
     }
 }

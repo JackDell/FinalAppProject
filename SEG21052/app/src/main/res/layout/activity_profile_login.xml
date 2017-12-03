@@ -36,7 +36,7 @@
             android:textSize="18sp" />
 
         <EditText
-            android:id="@+id/etProfilePass"
+            android:id="@+id/profilePassword_editText_profileLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"

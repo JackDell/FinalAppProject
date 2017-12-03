@@ -13,6 +13,7 @@ package="com.example.ahame_000.seg2105">
     <activity android:name=".CreateChoreActivity" >
 
     </activity>
+    <activity android:name=".ProfileLoginActivity"></activity>
     <activity android:name=".ProfileListActivity">
 
     </activity>

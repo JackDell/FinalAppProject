@@ -1,16 +1,11 @@
 package com.example.ahame_000.seg2105;
 
 import android.content.Intent;
-
-import android.support.v7.app.AppCompatActivity;
-
 import android.os.Bundle;
-
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
-
-import android.widget.RadioGroup;
 
 import com.example.ahame_000.seg2105.databasing.DatabaseHelper;
 import com.example.ahame_000.seg2105.databasing.DatabaseManager;
@@ -39,7 +34,6 @@ public class AddMemberActivity extends AppCompatActivity {
         EditText passwordTxt = findViewById(R.id.MemberPassword_EditText_AddMember);
         String passwordString = passwordTxt.getText().toString();
 
-        RadioGroup profileTypeBttn = findViewById(R.id.ProfileType_RadioButton_AddMember);
         RadioButton adultBttn = findViewById(R.id.Adult_RadioButton_AddMember);
         RadioButton childBttn = findViewById(R.id.Child_RadioButton_AddMember);
         boolean profileChosen = adultBttn.isChecked()||childBttn.isChecked();

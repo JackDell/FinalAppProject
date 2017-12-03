@@ -20,7 +20,8 @@ public class DatabaseManager {
 
     /**
      * This method takes an account object and saves its information to the database
-     * @param account   the account object you wish to save to the database
+     *
+     * @param account the account object you wish to save to the database
      */
     public void saveAccount(Account account) {
         ContentValues values = new ContentValues();
@@ -29,7 +30,7 @@ public class DatabaseManager {
 
         DB_Helper.getWritableDatabase().insert("Accounts", null, values);
 
-        for(Chore chore : account.getAllChores()) {
+        for (Chore chore : account.getAllChores()) {
             this.saveChore(chore);
         }
     }
@@ -39,8 +40,8 @@ public class DatabaseManager {
 
         Account account;
 
-        if(c == null) return null;
-        if(!c.moveToFirst()) {
+        if (c == null) return null;
+        if (!c.moveToFirst()) {
             c.close();
             return null;
         }
@@ -51,8 +52,7 @@ public class DatabaseManager {
             account = new Account(accEmail, password);
             account.setProfiles(getAccountProfiles(account));
             account.setChores(getDatabasedChores(account));
-        }
-        finally {
+        } finally {
             c.close();
         }
 
@@ -61,11 +61,12 @@ public class DatabaseManager {
 
     /**
      * This method takes an profile object and saves its information to the database
-     * @param profile   the profile object you wish to save to the database
+     *
+     * @param profile the profile object you wish to save to the database
      */
     public void saveProfile(Profile profile) {
         String kind = "Adult";
-        if(profile instanceof Child){
+        if (profile instanceof Child) {
             kind = "Child";
         }
 
@@ -78,9 +79,10 @@ public class DatabaseManager {
 
         DB_Helper.getWritableDatabase().insert("Profiles", null, values);
 
-        for(Chore chore : profile.getAllChores()) {
-            this.saveChore(chore);
+        for (Chore chore : profile.getAllChores()) {
+            saveChore(chore);
         }
+        profile.getAccount().getProfiles().add(profile);
     }
 
     public List<Profile> getAccountProfiles(Account account) {
@@ -89,29 +91,27 @@ public class DatabaseManager {
 
         Cursor c = DB_Helper.getReadableDatabase().rawQuery("SELECT * FROM Profiles WHERE accEmail='" + account.getEmail() + "'", null);
 
-        if(c == null) return profiles;
-        if(!c.moveToFirst()) {
+        if (c == null) return profiles;
+        if (!c.moveToFirst()) {
             c.close();
             return profiles;
         }
 
         try {
-            while(c.moveToNext()) {
+            while (c.moveToNext()) {
                 String name = c.getString(c.getColumnIndex("name"));
                 String password = c.getString(c.getColumnIndex("password"));
                 int points = c.getInt(c.getColumnIndex("points"));
                 String kind = c.getString(c.getColumnIndex("kind"));
-                if(kind.equals("Adult")) {
-                    Adult adult = new Adult(name, password,  points, account, new ArrayList<Chore>());
+                if (kind.equals("Adult")) {
+                    Adult adult = new Adult(name, password, points, account, new ArrayList<Chore>());
                     profiles.add(adult);
-                }
-                else {
+                } else {
                     Child child = new Child(name, password, points, account, new ArrayList<Chore>());
                     profiles.add(child);
                 }
             }
-        }
-        finally {
+        } finally {
             c.close();
         }
 
@@ -123,7 +123,7 @@ public class DatabaseManager {
 
     public void saveChore(Chore chore) {
 
-
+//TODO: make sure the chore is not
         ContentValues values = new ContentValues();
         values.put("id", chore.getStringId());
         values.put("name", chore.getName());
@@ -135,8 +135,6 @@ public class DatabaseManager {
         values.put("reward", chore.getReward());
         values.put("penalty", chore.getPenalty());
         values.put("accEmail", chore.getAccount().getEmail());
-
-        //Object[] values = {id, name, desc, completedDate, creator.getName(), assignedTo.getName(), reward, penalty, deadline, accEmail};
         DB_Helper.getWritableDatabase().insert("Profiles", null, values);
     }
 
@@ -147,14 +145,14 @@ public class DatabaseManager {
 
         Cursor c = DB_Helper.getReadableDatabase().rawQuery("SELECT * FROM Chores WHERE accEmail='" + account.getEmail() + "'", null);
 
-        if(c == null) return chores;
-        if(!c.moveToFirst()) {
+        if (c == null) return chores;
+        if (!c.moveToFirst()) {
             c.close();
             return chores;
         }
 
         try {
-            while(c.moveToNext()) {
+            while (c.moveToNext()) {
                 UUID id = UUID.fromString(c.getString(c.getColumnIndex("id")));
                 String name = c.getString(c.getColumnIndex("name"));
                 String desc = c.getString(c.getColumnIndex("description"));
@@ -163,7 +161,7 @@ public class DatabaseManager {
                 Date deadline = new Date(c.getLong(c.getColumnIndex("deadline")));
                 Adult adult = (Adult) account.getProfile(c.getString(c.getColumnIndex("creator")));
                 Profile assignedTo = null;
-                if(c.getString(c.getColumnIndex("assignedTo")) != null) {
+                if (c.getString(c.getColumnIndex("assignedTo")) != null) {
                     assignedTo = account.getProfile(c.getString(c.getColumnIndex("assignedTo")));
                 }
                 int reward = c.getInt(c.getColumnIndex("reward"));
@@ -173,12 +171,11 @@ public class DatabaseManager {
 
                 chores.add(chore);
 
-                if(assignedTo != null) {
+                if (assignedTo != null) {
                     chore.getAssignedTo().addChore(chore);
                 }
             }
-        }
-        finally {
+        } finally {
             c.close();
         }
 
@@ -189,23 +186,13 @@ public class DatabaseManager {
 
         Cursor c = DB_Helper.getReadableDatabase().rawQuery("SELECT * FROM Accounts WHERE email='" + email + "' AND password='" + password + "'", null);
 
-        if(c == null) return false;
-        if(c.moveToFirst() == false) {
+        if (c == null) return false;
+        if (c.moveToFirst() == false) {
             c.close();
             return false;
         }
 
         Session.setLoggedInAccount(this.getAccount(email));
-        return true;
-    }
-
-    public boolean loginProfile(String name, String password) {
-
-        Profile profile = Session.getLoggedInAccount().getProfile(name);
-
-        if(profile == null) return false;
-
-        Session.setLoggedInProfile(profile);
         return true;
     }
 }
