@@ -37,7 +37,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="38dp"
                 android:onClick="onDoneBttnClick"
-                android:text="Done" />
+                android:text="@string/done_button"
+                tools:text="@string/done_button" />
 
 
             <LinearLayout
@@ -55,7 +56,7 @@
                     android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title" />
 
                 <EditText
-                    android:id="@+id/EnterChore_EditText_ChoreDetails"
+                    android:id="@+id/Chore_EditText_ChoreDetails"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -80,7 +81,7 @@
                     android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title" />
 
                 <EditText
-                    android:id="@+id/EnterCreator_EditText_ChoreDetails"
+                    android:id="@+id/Creator_EditText_ChoreDetails"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -95,14 +96,14 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/Completed_TextView_ChoreDetails"
+                    android:id="@+id/CompletedDate_TextView_ChoreDetails"
                     android:layout_width="154dp"
                     android:layout_height="wrap_content"
                     android:text="@string/completedDate_textView"
                     android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title" />
 
                 <EditText
-                    android:id="@+id/EnterCompletedDate_EditText_ChoreDetails"
+                    android:id="@+id/CompletedDate_EditText_ChoreDetails"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -150,7 +151,7 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title" />
 
             <EditText
-                android:id="@+id/EnterDescription_EditText_ChoreDetails"
+                android:id="@+id/Description_EditText_ChoreDetails"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
@@ -177,7 +178,7 @@
                     android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title" />
 
                 <EditText
-                    android:id="@+id/EnterRewards_EditText_ChoreDetails"
+                    android:id="@+id/Rewards_EditText_ChoreDetails"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -202,7 +203,7 @@
                     android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title" />
 
                 <EditText
-                    android:id="@+id/EnterPenalty_EditText_ChoreDetails"
+                    android:id="@+id/Penalty_EditText_ChoreDetails"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
