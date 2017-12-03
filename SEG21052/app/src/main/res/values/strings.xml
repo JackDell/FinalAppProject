@@ -46,4 +46,9 @@
     <string name="addChore_textView">Add New Chore</string>
     <string name="viewOthers_textView">View Children\'s Profiles</string>
     <string name="addNewMember_textView">Add New Member</string>
+    <string name="EnterDate_TextView">Enter date.</string>
+    <string name="EnterChore_TextView">Enter Chore.</string>
+    <string name="EnterChoreDescription_TextView">Enter chore description</string>
+    <string name="EnterRewardPoints_TextView">Enter reward points</string>
+    <string name="EnterPenalty_TextView">Enter penalty</string>
 </resources>

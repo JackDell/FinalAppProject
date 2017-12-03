@@ -8,9 +8,7 @@
 
     <ScrollView
         android:layout_width="368dp"
-        android:layout_height="495dp"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="8dp">
+        android:layout_height="495dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -48,7 +46,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif"
-                android:text="Chore: "
+                android:text="@string/chore_textView"
                 android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title" />
 
             <EditText
@@ -56,7 +54,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="Enter Chore."
+                android:hint="@string/EnterChore_TextView"
                 android:inputType="textPersonName"
                 android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large" />
 
@@ -78,13 +76,13 @@
                     android:textSize="20dp" />
 
                 <EditText
-                    android:id="@+id/EnterDueDate_EditText_NewChore"
+                    android:id="@+id/DueDate_EditText_NewChore"
                     android:layout_width="220dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:inputType="textPersonName"
-                    android:text="Click me to enter date!"
+                    android:hint="@string/EnterDate_TextView"
+                    android:inputType="date"
                     android:textAlignment="viewStart"
                     android:textColor="@android:color/darker_gray"
                     android:textSize="20dp" />
@@ -106,7 +104,7 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:gravity="left"
-                android:hint="Enter chore description"
+                android:hint="@string/EnterChoreDescription_TextView"
                 android:inputType="text|textMultiLine|textCapSentences"
                 android:maxLines="10"
                 android:selectAllOnFocus="true"
@@ -127,7 +125,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="Enter reward points"
+                android:hint="@string/EnterRewardPoints_TextView"
                 android:inputType="textPersonName"
                 android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large" />
 
@@ -146,7 +144,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.19"
                 android:ems="10"
-                android:hint="Enter penalty"
+                android:hint="@string/EnterPenalty_TextView"
                 android:inputType="textPersonName"
                 android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large" />
 
