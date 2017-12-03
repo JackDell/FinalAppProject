@@ -19,6 +19,11 @@ import java.util.UUID;
 
 public class CreateChoreActivity extends AppCompatActivity {
 private final String UNASSIGNED = "Unassigned";
+
+    /**
+     * Loads create chore page
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,7 +53,10 @@ private final String UNASSIGNED = "Unassigned";
         setDate fromDate = new setDate(dateEditText, this);
     }
 
-
+    /**
+     * Adds/creates chore with given attributes
+     * @param view
+     */
     public void onAddBttnClick(View view){
         EditText choreNameField = (EditText) findViewById(R.id.Chore_EditText_NewChore);
         String choreName = choreNameField.getText().toString();
