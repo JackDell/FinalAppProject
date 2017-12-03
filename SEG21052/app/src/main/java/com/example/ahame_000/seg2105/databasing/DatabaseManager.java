@@ -162,7 +162,6 @@ public class DatabaseManager {
         values.put("penalty", chore.getPenalty());
         values.put("accEmail", chore.getAccount().getEmail());
 
-        // TODO: Test if this if statement is n
         if(Session.getLoggedInAccount().getChore(chore.getId()) == null) {
             DB_Helper.getWritableDatabase().insert("Chores", null, values);
         }
@@ -189,11 +188,11 @@ public class DatabaseManager {
 
                 UUID id = UUID.fromString(c.getString(c.getColumnIndex("id")));
                 String name = c.getString(c.getColumnIndex("name"));
-                String desc = c.getString(c.getColumnIndex("description"));
+                String desc = c.getString(c.getColumnIndex("desc"));
                 ChoreState state = ChoreState.valueOf(c.getString(c.getColumnIndex("state")));
 
                 Date completedDate;
-                String completeStr = c.getString(c.getColumnIndex("completeDate"));
+                String completeStr = c.getString(c.getColumnIndex("completedDate"));
                 if(completeStr.equals("null")) {
                     completedDate = null;
                 }

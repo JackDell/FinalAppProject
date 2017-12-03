@@ -52,22 +52,28 @@ public class EditViewChoreActivity extends AppCompatActivity {
         choreDescriptionField.setText(chore.getName());
 
         EditText creatorField = findViewById(R.id.Creator_EditText_ChoreDetails);
-        creatorField.setText(chore.getCreator().toString());
+        creatorField.setText(chore.getCreator().getName());
 
+        // Checking for null
         EditText completedDateField = findViewById(R.id.CompletedDate_EditText_ChoreDetails);
-        completedDateField.setText(chore.getCompletedDate().toString());
+        if(chore.getCompletedDate() == null) {
+            completedDateField.setText("Not Completed");
+        }
+        else {
+            completedDateField.setText(chore.getCompletedDate().toString());
+        }
 
         EditText descriptionField = findViewById(R.id.Description_EditText_ChoreDetails);
         descriptionField.setText(chore.getDescription());
 
         EditText rewardsField = findViewById(R.id.Rewards_EditText_ChoreDetails);
-        rewardsField.setText(chore.getReward());
+        rewardsField.setText(String.valueOf(chore.getReward()));
 
         EditText penaltyField = findViewById(R.id.Penalty_EditText_ChoreDetails);
-        penaltyField.setText(chore.getPenalty());
+        penaltyField.setText(String.valueOf(chore.getPenalty()));
 
         EditText editTextFromDate = findViewById(R.id.etEditDeadlineDate);
-        setDate fromDate = new setDate(editTextFromDate, this);
+        new setDate(editTextFromDate, this);
 
         if (profile instanceof  Adult) {
             assignLayout.setVisibility(View.VISIBLE);
