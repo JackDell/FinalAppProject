@@ -31,6 +31,5 @@ private String profileName = "";
         } else {
             //TODO error message
         }
-
     }
 }
