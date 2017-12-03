@@ -44,6 +44,11 @@ public class DatabaseManager {
         }
     }
 
+    /**
+     * takes a string of account name, and returns account from database
+     * @param accEmail the name of the account
+     * @return the account related to the passed email
+     */
     public Account getAccount(String accEmail) {
         Cursor c = DB_Helper.getReadableDatabase().rawQuery("SELECT * FROM Accounts WHERE email = '" + accEmail + "'", null);
 
@@ -159,6 +164,7 @@ public class DatabaseManager {
         values.put("penalty", chore.getPenalty());
         values.put("accEmail", chore.getAccount().getEmail());
 
+        // TODO: Test if this if statement is n
         if(Session.getLoggedInAccount().getChore(chore.getId()) == null) {
             DB_Helper.getWritableDatabase().insert("Chores", null, values);
         }

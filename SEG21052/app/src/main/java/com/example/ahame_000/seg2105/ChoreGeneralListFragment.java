@@ -26,8 +26,6 @@ public class ChoreGeneralListFragment extends Fragment {
 
 
 
-
-
         TextView listTittleField =  this.view.findViewById(R.id.ChoresListTitle_TextView_GeneralList);
 
         Account account = Session.getLoggedInAccount();
