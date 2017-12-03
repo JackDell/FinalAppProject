@@ -71,6 +71,10 @@ public class DatabaseManager {
      * @param profile the profile object you wish to save to the database
      */
     public void saveProfile(Profile profile) {
+
+        // Database already contains profile, return
+        if(Session.getLoggedInAccount().getProfiles().contains(profile)) return;
+
         String kind = "Adult";
         if (profile instanceof Child) {
             kind = "Child";
@@ -129,7 +133,9 @@ public class DatabaseManager {
 
     public void saveChore(Chore chore) {
 
-//TODO: make sure the chore is not
+        // Database already contains chore, returning
+        if(Session.getLoggedInAccount().getAllChores().contains(chore)) return;
+
         ContentValues values = new ContentValues();
         values.put("id", chore.getStringId());
         values.put("name", chore.getName());
