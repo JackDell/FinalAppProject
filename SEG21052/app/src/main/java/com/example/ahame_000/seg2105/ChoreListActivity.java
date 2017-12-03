@@ -42,7 +42,7 @@ public class ChoreListActivity extends AppCompatActivity
             super.onBackPressed();
         }
 
-        
+
     }
 
 
