@@ -50,7 +50,7 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title" />
 
             <EditText
-                android:id="@+id/EnterChore_EditText_NewChore"
+                android:id="@+id/Chore_EditText_NewChore"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
@@ -99,7 +99,7 @@
                 android:visibility="visible" />
 
             <EditText
-                android:id="@+id/EnterDescription_EditText_NewChore"
+                android:id="@+id/Description_EditText_NewChore"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
@@ -121,7 +121,7 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title" />
 
             <EditText
-                android:id="@+id/EnterRewards_EditText_NewChore"
+                android:id="@+id/Rewards_EditText_NewChore"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
@@ -139,7 +139,7 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title" />
 
             <EditText
-                android:id="@+id/EnterPenalty_EditText_NewChore"
+                android:id="@+id/Penalty_EditText_NewChore"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.19"

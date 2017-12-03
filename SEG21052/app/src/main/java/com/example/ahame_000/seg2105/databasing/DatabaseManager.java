@@ -8,6 +8,7 @@ import com.example.ahame_000.seg2105.Adult;
 import com.example.ahame_000.seg2105.Child;
 import com.example.ahame_000.seg2105.Chore;
 import com.example.ahame_000.seg2105.ChoreState;
+import com.example.ahame_000.seg2105.DateHelper;
 import com.example.ahame_000.seg2105.Profile;
 import com.example.ahame_000.seg2105.Session;
 
@@ -140,11 +141,21 @@ public class DatabaseManager {
         values.put("id", chore.getStringId());
         values.put("name", chore.getName());
         values.put("desc", chore.getDescription());
-        //TODO: check if date is null
-        values.put("completedDate", chore.getCompletedDate().getTime());
-        values.put("deadline", chore.getCompletedDate().getTime());
+        if(chore.getCompletedDate() == null) {
+            values.put("completedDate", "null");
+        }
+        else {
+            values.put("completedDate", DateHelper.getDateString(chore.getCompletedDate()));
+        }
+
+        values.put("deadline", DateHelper.getDateString(chore.getDeadline()));
         values.put("creatorName", chore.getCreator().getName());
-        values.put("assignedTo", chore.getAssignedTo().getName());
+        if(chore.getAssignedTo() == null) {
+            values.put("assignedTo", "null");
+        }
+        else {
+            values.put("assignedTo", chore.getAssignedTo().getName());
+        }
         values.put("reward", chore.getReward());
         values.put("penalty", chore.getPenalty());
         values.put("accEmail", chore.getAccount().getEmail());
@@ -166,21 +177,37 @@ public class DatabaseManager {
 
         try {
             while (c.moveToNext()) {
+
                 UUID id = UUID.fromString(c.getString(c.getColumnIndex("id")));
                 String name = c.getString(c.getColumnIndex("name"));
                 String desc = c.getString(c.getColumnIndex("description"));
                 ChoreState state = ChoreState.valueOf(c.getString(c.getColumnIndex("state")));
-                Date completionDate = new Date(c.getLong(c.getColumnIndex("completeDate")));
-                Date deadline = new Date(c.getLong(c.getColumnIndex("deadline")));
-                Adult adult = (Adult) account.getProfile(c.getString(c.getColumnIndex("creator")));
-                Profile assignedTo = null;
-                if (c.getString(c.getColumnIndex("assignedTo")) != null) {
-                    assignedTo = account.getProfile(c.getString(c.getColumnIndex("assignedTo")));
+
+                Date completedDate;
+                String completeStr = c.getString(c.getColumnIndex("completeDate"));
+                if(completeStr.equals("null")) {
+                    completedDate = null;
                 }
+                else {
+                    completedDate = DateHelper.dateFromString(completeStr);
+                }
+
+                Date deadline = DateHelper.dateFromString(c.getString(c.getColumnIndex("deadline")));
+
+                Profile assignedTo;
+                String assignStr = c.getString(c.getColumnIndex("assignedTo"));
+                if(assignStr.equals("null")) {
+                    assignedTo = null;
+                }
+                else {
+                    assignedTo = account.getProfile(assignStr);
+                }
+
+                Adult adult = (Adult) account.getProfile(c.getString(c.getColumnIndex("creator")));
                 int reward = c.getInt(c.getColumnIndex("reward"));
                 int penalty = c.getInt(c.getColumnIndex("penalty"));
 
-                Chore chore = new Chore(name, desc, state, completionDate, deadline, adult, assignedTo, reward, penalty, account, id);
+                Chore chore = new Chore(name, desc, state, completedDate, deadline, adult, assignedTo, reward, penalty, account, id);
 
                 chores.add(chore);
 

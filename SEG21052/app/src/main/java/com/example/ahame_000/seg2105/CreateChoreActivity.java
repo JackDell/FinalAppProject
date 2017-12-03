@@ -49,21 +49,17 @@ private final String UNASSIGNED = "Unassigned";
     }
 
 
-
-
-
     public void onAddBttnClick(View view){
-
-        EditText choreNameField = (EditText) findViewById(R.id.EnterChore_EditText_NewChore);
+        EditText choreNameField = (EditText) findViewById(R.id.Chore_EditText_NewChore);
         String choreName = choreNameField.getText().toString();
 
         EditText dueDateField = findViewById(R.id.DueDate_EditText_NewChore);
-        Date duedate = DateHelper.dateFromString(dueDateField.getText());
+        Date duedate = DateHelper.dateFromString(dueDateField.getText().toString());
 
-        EditText descriptionField = (EditText)findViewById(R.id.EnterDescription_EditText_NewChore);
+        EditText descriptionField = (EditText)findViewById(R.id.Description_EditText_NewChore);
         String description = descriptionField.getText().toString();
 
-        EditText rewardsField = (EditText)findViewById(R.id.EnterRewards_EditText_NewChore);
+        EditText rewardsField = (EditText)findViewById(R.id.Rewards_EditText_NewChore);
 
 
         int reward;
@@ -75,7 +71,7 @@ private final String UNASSIGNED = "Unassigned";
             reward =0;
         }
 
-        EditText penaltyField = (EditText)findViewById(R.id.EnterPenalty_EditText_NewChore);
+        EditText penaltyField = (EditText)findViewById(R.id.Penalty_EditText_NewChore);
         int penalty;
 
         //assigning penalty to the field
@@ -90,10 +86,13 @@ private final String UNASSIGNED = "Unassigned";
         Spinner assignToSpinner = findViewById(R.id.AssignTo_Spinner_CreateChore);
         String assignToName = (String) assignToSpinner.getSelectedItem(); //TODO: make sure this works
         Profile assignTo;
+        ChoreState choreState;
         if(assignToName == UNASSIGNED){
             assignTo = null;
+            choreState = ChoreState.UNASSIGNED;
         } else {
             assignTo = Session.getLoggedInAccount().getProfile(assignToName);
+            choreState = ChoreState.TODO;
         }
 
         if(choreName.isEmpty() ) {
@@ -106,13 +105,17 @@ private final String UNASSIGNED = "Unassigned";
             incorrectPopUp.setText("Due date is mandatory!");
             incorrectPopUp.setVisibility(View.VISIBLE);
         } else{
-            //TODO add profile instead of null, and fix chorestate
-            Chore chore = new Chore(choreName, description, ChoreState.UNASSIGNED, null, duedate,(Adult)Session.getLoggedInProfile(),
-                    null, reward, penalty, Session.getLoggedInAccount(), UUID.randomUUID());
+            Chore chore = new Chore(choreName, description, choreState, null, duedate,(Adult)Session.getLoggedInProfile(),
+                    assignTo, reward, penalty, Session.getLoggedInAccount(), UUID.randomUUID());
 
             DatabaseManager DM = new DatabaseManager(new DatabaseHelper(this.getApplicationContext()));
 
             DM.saveChore(chore);
+            Session.getLoggedInAccount().addChore(chore);
+            if (assignTo != null){
+                assignTo.addChore(chore);
+            }
+            onBackPressed();
 
         }
 
