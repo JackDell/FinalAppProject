@@ -39,6 +39,7 @@ public class EditViewChoreActivity extends AppCompatActivity {
         Button saveButton = (Button)findViewById(R.id.Save_Button_ChoreDetails);
         Button deleteButton = (Button)findViewById(R.id.Delete_Button_ChoreDetails);
 
+        //initialize the layout
         LinearLayout assignLayout = (LinearLayout)findViewById(R.id.Assign_Layout_ChoreDetails);
 
         EditText choreField = (EditText) findViewById(R.id.EnterChore_EditText_ChoreDetails);
