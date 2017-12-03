@@ -92,7 +92,7 @@ private final String UNASSIGNED = "Unassigned";
 
 
         Spinner assignToSpinner = findViewById(R.id.AssignTo_Spinner_CreateChore);
-        String assignToName = (String) assignToSpinner.getSelectedItem(); //TODO: make sure this works
+        String assignToName = (String) assignToSpinner.getSelectedItem();
         Profile assignTo;
         ChoreState choreState;
         if(assignToName == UNASSIGNED){

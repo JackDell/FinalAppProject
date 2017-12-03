@@ -20,9 +20,13 @@ import java.util.UUID;
 
 public class DatabaseManager {
 
-    private DatabaseHelper DB_Helper;
+    private static DatabaseManager DB_Manger;
+    private static DatabaseHelper DB_Helper;
     private final String ADULT = "Adult";
     private final String CHILD = "Child";
+
+
+
     public DatabaseManager(DatabaseHelper DB_Helper) {
         this.DB_Helper = DB_Helper;
     }
@@ -33,7 +37,7 @@ public class DatabaseManager {
      * @param account the account object you wish to save to the database
      */
     public void saveAccount(Account account) {
-        //TODO: check there is no account with that email 
+        //TODO: check there is no account with that email
         ContentValues values = new ContentValues();
         values.put("email", account.getEmail());
         values.put("password", account.getPassword());
@@ -95,9 +99,6 @@ public class DatabaseManager {
 
         DB_Helper.getWritableDatabase().insert("Profiles", null, values);
 
-        for (Chore chore : profile.getAllChores()) {
-            saveChore(chore);
-        }
     }
 
     public List<Profile> getAccountProfiles(Account account) {
