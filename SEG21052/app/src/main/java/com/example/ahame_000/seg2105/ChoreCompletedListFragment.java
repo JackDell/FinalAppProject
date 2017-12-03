@@ -19,15 +19,17 @@ public class ChoreCompletedListFragment extends Fragment {
     private View view;
 
 
-
-
+    /**
+     * Brings user to view of completed list of chores for logged in profile
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return view of completed list
+     */
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         this.view = inflater.inflate(R.layout.chore_completed_list_layout,container,false);
-
-
-
 
 
         TextView listTittleField =  this.view.findViewById(R.id.ListTitle_TextView_CompletedList);

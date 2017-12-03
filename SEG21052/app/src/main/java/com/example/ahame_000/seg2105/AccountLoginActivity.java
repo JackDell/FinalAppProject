@@ -16,7 +16,11 @@ public class AccountLoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_login);
     }
-    // takes user to Create New Account page
+
+    /**
+     * Takes user to create an account
+     * @param view
+     */
     public void createAccBttnClick(View view){
 
         EditText emailTxt = (EditText) findViewById(R.id.Email_EditText_AccountLogin);
@@ -29,6 +33,10 @@ public class AccountLoginActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Logs user into account associated with given email and password
+     * @param view
+     */
     public void accLoginBttnClick (View view){
 
         // Getting the email inputted

@@ -21,7 +21,13 @@ public class ChoreCustomAdapter extends ArrayAdapter {
         this.myChores = choreList;
     }
 
-
+    /**
+     * Populates the list with chore name and due date
+     * @param position
+     * @param convertView
+     * @param parent
+     * @return rowView
+     */
     @Override
     public View getView(int position, View convertView, ViewGroup parent){
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);

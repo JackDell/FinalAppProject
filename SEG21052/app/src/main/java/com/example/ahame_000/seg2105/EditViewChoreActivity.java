@@ -17,6 +17,11 @@ public class EditViewChoreActivity extends AppCompatActivity {
 
     private Chore chore;
 
+    /**
+     * Initializes layout according to profile type
+     * @param savedInstanceState
+     */
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -79,7 +84,6 @@ public class EditViewChoreActivity extends AppCompatActivity {
 
     }
 
-
     public void onDoneBttnClick(View view){
         LinearLayout eLayout = (LinearLayout)findViewById(R.id.CreatedByDate_Layout_ChoreDetails);
         Button doneButton = (Button)findViewById(R.id.Done_Button_ChoreDetails);
@@ -91,6 +95,10 @@ public class EditViewChoreActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Assigns chore to current logged in profile
+     * @param view
+     */
     public void onAssignToMeBttnClick(View view){
         Button assignToMeButton = (Button)findViewById(R.id.AssignToMe_Button_ChoreDetails);
 
@@ -107,6 +115,10 @@ public class EditViewChoreActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Deletes chore from logged in account
+     * @param view
+     */
     public void onDeleteBttnClick(View view){
         Button deleteButton = (Button)findViewById(R.id.Delete_Button_ChoreDetails);
 

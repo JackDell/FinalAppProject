@@ -20,8 +20,10 @@ public class CreateAccountActivity extends AppCompatActivity {
 
     }
 
-
-    //creates a new DBManager ( which creates a new account )
+    /**
+     * Creates a new account with given email and password, logs in user and takes them to add first adult member
+     * @param view
+     */
     public void doneCreateNewAccBttnClick(View view) {
 
 
@@ -45,27 +47,12 @@ public class CreateAccountActivity extends AppCompatActivity {
         }
     }
 
-    private boolean saveContent(){
-        EditText emailTxt = findViewById(R.id.Email_EditText_CreateAccount);
-        String emailString = emailTxt.getText().toString();
-
-        EditText passwordTxt = findViewById(R.id.Password_EditText_CreateAccount);
-        String passwordString = passwordTxt.getText().toString();
-
-        EditText confirmPasswordTxt = findViewById(R.id.ConfirmPassword_EditText_CreateAccount);
-        String confirmPasswordString = confirmPasswordTxt.getText().toString();
-
-        boolean confirmation = false;
-        if (passwordConfirmation(passwordString,confirmPasswordString)&&!emailString.isEmpty()) {
-            DatabaseManager DM = new DatabaseManager(new DatabaseHelper(this.getApplicationContext()));
-            DM.saveAccount(new Account(emailString, passwordString));
-            confirmation = true;
-        }
-        return confirmation;
-    }
-
-
-    //confirm the users 2 passwords are the same/ not empty, returns true if they are
+    /**
+     * Cofirms the user's two passwords are the same
+     * @param pass1
+     * @param pass2
+     * @return true if they are the same, false if they are not
+     */
     private boolean passwordConfirmation( String pass1, String pass2) {
 
 

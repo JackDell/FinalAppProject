@@ -12,6 +12,7 @@ import com.example.ahame_000.seg2105.databasing.DatabaseManager;
 
 public class AddMemberActivity extends AppCompatActivity {
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,7 +27,10 @@ public class AddMemberActivity extends AppCompatActivity {
         }
     }
 
-
+    /**
+     * Creates a new account with given email, password and account type
+     * @param view
+     */
     public void onSaveBttnClick(View view){
         EditText nameTxt = findViewById(R.id.MemberName_EditText_AddMember);
         String nameString = nameTxt.getText().toString();

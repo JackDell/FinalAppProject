@@ -13,13 +13,16 @@ private String profileName = "";
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_login);
-//TODO: make this activity look nice
 
         profileName = getIntent().getStringExtra("profileName");
         TextView etName = findViewById(R.id.profileName_TextView_ProfileLogin);
         etName.setText(profileName);
     }
 
+    /**
+     * Logs in profile with given name and password and launches general chore list
+     * @param view
+     */
     public void onProfileLoginClick(View view) {
 
         EditText etPassword = findViewById(R.id.profilePassword_editText_profileLogin);
