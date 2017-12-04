@@ -153,6 +153,7 @@ public class EditViewChoreActivity extends AppCompatActivity {
         chore.setCompletedDate(new Date());
         chore.getAssignedTo().addPoints(chore.getTodaysReward());
         DatabaseManager DM = new DatabaseManager(new DatabaseHelper(getApplicationContext()));
+        DM.updateProfilePoints(chore.getAssignedTo());
         DM.saveChore(chore);
         onBackPressed();
     }

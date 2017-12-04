@@ -70,7 +70,6 @@ public class AccountLoginActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        finish();
-        System.exit(0);
+        //do nothing
     }
 }

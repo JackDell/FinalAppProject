@@ -104,16 +104,6 @@ public class DatabaseManager {
         values.put("points", profile.getPoints());
         values.put("accEmail", profile.getAccount().getEmail());
 
-      /*  Cursor c = DB_Helper.getReadableDatabase().rawQuery("SELECT * FROM Profiles WHERE name='" + profile.getName() + "' AND accEmail='" + profile.getAccount().getEmail() + "'", null);
-
-        // Testing to see if database already contains profile
-        if(c != null) {
-            if(c.moveToFirst()) {
-                return false;
-            }
-        }
-*/
-
         DB_Helper.getWritableDatabase().insert("Profiles", null, values);
         return true;
 
@@ -132,7 +122,7 @@ public class DatabaseManager {
         }
 
         try {
-            while (true) {//TODO
+            while (true) {
                 String name = c.getString(c.getColumnIndex("name"));
                 String password = c.getString(c.getColumnIndex("password"));
                 int points = c.getInt(c.getColumnIndex("points"));
@@ -153,6 +143,11 @@ public class DatabaseManager {
 
         return profiles;
     }
+     public void updateProfilePoints(Profile profile){
+         ContentValues values = new ContentValues();
+         values.put("points", profile.getPoints());
+         DB_Helper.getWritableDatabase().update("Profiles",values,"name='" + profile.getName() + "' AND accEmail='" + profile.getAccount().getEmail() + "'",null);
+     }
 
 
 
