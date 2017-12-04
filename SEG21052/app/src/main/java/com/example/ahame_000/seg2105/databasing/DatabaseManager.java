@@ -2,7 +2,6 @@ package com.example.ahame_000.seg2105.databasing;
 
 import android.content.ContentValues;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 
 import com.example.ahame_000.seg2105.Account;
 import com.example.ahame_000.seg2105.Adult;
@@ -20,7 +19,6 @@ import java.util.UUID;
 
 public class DatabaseManager {
 
-    private static DatabaseManager DB_Manger;
     private static DatabaseHelper DB_Helper;
     private final String ADULT = "Adult";
     private final String CHILD = "Child";
@@ -51,7 +49,7 @@ public class DatabaseManager {
      * @param accEmail the name of the account
      * @return the account related to the passed email
      */
-    public Account getAccount(String accEmail) {
+    private Account getAccount(String accEmail) {
         Cursor c = DB_Helper.getReadableDatabase().rawQuery("SELECT * FROM Accounts WHERE email = '" + accEmail + "'", null);
 
         Account account;
@@ -101,7 +99,7 @@ public class DatabaseManager {
 
     }
 
-    public List<Profile> getAccountProfiles(Account account) {
+    private List<Profile> getAccountProfiles(Account account) {
 
         List<Profile> profiles = new ArrayList<>();
 
@@ -134,7 +132,6 @@ public class DatabaseManager {
         return profiles;
     }
 
-    //name TEXT, desc TEXT, completedDate DATE, deadline DATE, creator TEXT, assignedTo TEXT, reward INTEGER, penalty INTEGER)";
 
 
     public void saveChore(Chore chore) {
@@ -160,18 +157,20 @@ public class DatabaseManager {
         }
         values.put("reward", chore.getReward());
         values.put("penalty", chore.getPenalty());
+        values.put("state", chore.getState().toString());
         values.put("accEmail", chore.getAccount().getEmail());
 
         if(Session.getLoggedInAccount().getChore(chore.getId()) == null) {
             DB_Helper.getWritableDatabase().insert("Chores", null, values);
         }
         else {
-            DB_Helper.getWritableDatabase().insertWithOnConflict("Chores", null, values, SQLiteDatabase.CONFLICT_REPLACE);
+            DB_Helper.getWritableDatabase().delete("Chores","id = " + chore.getStringId(),null);
+            DB_Helper.getWritableDatabase().insert("Chores", null, values);
         }
     }
 
 
-    public List<Chore> getDatabasedChores(Account account) {
+    private List<Chore> getDatabasedChores(Account account) {
 
         List<Chore> chores = new ArrayList<>();
 
@@ -240,7 +239,7 @@ public class DatabaseManager {
             return false;
         }
 
-        Session.setLoggedInAccount(this.getAccount(email));
+        Session.setLoggedInAccount(getAccount(email));
         return true;
     }
 }

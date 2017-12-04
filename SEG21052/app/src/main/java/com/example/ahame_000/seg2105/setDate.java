@@ -32,7 +32,7 @@ public class setDate implements View.OnFocusChangeListener, DatePickerDialog.OnD
         calendar.set(Calendar.MONTH, month);
         calendar.set(Calendar.DAY_OF_MONTH, day);
 
-        et.setText(formatter.format(calendar.getTime()));
+        et.setText(DateHelper.getDateString(calendar.getTime()));
     }
 
     @Override

@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
@@ -27,6 +26,7 @@ public class EditViewChoreActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //TODO make read only if chore is competed
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_view_chore);
@@ -49,7 +49,7 @@ public class EditViewChoreActivity extends AppCompatActivity {
         LinearLayout assignLayout = findViewById(R.id.Assign_Layout_ChoreDetails);
 
         EditText choreDescriptionField = findViewById(R.id.Chore_EditText_ChoreDetails);
-        choreDescriptionField.setText(chore.getName());
+        choreDescriptionField.setText(chore.getName());//TODO: what??
 
         EditText creatorField = findViewById(R.id.Creator_EditText_ChoreDetails);
         creatorField.setText(chore.getCreator().getName());
@@ -106,6 +106,7 @@ public class EditViewChoreActivity extends AppCompatActivity {
         p.addPoints(chore.getTodaysReward());
         DatabaseManager DM = new DatabaseManager(new DatabaseHelper(getApplicationContext()));
         DM.saveChore(chore);
+        //TODO:remove the old chore
         this.onBackPressed();
     }
 
