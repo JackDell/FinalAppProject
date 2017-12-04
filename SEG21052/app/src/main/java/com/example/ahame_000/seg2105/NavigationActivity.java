@@ -47,20 +47,12 @@ public class NavigationActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            if(Session.getViewedChild() == null){
-                Session.logoutProfile();
-                Intent intent = new Intent(this, ProfileListActivity.class);
-                startActivity(intent);
-            }
-            else {
-                Session.setViewedChild(null);
-                Intent intent = new Intent(this, NavigationActivity.class);
-                startActivity(intent);
-            }
+            Session.setViewedChild(null);
 
+            Session.logoutProfile();
+            Intent intent = new Intent(this, ProfileListActivity.class);
+            startActivity(intent);
         }
-
-
     }
 
     @SuppressWarnings("StatementWithEmptyBody")

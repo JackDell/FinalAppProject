@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:visibility="visible"
     tools:context="com.example.ahame_000.seg2105.EditViewChoreActivity">
 
     <ScrollView
@@ -36,7 +37,8 @@
                 android:layout_height="38dp"
                 android:onClick="onDoneBttnClick"
                 android:text="@string/complete_button"
-                tools:text="@string/complete_button" />
+                tools:text="@string/complete_button"
+                android:visibility="visible"/>
 
 
             <LinearLayout
@@ -51,7 +53,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/chore_textView"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title" />
+                    android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+                    android:visibility="visible"/>
 
                 <EditText
                     android:id="@+id/ChoreName_EditText_ChoreDetails"
@@ -60,7 +63,8 @@
                     android:layout_weight="1"
                     android:ems="10"
                     android:inputType="textPersonName"
-                    android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large" />
+                    android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+                    android:visibility="visible"/>
 
             </LinearLayout>
 
@@ -69,14 +73,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.19"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="visible">
 
                 <TextView
                     android:id="@+id/CreatedBy_TextView_ChoreDetails"
                     android:layout_width="180dp"
                     android:layout_height="wrap_content"
                     android:text="@string/createdBy_textView"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title" />
+                    android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+                    android:visibility="visible"/>
 
                 <TextView
                     android:id="@+id/CreatorName_TextView_ChoreDetails"
@@ -84,7 +90,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:inputType="textNoSuggestions|textPersonName" />
+                    android:inputType="textNoSuggestions|textPersonName"
+                    android:visibility="visible"/>
             </LinearLayout>
 
             <LinearLayout
@@ -92,14 +99,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="0.19"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="visible">
 
                 <TextView
                     android:id="@+id/CompletedDateTitle_TextView_ChoreDetails"
                     android:layout_width="154dp"
                     android:layout_height="wrap_content"
                     android:text="@string/completedDate_textView"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title" />
+                    android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+                    android:visibility="visible"/>
 
                 <TextView
                     android:id="@+id/CompletedDate_TextView_ChoreDetails"
@@ -107,7 +116,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:inputType="textPersonName" />
+                    android:inputType="textPersonName"
+                    android:visibility="visible"/>
 
             </LinearLayout>
 
@@ -123,7 +133,8 @@
                     android:layout_width="104dp"
                     android:layout_height="wrap_content"
                     android:text="@string/dueDate_textView"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title" />
+                    android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+                    android:visibility="visible"/>
 
                 <EditText
                     android:id="@+id/DueDate_EditText_ChoreDetails"
@@ -131,7 +142,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
-                    android:inputType="text|textPersonName" />
+                    android:inputType="text|textPersonName"
+                    android:visibility="visible"/>
 
             </LinearLayout>
 
@@ -140,7 +152,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/description_textView"
-                android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+                android:visibility="visible"/>
 
             <EditText
                 android:id="@+id/Description_EditText_ChoreDetails"
@@ -152,7 +165,8 @@
                 android:maxLines="10"
                 android:selectAllOnFocus="true"
                 android:singleLine="false"
-                android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large" />
+                android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+                android:visibility="visible" />
 
 
             <LinearLayout
@@ -167,7 +181,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/rewards_textView"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title" />
+                    android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+                    android:visibility="visible"/>
 
                 <EditText
                     android:id="@+id/Rewards_EditText_ChoreDetails"
@@ -176,7 +191,8 @@
                     android:layout_weight="1"
                     android:ems="10"
                     android:inputType="textPersonName"
-                    android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large" />
+                    android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+                    android:visibility="visible"/>
 
             </LinearLayout>
 
@@ -223,7 +239,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:spinnerMode="dialog" />
+                    android:spinnerMode="dialog"
+                    android:visibility="visible" />
 
             </LinearLayout>
 
@@ -248,10 +265,20 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:onClick="onSaveBttnClick"
                     android:text="@string/save_button" />
 
             </LinearLayout>
-
+            <TextView
+                android:id="@+id/IncorrectCreds_TextView_ChoreDetails"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textAlignment="center"
+                android:textColor="@android:color/holo_red_dark"
+                android:textSize="18sp"
+                android:textStyle="italic"
+                android:visibility="invisible" />
             <Button
                 android:id="@+id/AssignToMe_Button_ChoreDetails"
                 style="@android:style/Widget.Button.Inset"

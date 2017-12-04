@@ -16,6 +16,8 @@ public class Chore implements Comparable {
     private int penalty;
     private int reward;
     private Date completedDate;
+
+
     private Adult creator;
     private Profile assignedTo;
     private Account account;
@@ -106,54 +108,35 @@ public class Chore implements Comparable {
      */
 
 
-    private boolean setState(ChoreState aState)
-    {
-        boolean wasSet = false;
+    public void setState(ChoreState aState) {
         state = aState;
-        wasSet = true;
-        return wasSet;
     }
 
-    private boolean setName(String aName)
-    {
-        boolean wasSet = false;
+    public void setName(String aName){
         name = aName;
-        wasSet = true;
-        return wasSet;
     }
 
-    private boolean setDescription(String aDescription) {
-        boolean wasSet = false;
+    public void setDescription(String aDescription) {
         description = aDescription;
-        wasSet = true;
-        return wasSet;
     }
-    private boolean setDeadline(Date aDeadline) {
+    public boolean setDeadline(Date aDeadline) {
         boolean wasSet = false;
         deadline = aDeadline;
         wasSet = true;
         return wasSet;
     }
 
-    private boolean setPenalty(int aPenalty) {
-        boolean wasSet = false;
+    public void setPenalty(int aPenalty) {
         penalty = aPenalty;
-        wasSet = true;
-        return wasSet;
     }
 
-    private boolean setReward(int aReward) {
-        boolean wasSet = false;
+    public void setReward(int aReward) {
         reward = aReward;
-        wasSet = true;
-        return wasSet;
     }
 
-    public boolean setCompletedDate(Date aCompletedDate){
-        boolean wasSet = false;
+    public void setCompletedDate(Date aCompletedDate){
         completedDate = aCompletedDate;
-        wasSet = true;
-        return wasSet;
+        state = ChoreState.COMPLETED;
     }
 
     public void setAccount(Account account) {
@@ -165,43 +148,14 @@ public class Chore implements Comparable {
     }
 
 
-    public boolean setParent(Adult aAdult) {
-        boolean wasSet = false;
-        if (aAdult == null) {
-            return wasSet;
-        }
-
-
-        Adult existingAdult = creator;
-        creator = aAdult;
-        if (existingAdult != null && !existingAdult.equals(aAdult)) {
-            existingAdult.removeChore(this);
-        }
-        creator.addChore(this);
-        wasSet = true;
-        return wasSet;
+    public void setCreator(Adult creator) {
+        this.creator = creator;
     }
 
 
-    public boolean setAssignedTo(Profile aProfile)
-    {
-        boolean wasSet = false;
-        if (aProfile == null)
-        {
-            return wasSet;
-        }
-        Profile existingProfile = assignedTo;
+
+    public void setAssignedTo(Profile aProfile){
         assignedTo = aProfile;
-        if (existingProfile != null &&
-                !existingProfile.equals(aProfile))
-        {
-
-            existingProfile.removeChore(this);
-
-        }
-        assignedTo.addChore(this);
-        wasSet = true;
-        return wasSet;
     }
 
 
@@ -310,35 +264,11 @@ public class Chore implements Comparable {
     }
 
     public int getTodaysReward() {
-        if(this.state != ChoreState.COMPLETED) {
-            return 0;
-        }
-
-        if(this.completedDate.after(this.deadline)) {
+        if(isLate()) {
             return reward - penalty;
         }
 
         return reward;
     }
 
-    public void updateState() {
-
-        Date today = new Date();
-        if(this.assignedTo == null) {
-            this.state = ChoreState.UNASSIGNED;
-            return;
-        }
-
-        if(this.completedDate != null) {
-            this.state = ChoreState.COMPLETED;
-            return;
-        }
-
-        else if(today.after(this.deadline)) {
-            this.state = ChoreState.PASTDUE;
-            return;
-        }
-
-        this.state = ChoreState.TODO;
-    }
 }

@@ -87,7 +87,7 @@ public class DatabaseManager {
      *
      * @param profile the profile object you wish to save to the database
      */
-    public void saveProfile(Profile profile) {
+    public boolean saveProfile(Profile profile) {
 
         // Database already contains profile, return
         //if(Session.getLoggedInAccount().getProfiles().contains(profile)) return;
@@ -104,7 +104,18 @@ public class DatabaseManager {
         values.put("points", profile.getPoints());
         values.put("accEmail", profile.getAccount().getEmail());
 
+        Cursor c = DB_Helper.getReadableDatabase().rawQuery("SELECT * FROM Profiles WHERE name='" + profile.getName() + "' AND accEmail='" + profile.getAccount().getEmail() + "'", null);
+
+        // Testing to see if database already contains profile
+        if(c != null) {
+            if(c.moveToFirst()) {
+                return false;
+            }
+        }
+
+
         DB_Helper.getWritableDatabase().insert("Profiles", null, values);
+        return true;
 
     }
 
@@ -237,6 +248,12 @@ public class DatabaseManager {
 
         return chores;
     }
+
+
+    public void removeChore(Chore chore){
+        DB_Helper.getWritableDatabase().delete("Chores","id = '" + chore.getStringId() + "'",null);
+    }
+
 
     public boolean loginAccount(String email, String password) {
 

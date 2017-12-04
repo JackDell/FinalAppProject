@@ -47,6 +47,7 @@ private final String UNASSIGNED = "Unassigned";
                 profileNames);
 
         spinner.setAdapter(spinnerAdapter);
+        spinner.setSelection(profileNames.size()-1);
 
         EditText dateEditText = (EditText) findViewById(R.id.DueDate_EditText_NewChore);
 

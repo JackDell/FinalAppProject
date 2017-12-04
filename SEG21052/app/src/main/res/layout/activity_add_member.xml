@@ -17,6 +17,15 @@
             android:layout_width="fill_parent"
             android:layout_height="40dp" />
 
+        <TextView
+            android:id="@+id/tvProfileNameTaken"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textColor="@android:color/black"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
         <EditText
             android:id="@+id/MemberName_EditText_AddMember"
             android:layout_width="match_parent"
