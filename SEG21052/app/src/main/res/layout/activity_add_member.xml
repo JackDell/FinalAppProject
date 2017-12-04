@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.ahame_000.seg2105.AddMember">
+    tools:context="com.example.ahame_000.seg2105.AddMemberActivity">
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -12,13 +12,6 @@
         android:orientation="vertical"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="0dp">
-
-        <ImageButton
-            android:id="@+id/Logo_ImageButton_AddMember"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="OnSetAvatarButton"
-            app:srcCompat="@drawable/ic_logo_00" />
 
         <Space
             android:layout_width="fill_parent"
@@ -54,20 +47,27 @@
             android:layout_width="match_parent"
             android:layout_height="25dp" />
 
-        <RadioButton
-            android:id="@+id/Adult_RadioButton_AddMember"
-            android:layout_width="match_parent"
+        <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/ProfileType_RadioButton_AddMember"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="@string/adult_radioButton"
+            android:orientation="vertical">
+
+            <RadioButton
+                android:id="@+id/Adult_RadioButton_AddMember"
+                style="@style/Widget.AppCompat.CompoundButton.RadioButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/adult_radioButton"
             android:textSize="18sp" />
 
-        <RadioButton
-            android:id="@+id/Child_RadioButton_AddMember"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/Child_radioButton"
+            <RadioButton
+                android:id="@+id/Child_RadioButton_AddMember"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/Child_radioButton"
             android:textSize="18sp" />
-
+        </RadioGroup>
         <Space
             android:layout_width="fill_parent"
             android:layout_height="25dp" />
@@ -76,6 +76,9 @@
             android:id="@+id/Save_Button_AddMember"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+
+            android:onClick="onSaveBttnClick"
+
             android:text="@string/save_button" />
 
     </LinearLayout>

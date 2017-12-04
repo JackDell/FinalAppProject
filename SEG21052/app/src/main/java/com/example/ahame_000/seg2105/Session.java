@@ -1,39 +1,43 @@
-package ca.uottawa.jackdell.choreapplication;
 
-/**
- * Created by Jack on 2017-11-05.
- */
+package com.example.ahame_000.seg2105;
+
 
 public class Session {
 
-    private static Account account = null;
-    private static Profile profile = null;
+    private static Account loggedInAccount;
+    private static Profile loggedInProfile;
+    private static Child viewedChild;
 
-    /**
-     * @return returns the Account of the current session.
-     */
-    public static Account getAccount() {
-        return account;
+    public static Child getViewedChild() { return viewedChild; }
+
+    public static void setViewedChild(Child viewedChild) { Session.viewedChild = viewedChild; }
+
+    public static Account getLoggedInAccount() {
+        return loggedInAccount;
     }
 
-    /**
-     * @param account   set the Account to the passed Account instance.
-     */
-    public static void setAccount(Account account) {
-        Session.account = account;
+    public static void setLoggedInAccount(Account loggedInAccount) {
+        Session.loggedInAccount = loggedInAccount;
     }
 
-    /**
-     * @return returns the Profile of the current session.
-     */
-    public static Profile getProfile() {
-        return profile;
+    public static boolean loginProfile(String name, String password){
+        Profile profile = loggedInAccount.getProfile(name);
+        if (profile.getPassword().equals(password)){
+            loggedInProfile = profile;
+            return true;
+        }
+        return false;
+    }
+    public static Profile getLoggedInProfile() {
+        return loggedInProfile;
     }
 
-    /**
-     * @param profile   set the Profile to the passed Profile instance.
-     */
-    public static void setProfile(Profile profile) {
-        Session.profile = profile;
+    public static void logoutProfile(){
+        loggedInProfile = null;
     }
+
+    public static void logoutAccount(){
+        loggedInAccount = null;
+    }
+
 }

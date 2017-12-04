@@ -1,5 +1,7 @@
 package com.example.ahame_000.seg2105;
 
+import android.app.FragmentManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -9,15 +11,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
-public class Navigation extends AppCompatActivity
+public class NavigationActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -26,40 +26,71 @@ public class Navigation extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView =  findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-    }
 
+
+        if(Session.getLoggedInProfile() instanceof Child){
+            navigationView.getMenu().findItem(R.id.nav_adult_options).setVisible(false);
+        }
+
+
+        FragmentManager fragmentManager = getFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.content_frame,new ChoreGeneralListFragment()).commit();
+
+
+
+    }
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
-        }
-    }
+            if(Session.getViewedChild() == null){
+                Session.logoutProfile();
+                Intent intent = new Intent(this, ProfileListActivity.class);
+                startActivity(intent);
+            }
+            else {
+                Session.setViewedChild(null);
+                Intent intent = new Intent(this, NavigationActivity.class);
+                startActivity(intent);
+            }
 
+        }
+
+
+    }
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
-        int id = item.getItemId();
 
+
+        int id = item.getItemId();
+        FragmentManager fragmentManager = getFragmentManager();
         if (id == R.id.nav_completed_list) {
-            //Todo
+            fragmentManager.beginTransaction().replace(R.id.content_frame,new ChoreCompletedListFragment()).commit();
+
         } else if (id == R.id.nav_general_list) {
-            //Todo
+            fragmentManager.beginTransaction().replace(R.id.content_frame,new ChoreGeneralListFragment()).commit();
 
         } else if (id == R.id.nav_todo_list) {
-            //Todo
+            fragmentManager.beginTransaction().replace(R.id.content_frame,new ChoreTodoListFragment()).commit();
 
         } else if (id == R.id.nav_viewOthers) {
-            //Todo
+            Intent intent = new Intent(this,ProfileListActivity.class);
+            startActivity(intent);
 
         } else if (id == R.id.nav_addChore) {
-            setContentView(R.layout.activity_create_chore);
+            Intent intent = new Intent(this,CreateChoreActivity.class);
+            startActivity(intent);
+
+        } else if (id == R.id.nav_addOtherMember){
+            Intent intent = new Intent(this,AddMemberActivity.class);
+            startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

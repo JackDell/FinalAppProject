@@ -1,37 +1,40 @@
-package ca.uottawa.jackdell.choreapplication;
+package com.example.ahame_000.seg2105;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 public class ProfileLoginActivity extends AppCompatActivity {
-
+private String profileName = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_login);
+
+        profileName = getIntent().getStringExtra("profileName");
+        TextView etName = findViewById(R.id.profileName_TextView_ProfileLogin);
+        etName.setText(profileName);
     }
 
+    /**
+     * Logs in profile with given name and password and launches general chore list
+     * @param view
+     */
     public void onProfileLoginClick(View view) {
-        EditText emailInput = (EditText) findViewById(R.id.etEmailInput);
-        EditText passInput = (EditText) findViewById(R.id.etPassInput);
 
-        String email = emailInput.getText().toString();
-        String password = passInput.getText().toString();
+        EditText etPassword = findViewById(R.id.profilePassword_editText_profileLogin);
 
-        DatabaseManager DM = new DatabaseManager(this.getBaseContext());
-
-        for(Profile profile : DM.getDatabasedProfiles(Session.getAccount())) {
-            if(profile.getEmail().equals(email) && profile.getPassword().equals(password)) {
-                Session.setProfile(profile);
-                Intent intent = new Intent(this, ProfileActivity.class);
-                startActivity(intent);
-            }
+        String password = etPassword.getText().toString();
+        if (Session.loginProfile(profileName,password)){
+            Intent intent = new Intent(getApplicationContext(), NavigationActivity.class);
+            startActivity(intent);
+        } else {
+            etPassword.setText("");
+            View incorrectPopUp = findViewById(R.id.incorrectCreds_TextView_ProfileLogin);
+            incorrectPopUp.setVisibility(View.VISIBLE);
         }
-
-        // For the code below to execute, the profile login must be un-successful
-
     }
 }

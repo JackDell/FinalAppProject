@@ -9,21 +9,35 @@ package="com.example.ahame_000.seg2105">
     android:roundIcon="@mipmap/ic_launcher_round"
     android:supportsRtl="true"
     android:theme="@style/AppTheme">
-    <activity android:name=".MainActivity">
+
+    <activity android:name=".CreateChoreActivity" >
+
+    </activity>
+    <activity android:name=".ProfileLoginActivity"></activity>
+    <activity android:name=".ProfileListActivity">
+
+    </activity>
+    <activity android:name=".ProfileLoginActivity">
+
+    </activity>
+    <activity android:name=".CreateAccountActivity"/>
+    <activity android:name=".EditViewChoreActivity" >
+
+    </activity>
+    <activity android:name=".AddMemberActivity" />
+    <activity android:name=".NavigationActivity">
+
+    </activity>
+    <activity android:name=".AccountLoginActivity" >
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
 
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
+
+
     </activity>
-    <activity android:name=".CreateChore" />
-    <activity android:name=".EditViewChore" />
-    <activity android:name=".AddMember" />
-    <activity android:name=".AccountLogin" />
-    <activity
-        android:name=".Navigation"
-        android:label="@string/title_activity_navigation"
-        android:theme="@style/AppTheme.NoActionBar"></activity>
 </application>
+
 
 </manifest>
