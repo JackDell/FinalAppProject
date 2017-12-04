@@ -134,6 +134,7 @@ public class EditViewChoreActivity extends AppCompatActivity {
             assignToLayout.setVisibility(View.GONE);
             saveButton.setVisibility(View.GONE);
             deleteButton.setVisibility(View.GONE);
+            assignToMe.setVisibility(View.GONE);
             completedDateField.setText(DateHelper.getDateString(chore.getCompletedDate()));
         }
 
