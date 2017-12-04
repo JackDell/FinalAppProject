@@ -104,7 +104,7 @@ public class DatabaseManager {
         values.put("points", profile.getPoints());
         values.put("accEmail", profile.getAccount().getEmail());
 
-        Cursor c = DB_Helper.getReadableDatabase().rawQuery("SELECT * FROM Profiles WHERE name='" + profile.getName() + "' AND accEmail='" + profile.getAccount().getEmail() + "'", null);
+      /*  Cursor c = DB_Helper.getReadableDatabase().rawQuery("SELECT * FROM Profiles WHERE name='" + profile.getName() + "' AND accEmail='" + profile.getAccount().getEmail() + "'", null);
 
         // Testing to see if database already contains profile
         if(c != null) {
@@ -112,7 +112,7 @@ public class DatabaseManager {
                 return false;
             }
         }
-
+*/
 
         DB_Helper.getWritableDatabase().insert("Profiles", null, values);
         return true;
@@ -132,7 +132,7 @@ public class DatabaseManager {
         }
 
         try {
-            while (c.moveToNext()) {
+            while (true) {//TODO
                 String name = c.getString(c.getColumnIndex("name"));
                 String password = c.getString(c.getColumnIndex("password"));
                 int points = c.getInt(c.getColumnIndex("points"));
@@ -144,6 +144,8 @@ public class DatabaseManager {
                     Child child = new Child(name, password, points, account, new ArrayList<Chore>());
                     profiles.add(child);
                 }
+                if(!c.moveToNext())
+                    break;;
             }
         } finally {
             c.close();
@@ -177,7 +179,10 @@ public class DatabaseManager {
         }
         values.put("reward", chore.getReward());
         values.put("penalty", chore.getPenalty());
-        values.put("state", chore.getState().toString());
+        if(chore.getState() == null)
+            values.put("state", ChoreState.UNASSIGNED.toString());
+        else
+            values.put("state", chore.getState().toString());
         values.put("accEmail", chore.getAccount().getEmail());
 
         if(Session.getLoggedInAccount().getChore(chore.getId()) == null) {
@@ -203,7 +208,7 @@ public class DatabaseManager {
         }
 
         try {
-            while (c.moveToNext()) {
+            while (true) {
 
                 UUID id = UUID.fromString(c.getString(c.getColumnIndex("id")));
                 String name = c.getString(c.getColumnIndex("name"));
@@ -241,6 +246,8 @@ public class DatabaseManager {
                 if (assignedTo != null) {
                     chore.getAssignedTo().addChore(chore);
                 }
+                if(!c.moveToNext())
+                    break;;
             }
         } finally {
             c.close();

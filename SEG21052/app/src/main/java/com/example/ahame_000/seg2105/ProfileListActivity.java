@@ -11,6 +11,9 @@ import java.util.List;
 
 public class ProfileListActivity extends AppCompatActivity {
 
+    private boolean isChildrenViw = false;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,8 +22,10 @@ public class ProfileListActivity extends AppCompatActivity {
         if (Session.getLoggedInProfile() == null) {
 
             profiles = Session.getLoggedInAccount().getProfiles();
+            isChildrenViw = false;
         } else {
             profiles = Session.getLoggedInAccount().getChildren();
+            isChildrenViw = true;
         }
         ListView profileList = findViewById(R.id.ProfilesLoginListView);
 
@@ -49,8 +54,15 @@ public class ProfileListActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if(Session.getLoggedInProfile() == null)
-            Session.logoutAccount();;//log out of the account
-        super.onBackPressed();
+        if(isChildrenViw) {
+            Session.setViewedChild(null);
+            super.onBackPressed();
+        }
+        else {
+            Session.logoutAccount();//log out of the account
+            Intent intent = new Intent(getApplicationContext(), AccountLoginActivity.class);
+            startActivity(intent);
+        }
+
     }
 }

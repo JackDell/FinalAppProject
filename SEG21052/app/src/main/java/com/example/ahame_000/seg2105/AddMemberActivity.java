@@ -52,9 +52,9 @@ public class AddMemberActivity extends AppCompatActivity {
             else {
                 profile = new Child(nameString,passwordString,currentAccount);
             }
-            if(DM.saveProfile(profile)) {
+            if(!Session.getLoggedInAccount().getProfiles().contains(profile)) {
+                DM.saveProfile(profile);
                 currentAccount.getProfiles().add(profile);
-
                 if(Session.getLoggedInProfile()==null){
                     Intent intent = new Intent(this, ProfileListActivity.class);
                     startActivity(intent);

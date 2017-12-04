@@ -64,8 +64,13 @@ public class AccountLoginActivity extends AppCompatActivity {
             passwordTxt.setText("");
             View incorrectPopUp = findViewById(R.id.incorrectCreds_TextView_AccountLogin);
             incorrectPopUp.setVisibility(View.VISIBLE);
-
         }
+    }
 
+
+    @Override
+    public void onBackPressed() {
+        finish();
+        System.exit(0);
     }
 }

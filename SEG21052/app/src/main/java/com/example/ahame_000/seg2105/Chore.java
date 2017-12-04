@@ -237,20 +237,7 @@ public class Chore implements Comparable {
      *
      */
 
-    public boolean delete() {
-        if (state == ChoreState.COMPLETED) {
-            state = ChoreState.DELETED;
-            this.assignedTo = null;
-            return true;
-        }
-        if (state == ChoreState.TODO || state == ChoreState.PASTDUE) {
-            state = ChoreState.UNASSIGNED;
-            this.assignedTo = null;
-            return true;
 
-        }
-        return false;
-    }
 
     @Override
     public int compareTo(@NonNull Object o) {

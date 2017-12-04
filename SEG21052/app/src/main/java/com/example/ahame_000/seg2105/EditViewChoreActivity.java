@@ -116,11 +116,13 @@ public class EditViewChoreActivity extends AppCompatActivity {
             if (Session.getViewedChild() != null)
                 completeButton.setVisibility(View.GONE);
             completedDateLayout.setVisibility(View.GONE);
+            assignToMe.setVisibility(View.GONE);
         }
         if(chore.getState()== ChoreState.PASTDUE ){
             if (Session.getViewedChild() != null)
                 completeButton.setVisibility(View.GONE);
             completedDateLayout.setVisibility(View.GONE);
+            assignToMe.setVisibility(View.GONE);
         }
         if(chore.getState()== ChoreState.COMPLETED) {
             completeButton.setVisibility(View.GONE);
@@ -266,10 +268,6 @@ public class EditViewChoreActivity extends AppCompatActivity {
              }
 
          }
-
-
-
-
      }
 
 }
