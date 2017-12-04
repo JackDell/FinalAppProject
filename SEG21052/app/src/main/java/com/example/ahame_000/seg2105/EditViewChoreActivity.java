@@ -73,7 +73,7 @@ public class EditViewChoreActivity extends AppCompatActivity {
         penaltyField.setText(String.valueOf(chore.getPenalty()));
 
         EditText editTextFromDate = findViewById(R.id.etEditDeadlineDate);
-        new setDate(editTextFromDate, this);
+        new SetDate(editTextFromDate, this);
 
         if (profile instanceof  Adult) {
             assignLayout.setVisibility(View.VISIBLE);

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.example.ahame_000.seg2105.databasing.*;
 
@@ -41,10 +42,16 @@ public class CreateAccountActivity extends AppCompatActivity {
         if (passwordConfirmation(passwordString,confirmPasswordString)&&!emailString.isEmpty()) {
             DatabaseManager DM = new DatabaseManager(new DatabaseHelper(this.getApplicationContext()));
             Account account = new Account(emailString, passwordString);
-            DM.saveAccount(account);
-            Session.setLoggedInAccount(account);
-            Intent intent = new Intent(this,AddMemberActivity.class);
-            startActivity(intent);
+            if(DM.saveAccount(account)) {
+                Session.setLoggedInAccount(account);
+                Intent intent = new Intent(this, AddMemberActivity.class);
+                startActivity(intent);
+            } else {
+                TextView incorrectPopUp = findViewById(R.id.errorMassage_TextView_CreateAccount);
+                incorrectPopUp.setText("Email already has an account");
+                incorrectPopUp.setVisibility(View.VISIBLE);
+
+            }
         }
     }
 
@@ -59,7 +66,7 @@ public class CreateAccountActivity extends AppCompatActivity {
     private boolean passwordConfirmation( String pass1, String pass2) {
 
 
-        View incorrectPopUp = findViewById(R.id.passNotSame_TextView_CreateAccount);
+        TextView incorrectPopUp = findViewById(R.id.errorMassage_TextView_CreateAccount);
 
         if (pass1.equals(pass2) && !pass1.isEmpty()) {
             incorrectPopUp.setVisibility(View.INVISIBLE);
@@ -67,7 +74,8 @@ public class CreateAccountActivity extends AppCompatActivity {
 
 
         }
-
+        //Passwords are not the same
+        incorrectPopUp.setText("Passwords are not the same");
         incorrectPopUp.setVisibility(View.VISIBLE);
         return false;
 

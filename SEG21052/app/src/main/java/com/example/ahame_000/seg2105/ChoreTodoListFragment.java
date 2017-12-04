@@ -32,9 +32,6 @@ public class ChoreTodoListFragment extends Fragment {
         this.view = inflater.inflate(R.layout.chore_todo_list_layout,container,false);
 
 
-
-//TODO:The system must indicate the PASTDUE chores in the TO-DO list.
-
         TextView listTittleField =  this.view.findViewById(R.id.ListTitle_TextView_TodoList);
         listTittleField.setText("To-Do List");
 
