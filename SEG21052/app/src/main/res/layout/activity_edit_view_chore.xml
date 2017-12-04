@@ -8,9 +8,7 @@
 
     <ScrollView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="16dp">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -32,7 +30,7 @@
                 android:visibility="visible" />
 
             <Button
-                android:id="@+id/Done_Button_ChoreDetails"
+                android:id="@+id/Complete_Button_ChoreDetails"
                 style="@android:style/Widget.DeviceDefault.Button.Inset"
                 android:layout_width="match_parent"
                 android:layout_height="38dp"
@@ -56,7 +54,7 @@
                     android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title" />
 
                 <EditText
-                    android:id="@+id/Chore_EditText_ChoreDetails"
+                    android:id="@+id/ChoreName_EditText_ChoreDetails"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -80,8 +78,8 @@
                     android:text="@string/createdBy_textView"
                     android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title" />
 
-                <EditText
-                    android:id="@+id/Creator_EditText_ChoreDetails"
+                <TextView
+                    android:id="@+id/CreatorName_TextView_ChoreDetails"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -90,20 +88,21 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/CompletedDate_ViewLayout_ChoreDetails"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="0.19"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/CompletedDate_TextView_ChoreDetails"
+                    android:id="@+id/CompletedDateTitle_TextView_ChoreDetails"
                     android:layout_width="154dp"
                     android:layout_height="wrap_content"
                     android:text="@string/completedDate_textView"
                     android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title" />
 
-                <EditText
-                    android:id="@+id/CompletedDate_EditText_ChoreDetails"
+                <TextView
+                    android:id="@+id/CompletedDate_TextView_ChoreDetails"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -127,7 +126,7 @@
                     android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title" />
 
                 <EditText
-                    android:id="@+id/etEditDeadlineDate"
+                    android:id="@+id/DueDate_EditText_ChoreDetails"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -206,21 +205,21 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/Assign_Layout_ChoreDetails"
+                android:id="@+id/AssignTo_Layout_ChoreDetails"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.19"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/Assign_TextView_ChoreDetails"
+                    android:id="@+id/AssignTo_TextView_ChoreDetails"
                     android:layout_width="116dp"
                     android:layout_height="wrap_content"
                     android:text="@string/assign_textView"
                     android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title" />
 
                 <Spinner
-                    android:id="@+id/AssignToProfiles_Spinner_ChoreDetails"
+                    android:id="@+id/AssignTo_Spinner_ChoreDetails"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"

@@ -35,7 +35,6 @@ public class DatabaseManager {
      * @param account the account object you wish to save to the database
      */
     public boolean saveAccount(Account account) {
-        //TODO: check there is no account with that email
 
         Cursor c = DB_Helper.getReadableDatabase().rawQuery("SELECT * FROM Accounts WHERE email='" + account.getEmail() + "'", null);
         if (c != null && c.moveToFirst()){
