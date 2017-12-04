@@ -3,15 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/ChoreApplication.iml" filepath="$PROJECT_DIR$/ChoreApplication.iml" />
-<<<<<<< HEAD
-      <module fileurl="file://D:\OneDrive\FALL 2017\SEG 2105\Project\FinalAppProject\ChoreApplication\ChoreApplication.iml" filepath="D:\OneDrive\FALL 2017\SEG 2105\Project\FinalAppProject\ChoreApplication\ChoreApplication.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://D:\OneDrive\FALL 2017\SEG 2105\Project\FinalAppProject\ChoreApplication\app\app.iml" filepath="D:\OneDrive\FALL 2017\SEG 2105\Project\FinalAppProject\ChoreApplication\app\app.iml" />
-=======
-      <module fileurl="file://D:\SegProject\FinalAppProject\ChoreApplication\ChoreApplication.iml" filepath="D:\SegProject\FinalAppProject\ChoreApplication\ChoreApplication.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://D:\SegProject\FinalAppProject\ChoreApplication\app\app.iml" filepath="D:\SegProject\FinalAppProject\ChoreApplication\app\app.iml" />
->>>>>>> d3494bc8e35a1025e4cfe2965140f189a1b65737
     </modules>
   </component>
 </project>
