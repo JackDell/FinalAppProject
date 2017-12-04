@@ -2,7 +2,6 @@ package com.example.ahame_000.seg2105.databasing;
 
 import android.content.ContentValues;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 
 import com.example.ahame_000.seg2105.Account;
 import com.example.ahame_000.seg2105.Adult;
@@ -20,7 +19,6 @@ import java.util.UUID;
 
 public class DatabaseManager {
 
-    private static DatabaseManager DB_Manger;
     private static DatabaseHelper DB_Helper;
     private final String ADULT = "Adult";
     private final String CHILD = "Child";
@@ -36,14 +34,24 @@ public class DatabaseManager {
      *
      * @param account the account object you wish to save to the database
      */
-    public void saveAccount(Account account) {
+    public boolean saveAccount(Account account) {
         //TODO: check there is no account with that email
+
+        Cursor c = DB_Helper.getReadableDatabase().rawQuery("SELECT * FROM Accounts WHERE email='" + account.getEmail() + "'", null);
+        if (c != null && c.moveToFirst()){
+            c.close();
+            return false;
+        }
+
+
+
         ContentValues values = new ContentValues();
         values.put("email", account.getEmail());
         values.put("password", account.getPassword());
 
         DB_Helper.getWritableDatabase().insert("Accounts", null, values);
 
+        return true;
     }
 
     /**
@@ -51,7 +59,7 @@ public class DatabaseManager {
      * @param accEmail the name of the account
      * @return the account related to the passed email
      */
-    public Account getAccount(String accEmail) {
+    private Account getAccount(String accEmail) {
         Cursor c = DB_Helper.getReadableDatabase().rawQuery("SELECT * FROM Accounts WHERE email = '" + accEmail + "'", null);
 
         Account account;
@@ -80,7 +88,7 @@ public class DatabaseManager {
      *
      * @param profile the profile object you wish to save to the database
      */
-    public void saveProfile(Profile profile) {
+    public boolean saveProfile(Profile profile) {
 
         // Database already contains profile, return
         //if(Session.getLoggedInAccount().getProfiles().contains(profile)) return;
@@ -97,11 +105,22 @@ public class DatabaseManager {
         values.put("points", profile.getPoints());
         values.put("accEmail", profile.getAccount().getEmail());
 
+        Cursor c = DB_Helper.getReadableDatabase().rawQuery("SELECT * FROM Profiles WHERE name='" + profile.getName() + "' AND accEmail='" + profile.getAccount().getEmail() + "'", null);
+
+        // Testing to see if database already contains profile
+        if(c != null) {
+            if(c.moveToFirst()) {
+                return false;
+            }
+        }
+
+
         DB_Helper.getWritableDatabase().insert("Profiles", null, values);
+        return true;
 
     }
 
-    public List<Profile> getAccountProfiles(Account account) {
+    private List<Profile> getAccountProfiles(Account account) {
 
         List<Profile> profiles = new ArrayList<>();
 
@@ -134,7 +153,6 @@ public class DatabaseManager {
         return profiles;
     }
 
-    //name TEXT, desc TEXT, completedDate DATE, deadline DATE, creator TEXT, assignedTo TEXT, reward INTEGER, penalty INTEGER)";
 
 
     public void saveChore(Chore chore) {
@@ -160,18 +178,20 @@ public class DatabaseManager {
         }
         values.put("reward", chore.getReward());
         values.put("penalty", chore.getPenalty());
+        values.put("state", chore.getState().toString());
         values.put("accEmail", chore.getAccount().getEmail());
 
         if(Session.getLoggedInAccount().getChore(chore.getId()) == null) {
             DB_Helper.getWritableDatabase().insert("Chores", null, values);
         }
         else {
-            DB_Helper.getWritableDatabase().insertWithOnConflict("Chores", null, values, SQLiteDatabase.CONFLICT_REPLACE);
+            DB_Helper.getWritableDatabase().delete("Chores","id = '" + chore.getStringId() + "'",null);
+            DB_Helper.getWritableDatabase().insert("Chores", null, values);
         }
     }
 
 
-    public List<Chore> getDatabasedChores(Account account) {
+    private List<Chore> getDatabasedChores(Account account) {
 
         List<Chore> chores = new ArrayList<>();
 
@@ -235,12 +255,13 @@ public class DatabaseManager {
         Cursor c = DB_Helper.getReadableDatabase().rawQuery("SELECT * FROM Accounts WHERE email='" + email + "' AND password='" + password + "'", null);
 
         if (c == null) return false;
-        if (c.moveToFirst() == false) {
+        if (!c.moveToFirst()) {
             c.close();
             return false;
         }
 
-        Session.setLoggedInAccount(this.getAccount(email));
+        Session.setLoggedInAccount(getAccount(email));
         return true;
     }
+
 }

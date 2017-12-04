@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.ahame_000.seg2105.databasing.DatabaseManager;
+
 public class ProfileLoginActivity extends AppCompatActivity {
 private String profileName = "";
     @Override

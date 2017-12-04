@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.TextView;
 
 import com.example.ahame_000.seg2105.databasing.DatabaseHelper;
 import com.example.ahame_000.seg2105.databasing.DatabaseManager;
@@ -51,15 +52,21 @@ public class AddMemberActivity extends AppCompatActivity {
             else {
                 profile = new Child(nameString,passwordString,currentAccount);
             }
-            DM.saveProfile(profile);
-            currentAccount.getProfiles().add(profile);
+            if(DM.saveProfile(profile)) {
+                currentAccount.getProfiles().add(profile);
 
-            if(Session.getLoggedInProfile()==null){
-                Intent intent = new Intent(this, ProfileListActivity.class);
-                startActivity(intent);
-            } else {
-                Intent intent = new Intent(this, NavigationActivity.class);
-                startActivity(intent);
+                if(Session.getLoggedInProfile()==null){
+                    Intent intent = new Intent(this, ProfileListActivity.class);
+                    startActivity(intent);
+                } else {
+                    Intent intent = new Intent(this, NavigationActivity.class);
+                    startActivity(intent);
+                }
+            }
+            else {
+                TextView nameTake = findViewById(R.id.tvProfileNameTaken);
+                nameTake.setText("That profile name is already taken!");
+                return;
             }
         }
     }

@@ -6,18 +6,16 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Locale;
 
-public class setDate implements View.OnFocusChangeListener, DatePickerDialog.OnDateSetListener {
+public class SetDate implements View.OnFocusChangeListener, DatePickerDialog.OnDateSetListener {
 
     private EditText et;
     private Calendar calendar;
     private Context context;
 
 
-    public setDate(EditText et, Context context) {
+    public SetDate(EditText et, Context context) {
         this.et = et;
         this.et.setOnFocusChangeListener(this);
         this.calendar = Calendar.getInstance();
@@ -26,13 +24,11 @@ public class setDate implements View.OnFocusChangeListener, DatePickerDialog.OnD
 
     @Override
     public void onDateSet(DatePicker picker, int year, int month, int day) {
-        String format = "dd/MM/yyyy";
-        SimpleDateFormat formatter = new SimpleDateFormat(format, Locale.CANADA);
         calendar.set(Calendar.YEAR, year);
         calendar.set(Calendar.MONTH, month);
         calendar.set(Calendar.DAY_OF_MONTH, day);
 
-        et.setText(formatter.format(calendar.getTime()));
+        et.setText(DateHelper.getDateString(calendar.getTime()));
     }
 
     @Override

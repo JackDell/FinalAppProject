@@ -50,7 +50,7 @@ private final String UNASSIGNED = "Unassigned";
 
         EditText dateEditText = (EditText) findViewById(R.id.DueDate_EditText_NewChore);
 
-        setDate fromDate = new setDate(dateEditText, this);
+        SetDate fromDate = new SetDate(dateEditText, this);
     }
 
     /**
