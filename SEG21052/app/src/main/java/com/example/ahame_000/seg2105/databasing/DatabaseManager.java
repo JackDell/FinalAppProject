@@ -38,7 +38,7 @@ public class DatabaseManager {
         //TODO: check there is no account with that email
 
         Cursor c = DB_Helper.getReadableDatabase().rawQuery("SELECT * FROM Accounts WHERE email='" + account.getEmail() + "'", null);
-        if (c != null && c.moveToFirst() == true){
+        if (c != null && c.moveToFirst()){
             c.close();
             return false;
         }
@@ -174,7 +174,7 @@ public class DatabaseManager {
             DB_Helper.getWritableDatabase().insert("Chores", null, values);
         }
         else {
-            DB_Helper.getWritableDatabase().delete("Chores","id = " + chore.getStringId(),null);
+            DB_Helper.getWritableDatabase().delete("Chores","id = '" + chore.getStringId() + "'",null);
             DB_Helper.getWritableDatabase().insert("Chores", null, values);
         }
     }
@@ -244,7 +244,7 @@ public class DatabaseManager {
         Cursor c = DB_Helper.getReadableDatabase().rawQuery("SELECT * FROM Accounts WHERE email='" + email + "' AND password='" + password + "'", null);
 
         if (c == null) return false;
-        if (c.moveToFirst() == false) {
+        if (!c.moveToFirst()) {
             c.close();
             return false;
         }
@@ -252,4 +252,5 @@ public class DatabaseManager {
         Session.setLoggedInAccount(getAccount(email));
         return true;
     }
+
 }

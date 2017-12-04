@@ -32,6 +32,9 @@ public class CreateAccountActivity extends AppCompatActivity {
         EditText emailTxt = findViewById(R.id.Email_EditText_CreateAccount);
         String emailString = emailTxt.getText().toString();
 
+        DatabaseManager DM = new DatabaseManager(new DatabaseHelper(getApplicationContext()));
+
+
         EditText passwordTxt = findViewById(R.id.Password_EditText_CreateAccount);
         String passwordString = passwordTxt.getText().toString();
 
@@ -40,7 +43,6 @@ public class CreateAccountActivity extends AppCompatActivity {
 
 
         if (passwordConfirmation(passwordString,confirmPasswordString)&&!emailString.isEmpty()) {
-            DatabaseManager DM = new DatabaseManager(new DatabaseHelper(this.getApplicationContext()));
             Account account = new Account(emailString, passwordString);
             if(DM.saveAccount(account)) {
                 Session.setLoggedInAccount(account);
