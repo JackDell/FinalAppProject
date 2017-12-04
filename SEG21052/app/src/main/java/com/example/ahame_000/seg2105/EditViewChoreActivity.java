@@ -150,9 +150,9 @@ public class EditViewChoreActivity extends AppCompatActivity {
     }
 
     public void onDoneBttnClick(View view) {
-
-        chore.setCompletedDate(new Date());
+        
         chore.getAssignedTo().addPoints(chore.getTodaysReward());
+        chore.setCompletedDate(new Date());
         DatabaseManager DM = new DatabaseManager(new DatabaseHelper(getApplicationContext()));
         DM.updateProfilePoints(chore.getAssignedTo());
         DM.saveChore(chore);
@@ -171,6 +171,8 @@ public class EditViewChoreActivity extends AppCompatActivity {
         chore.setAssignedTo(currentProfile);
         chore.assign();
         chore.isLate();
+        DatabaseManager DM = new DatabaseManager(new DatabaseHelper(getApplicationContext()));
+        DM.saveChore(chore);
         assignToMeButton.setVisibility(View.INVISIBLE);
         completedButton.setVisibility(View.VISIBLE);
     }

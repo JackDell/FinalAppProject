@@ -252,7 +252,7 @@ public class Chore implements Comparable {
 
     public int getTodaysReward() {
         if(isLate()) {
-            return reward - penalty;
+            return (reward - penalty);
         }
 
         return reward;
