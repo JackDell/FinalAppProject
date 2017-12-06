@@ -37,8 +37,7 @@ public class ChoreCompletedListFragment extends Fragment {
 
 
         Profile profile = Session.getViewedChild();
-        if (profile == null)
-            profile = Session.getLoggedInProfile();
+        if (profile == null) profile = Session.getLoggedInProfile();
         Account account = Session.getLoggedInAccount();
         ArrayList<Chore> choreList = (ArrayList<Chore>) profile.getCompletedChores();
 

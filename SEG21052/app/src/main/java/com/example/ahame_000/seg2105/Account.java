@@ -128,8 +128,11 @@ public class Account {
         return null;
 
     }
-     public List<Profile> getChildren(){
 
+    /**
+     * @return a list of all the children profiles that the account contains
+     */
+    public List<Profile> getChildren(){
 
         ArrayList <Profile> children= new ArrayList<Profile>();
          for (Profile profile:profiles){
@@ -139,14 +142,18 @@ public class Account {
          }
          return children;
 
-     }
+    }
 
-     public Profile getProfile(String name) {
+    /**
+     * @param name the name of the profile that you wish to get
+     * @return the profile that has the passed name
+     */
+    public Profile getProfile(String name) {
          for(Profile profile : this.profiles) {
              if(profile.getName().equals(name)) return profile;
          }
 
          return null;
-     }
+    }
 
 }

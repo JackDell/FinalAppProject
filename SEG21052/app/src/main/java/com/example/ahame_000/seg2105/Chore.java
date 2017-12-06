@@ -227,18 +227,6 @@ public class Chore implements Comparable {
         return false;
 
     }
-
-    /**
-     * Chore can be deleted if state is COMPLETED or TO-DO or PAST DUE
-     * the chore assignment is then changed to null
-     * @return true
-     * else
-     * @return false
-     *
-     */
-
-
-
     @Override
     public int compareTo(@NonNull Object o) {
         Chore oo = (Chore) o;
@@ -250,6 +238,7 @@ public class Chore implements Comparable {
 
     }
 
+    // Determines the amount of reward points to give depending on today's date
     public int getTodaysReward() {
         if(isLate()) {
             return (reward - penalty);

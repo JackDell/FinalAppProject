@@ -16,6 +16,7 @@ public class CreateAccountActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_account);
 
+        // If there was a passed email, setting it in the email input bar
         String initialEmail = getIntent().getStringExtra("email");
         EditText emailTxt = findViewById(R.id.Email_EditText_CreateAccount);
         emailTxt.setText(initialEmail);
@@ -27,13 +28,9 @@ public class CreateAccountActivity extends AppCompatActivity {
      * @param view
      */
     public void doneCreateNewAccBttnClick(View view) {
-
-
+        // Getting the activity's features so we can manipulate them
         EditText emailTxt = findViewById(R.id.Email_EditText_CreateAccount);
         String emailString = emailTxt.getText().toString();
-
-        DatabaseManager DM = new DatabaseManager(new DatabaseHelper(getApplicationContext()));
-
 
         EditText passwordTxt = findViewById(R.id.Password_EditText_CreateAccount);
         String passwordString = passwordTxt.getText().toString();
@@ -41,9 +38,12 @@ public class CreateAccountActivity extends AppCompatActivity {
         EditText confirmPasswordTxt = findViewById(R.id.ConfirmPassword_EditText_CreateAccount);
         String confirmPasswordString = confirmPasswordTxt.getText().toString();
 
-
+        // Confirming that an email was entered, and that the passwords match
         if (passwordConfirmation(passwordString,confirmPasswordString)&&!emailString.isEmpty()) {
             Account account = new Account(emailString, passwordString);
+            DatabaseManager DM = new DatabaseManager(new DatabaseHelper(getApplicationContext()));
+            // saveAccount is a boolean method that returns false if an account with the same email is already databased
+            // this prevents accounts using the same email from being created
             if(DM.saveAccount(account)) {
                 Session.setLoggedInAccount(account);
                 Intent intent = new Intent(this, AddMemberActivity.class);
@@ -52,7 +52,6 @@ public class CreateAccountActivity extends AppCompatActivity {
                 TextView incorrectPopUp = findViewById(R.id.errorMassage_TextView_CreateAccount);
                 incorrectPopUp.setText("Email already has an account");
                 incorrectPopUp.setVisibility(View.VISIBLE);
-
             }
         }
     }
@@ -66,8 +65,7 @@ public class CreateAccountActivity extends AppCompatActivity {
      * @return true if they are the same, false if they are not
      */
     private boolean passwordConfirmation( String pass1, String pass2) {
-
-
+        // If the passwords are not the same, display a popup message stating so
         TextView incorrectPopUp = findViewById(R.id.errorMassage_TextView_CreateAccount);
 
         if (pass1.equals(pass2) && !pass1.isEmpty()) {

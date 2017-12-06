@@ -25,6 +25,7 @@ public class ProfileSpinnerAdapter extends ArrayAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        // For every profile, add their name to the profile name component
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View rowView = inflater.inflate(R.layout.assign_to_profile_item_layout, parent, false);
 

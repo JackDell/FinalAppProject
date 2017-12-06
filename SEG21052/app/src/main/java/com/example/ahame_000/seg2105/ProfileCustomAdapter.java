@@ -26,15 +26,19 @@ public class ProfileCustomAdapter extends ArrayAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        // Loading the profile row information
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View rowView = inflater.inflate(R.layout.profile_row_layout, parent, false);
 
+        // Getting the objects from the profile row
         TextView profileName = rowView.findViewById(R.id.tvProfileNameDisplay);
         TextView profilePoints = rowView.findViewById(R.id.tvProfilePointsDisplay);
 
+        // Setting the text of the objects for the current profile row
         profileName.setText(this.profiles.get(position).getName());
         profilePoints.setText(String.valueOf(this.profiles.get(position).getPoints()));
 
+        // Returning the datafilled row
         return rowView;
     }
 }

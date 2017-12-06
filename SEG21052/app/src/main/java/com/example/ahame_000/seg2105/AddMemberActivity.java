@@ -19,8 +19,11 @@ public class AddMemberActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_member);
 
+        // Getting the child radio button
         RadioButton childBttn = findViewById(R.id.Child_RadioButton_AddMember);
 
+        // If the account has no profiles the user must create an Adult profile
+        // therefore we remove the option to create a Child account if so
         if(Session.getLoggedInAccount().getProfiles().isEmpty()){
             childBttn.setVisibility(View.INVISIBLE);
 
@@ -32,6 +35,7 @@ public class AddMemberActivity extends AppCompatActivity {
      * @param view
      */
     public void onSaveBttnClick(View view){
+        // Getting the name, password, and if it is a Child or Adult account
         EditText nameTxt = findViewById(R.id.MemberName_EditText_AddMember);
         String nameString = nameTxt.getText().toString();
 
@@ -40,22 +44,28 @@ public class AddMemberActivity extends AppCompatActivity {
 
         RadioButton adultBttn = findViewById(R.id.Adult_RadioButton_AddMember);
         RadioButton childBttn = findViewById(R.id.Child_RadioButton_AddMember);
+        // Profile chosen is a boolean variable that is true if and only if Child or Adult is selected
+        // this stops users from creating accounts without a specified type
         boolean profileChosen = adultBttn.isChecked()||childBttn.isChecked();
 
+        // Making sure the inputs are not empty, and that the profile type is selected
         if(!nameString.isEmpty() && !passwordString.isEmpty()&&profileChosen){
             DatabaseManager DM = new DatabaseManager(new DatabaseHelper(this.getApplicationContext()));
+            // Getting the logged in account
             Account currentAccount = Session.getLoggedInAccount();
             Profile profile;
+            // Determining if Child or Adult
             if(adultBttn.isChecked()){
                 profile = new Adult(nameString,passwordString,currentAccount);
             }
             else {
                 profile = new Child(nameString,passwordString,currentAccount);
             }
+            // Not allowing users to create a profile with the same name as another profile
             if(!Session.getLoggedInAccount().getProfiles().contains(profile)) {
                 DM.saveProfile(profile);
                 currentAccount.getProfiles().add(profile);
-                if(Session.getLoggedInProfile()==null){
+                if(Session.getLoggedInProfile() == null){
                     Intent intent = new Intent(this, ProfileListActivity.class);
                     startActivity(intent);
                 } else {
@@ -63,6 +73,7 @@ public class AddMemberActivity extends AppCompatActivity {
                     startActivity(intent);
                 }
             }
+            // Notifying user that the profile name is already taken
             else {
                 TextView nameTake = findViewById(R.id.tvProfileNameTaken);
                 nameTake.setText("That profile name is already taken!");
@@ -70,9 +81,11 @@ public class AddMemberActivity extends AppCompatActivity {
             }
         }
     }
+
     @Override
     public void onBackPressed() {
-        if (Session.getLoggedInProfile() == null) {//log out the account if you just created the account and clicked on back
+        //log out the account if you just created the account and clicked on back
+        if (Session.getLoggedInProfile() == null) {
             Session.logoutAccount();
             Intent intent = new Intent(getApplicationContext(), AccountLoginActivity.class);
             startActivity(intent);

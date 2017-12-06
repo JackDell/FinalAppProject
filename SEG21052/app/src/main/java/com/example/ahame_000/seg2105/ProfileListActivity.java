@@ -18,23 +18,31 @@ public class ProfileListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_list);
+
+        // Creating a list for profiles
         final List<Profile> profiles;
+
+        // If a profile is currently not logged in, display a list of all the account profiles
         if (Session.getLoggedInProfile() == null) {
 
             profiles = Session.getLoggedInAccount().getProfiles();
             isChildrenViw = false;
-        } else {
+
+        }
+        // If there is already an account logged in, then this activity is being called by an Adult viewing
+        // their children's profiles, so we only load the children of the account
+        else {
             profiles = Session.getLoggedInAccount().getChildren();
             isChildrenViw = true;
         }
         ListView profileList = findViewById(R.id.ProfilesLoginListView);
 
+        // Creating a custom profile adapter object
         ProfileCustomAdapter adapter = new ProfileCustomAdapter(this.getApplicationContext(), profiles);
+        // Setting the adapter for the profile list to the adapter we made
         profileList.setAdapter(adapter);
 
-        /**
-         * when a profile is selected it is set as logged on and choreList is launched
-         */
+        // When a profile is clicked on, an account activity is launched for the profile that was clicked
         profileList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, final View view, int position, long id) {
@@ -54,6 +62,8 @@ public class ProfileListActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        // If the profile is viewing a child account, set the viewed child to null on back
+        // if they're not viewing a profile, logout the current profile
         if(isChildrenViw) {
             Session.setViewedChild(null);
             super.onBackPressed();

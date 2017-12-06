@@ -9,6 +9,10 @@ import android.widget.EditText;
 import java.util.Calendar;
 
 public class SetDate implements View.OnFocusChangeListener, DatePickerDialog.OnDateSetListener {
+    // SetDate is a management class for the date picker portion of a chore. It is applied to
+    // an EditText, and when the edit text is selected instead of bringing up the keyboard, it brings
+    // up a calendar for the user to select the date from
+
 
     private EditText et;
     private Calendar calendar;

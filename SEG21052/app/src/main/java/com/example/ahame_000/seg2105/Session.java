@@ -3,6 +3,8 @@ package com.example.ahame_000.seg2105;
 
 
 public class Session {
+    // Session is a static class that we created to manage the current logged in account and profile
+    // it allows us to reduced the amount of times that we need to access a database significantly
 
     private static Account loggedInAccount;
     private static Profile loggedInProfile;
