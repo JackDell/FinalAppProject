@@ -1,6 +1,10 @@
 
-package com.example.ahame_000.seg2105;
+package com.example.ahame_000.seg2105.Helpers;
 
+
+import com.example.ahame_000.seg2105.DataStructures.Account;
+import com.example.ahame_000.seg2105.DataStructures.Child;
+import com.example.ahame_000.seg2105.DataStructures.Profile;
 
 public class Session {
     // Session is a static class that we created to manage the current logged in account and profile

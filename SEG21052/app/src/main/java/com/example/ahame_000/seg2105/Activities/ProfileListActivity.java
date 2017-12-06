@@ -1,4 +1,4 @@
-package com.example.ahame_000.seg2105;
+package com.example.ahame_000.seg2105.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,6 +6,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+
+import com.example.ahame_000.seg2105.DataStructures.Child;
+import com.example.ahame_000.seg2105.DataStructures.Profile;
+import com.example.ahame_000.seg2105.ListAdapters.ProfileCustomAdapter;
+import com.example.ahame_000.seg2105.R;
+import com.example.ahame_000.seg2105.Helpers.Session;
 
 import java.util.List;
 

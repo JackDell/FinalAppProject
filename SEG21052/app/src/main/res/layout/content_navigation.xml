@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.example.ahame_000.seg2105.NavigationActivity"
+    tools:context="com.example.ahame_000.seg2105.Activities.NavigationActivity"
     tools:showIn="@layout/app_bar_navigation">
 <FrameLayout
     android:id="@+id/content_frame"

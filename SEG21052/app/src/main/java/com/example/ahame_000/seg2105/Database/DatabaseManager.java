@@ -1,16 +1,16 @@
-package com.example.ahame_000.seg2105.databasing;
+package com.example.ahame_000.seg2105.Database;
 
 import android.content.ContentValues;
 import android.database.Cursor;
 
-import com.example.ahame_000.seg2105.Account;
-import com.example.ahame_000.seg2105.Adult;
-import com.example.ahame_000.seg2105.Child;
-import com.example.ahame_000.seg2105.Chore;
-import com.example.ahame_000.seg2105.ChoreState;
-import com.example.ahame_000.seg2105.DateHelper;
-import com.example.ahame_000.seg2105.Profile;
-import com.example.ahame_000.seg2105.Session;
+import com.example.ahame_000.seg2105.DataStructures.Account;
+import com.example.ahame_000.seg2105.DataStructures.Adult;
+import com.example.ahame_000.seg2105.DataStructures.Child;
+import com.example.ahame_000.seg2105.DataStructures.Chore;
+import com.example.ahame_000.seg2105.DataStructures.ChoreState;
+import com.example.ahame_000.seg2105.Helpers.DateHelper;
+import com.example.ahame_000.seg2105.DataStructures.Profile;
+import com.example.ahame_000.seg2105.Helpers.Session;
 
 import java.util.ArrayList;
 import java.util.Date;

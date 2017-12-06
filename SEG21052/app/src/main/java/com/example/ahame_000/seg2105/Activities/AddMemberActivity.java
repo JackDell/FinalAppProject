@@ -1,4 +1,4 @@
-package com.example.ahame_000.seg2105;
+package com.example.ahame_000.seg2105.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,8 +8,14 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
-import com.example.ahame_000.seg2105.databasing.DatabaseHelper;
-import com.example.ahame_000.seg2105.databasing.DatabaseManager;
+import com.example.ahame_000.seg2105.DataStructures.Account;
+import com.example.ahame_000.seg2105.DataStructures.Adult;
+import com.example.ahame_000.seg2105.DataStructures.Child;
+import com.example.ahame_000.seg2105.DataStructures.Profile;
+import com.example.ahame_000.seg2105.R;
+import com.example.ahame_000.seg2105.Helpers.Session;
+import com.example.ahame_000.seg2105.Database.DatabaseHelper;
+import com.example.ahame_000.seg2105.Database.DatabaseManager;
 
 public class AddMemberActivity extends AppCompatActivity {
 

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:visibility="visible"
-    tools:context="com.example.ahame_000.seg2105.EditViewChoreActivity">
+    tools:context="com.example.ahame_000.seg2105.Activities.EditViewChoreActivity">
 
     <ScrollView
         android:layout_width="wrap_content"
@@ -84,14 +84,15 @@
                     android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
                     android:visibility="visible"/>
 
-                <TextView
-                    android:id="@+id/CreatorName_TextView_ChoreDetails"
+                <EditText
+                    android:id="@+id/CreatorName_EditText_ChoreDetails"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
                     android:inputType="textNoSuggestions|textPersonName"
-                    android:visibility="visible"/>
+                    android:visibility="visible"
+                    android:enabled="false"/>
             </LinearLayout>
 
             <LinearLayout

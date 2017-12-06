@@ -1,4 +1,4 @@
-package com.example.ahame_000.seg2105;
+package com.example.ahame_000.seg2105.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,8 +6,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 
-import com.example.ahame_000.seg2105.databasing.DatabaseHelper;
-import com.example.ahame_000.seg2105.databasing.DatabaseManager;
+import com.example.ahame_000.seg2105.R;
+import com.example.ahame_000.seg2105.Helpers.Session;
+import com.example.ahame_000.seg2105.Database.DatabaseHelper;
+import com.example.ahame_000.seg2105.Database.DatabaseManager;
 
 public class AccountLoginActivity extends AppCompatActivity {
 

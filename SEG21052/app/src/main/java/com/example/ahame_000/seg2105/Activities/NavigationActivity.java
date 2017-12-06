@@ -1,4 +1,4 @@
-package com.example.ahame_000.seg2105;
+package com.example.ahame_000.seg2105.Activities;
 
 import android.app.FragmentManager;
 import android.content.Intent;
@@ -10,6 +10,13 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+
+import com.example.ahame_000.seg2105.DataStructures.Child;
+import com.example.ahame_000.seg2105.ChoreListFragments.ChoreCompletedListFragment;
+import com.example.ahame_000.seg2105.ChoreListFragments.ChoreGeneralListFragment;
+import com.example.ahame_000.seg2105.ChoreListFragments.ChoreTodoListFragment;
+import com.example.ahame_000.seg2105.R;
+import com.example.ahame_000.seg2105.Helpers.Session;
 
 public class NavigationActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {

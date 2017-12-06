@@ -1,4 +1,4 @@
-package com.example.ahame_000.seg2105;
+package com.example.ahame_000.seg2105.ChoreListFragments;
 
 import android.app.Fragment;
 import android.content.Intent;
@@ -10,6 +10,14 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.example.ahame_000.seg2105.DataStructures.Account;
+import com.example.ahame_000.seg2105.Activities.EditViewChoreActivity;
+import com.example.ahame_000.seg2105.DataStructures.Chore;
+import com.example.ahame_000.seg2105.ListAdapters.ChoreCustomAdapter;
+import com.example.ahame_000.seg2105.DataStructures.Profile;
+import com.example.ahame_000.seg2105.R;
+import com.example.ahame_000.seg2105.Helpers.Session;
 
 import java.util.ArrayList;
 

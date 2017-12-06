@@ -1,4 +1,4 @@
-package com.example.ahame_000.seg2105;
+package com.example.ahame_000.seg2105.DataStructures;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -107,7 +107,7 @@ public abstract class Profile {
         ArrayList<Chore> todoChores = new ArrayList<>();
         for (Chore chore:chores){
             chore.isLate();//check and update if chore is late
-            if(chore.getState()==ChoreState.TODO ||chore.getState()==ChoreState.PASTDUE)
+            if(chore.getState()== ChoreState.TODO ||chore.getState()==ChoreState.PASTDUE)
               todoChores.add(chore);
 
         }

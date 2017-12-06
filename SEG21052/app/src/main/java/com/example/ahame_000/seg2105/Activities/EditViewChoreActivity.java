@@ -1,4 +1,4 @@
-package com.example.ahame_000.seg2105;
+package com.example.ahame_000.seg2105.Activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -10,8 +10,18 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.example.ahame_000.seg2105.databasing.DatabaseHelper;
-import com.example.ahame_000.seg2105.databasing.DatabaseManager;
+import com.example.ahame_000.seg2105.DataStructures.Account;
+import com.example.ahame_000.seg2105.DataStructures.Adult;
+import com.example.ahame_000.seg2105.DataStructures.Child;
+import com.example.ahame_000.seg2105.DataStructures.Chore;
+import com.example.ahame_000.seg2105.DataStructures.ChoreState;
+import com.example.ahame_000.seg2105.Helpers.DateHelper;
+import com.example.ahame_000.seg2105.DataStructures.Profile;
+import com.example.ahame_000.seg2105.R;
+import com.example.ahame_000.seg2105.Helpers.Session;
+import com.example.ahame_000.seg2105.Helpers.SetDate;
+import com.example.ahame_000.seg2105.Database.DatabaseHelper;
+import com.example.ahame_000.seg2105.Database.DatabaseManager;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -26,7 +36,7 @@ public class EditViewChoreActivity extends AppCompatActivity {
     private final String UNASSIGNED = "Unassigned";
 
     /**
-     * Initializes layout according to profile type
+     * Initializes layout and initialize the opened chore
      * @param savedInstanceState
      */
 
@@ -42,13 +52,18 @@ public class EditViewChoreActivity extends AppCompatActivity {
 
 
     }
+
+    /**
+     * Initializes layout according to chore and profile information
+     *
+     */
     private void reload(){
         Profile loggedInProfile = Session.getLoggedInProfile();
 
         //initializing the object from the layout
         Button completeButton = findViewById(R.id.Complete_Button_ChoreDetails);
         EditText choreNameField = findViewById(R.id.ChoreName_EditText_ChoreDetails);
-        TextView creatorField = findViewById(R.id.CreatorName_TextView_ChoreDetails);
+        TextView creatorField = findViewById(R.id.CreatorName_EditText_ChoreDetails);
         LinearLayout completedDateLayout = findViewById(R.id.CompletedDate_ViewLayout_ChoreDetails);
         TextView completedDateField = findViewById(R.id.CompletedDate_TextView_ChoreDetails);
         EditText dueDateField = findViewById(R.id.DueDate_EditText_ChoreDetails);
@@ -149,8 +164,12 @@ public class EditViewChoreActivity extends AppCompatActivity {
         penaltyField.setText(Integer.toString(chore.getPenalty()));
     }
 
+    /**
+     * marks the chore as completed/done
+     * @param view
+     */
     public void onDoneBttnClick(View view) {
-        
+
         chore.getAssignedTo().addPoints(chore.getTodaysReward());
         chore.setCompletedDate(new Date());
         DatabaseManager DM = new DatabaseManager(new DatabaseHelper(getApplicationContext()));
@@ -196,6 +215,11 @@ public class EditViewChoreActivity extends AppCompatActivity {
         DM.removeChore(chore);
         onBackPressed();
     }
+
+    /**
+     * saves the changes to the chore (if any)
+     * @param view
+     */
      public void onSaveBttnClick(View view) {
 
          Profile loggedInProfile = Session.getLoggedInProfile();
@@ -207,7 +231,6 @@ public class EditViewChoreActivity extends AppCompatActivity {
          EditText rewardsField = findViewById(R.id.Rewards_EditText_ChoreDetails);
          EditText penaltyField = findViewById(R.id.Penalty_EditText_ChoreDetails);
          Spinner assignToSpinner = findViewById(R.id.AssignTo_Spinner_ChoreDetails);
-
 
          //Getting the variables
          String choreNameNew = choreNameField.getText().toString();
@@ -270,8 +293,6 @@ public class EditViewChoreActivity extends AppCompatActivity {
                  incorrectPopUp.setText("Changes have been saved");
                  incorrectPopUp.setVisibility(View.VISIBLE);
              }
-
          }
      }
-
 }

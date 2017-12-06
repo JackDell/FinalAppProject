@@ -1,4 +1,4 @@
-package com.example.ahame_000.seg2105;
+package com.example.ahame_000.seg2105.DataStructures;
 
 import java.util.ArrayList;
 import java.util.Collections;

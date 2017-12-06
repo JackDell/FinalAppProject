@@ -1,4 +1,4 @@
-package com.example.ahame_000.seg2105;
+package com.example.ahame_000.seg2105.Activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -8,8 +8,16 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.example.ahame_000.seg2105.databasing.DatabaseHelper;
-import com.example.ahame_000.seg2105.databasing.DatabaseManager;
+import com.example.ahame_000.seg2105.DataStructures.Adult;
+import com.example.ahame_000.seg2105.DataStructures.Chore;
+import com.example.ahame_000.seg2105.DataStructures.ChoreState;
+import com.example.ahame_000.seg2105.DataStructures.Profile;
+import com.example.ahame_000.seg2105.Database.DatabaseHelper;
+import com.example.ahame_000.seg2105.Database.DatabaseManager;
+import com.example.ahame_000.seg2105.Helpers.DateHelper;
+import com.example.ahame_000.seg2105.Helpers.Session;
+import com.example.ahame_000.seg2105.Helpers.SetDate;
+import com.example.ahame_000.seg2105.R;
 
 import java.util.ArrayList;
 import java.util.Date;

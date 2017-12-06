@@ -1,4 +1,4 @@
-package com.example.ahame_000.seg2105;
+package com.example.ahame_000.seg2105.ChoreListFragments;
 
 import android.app.Fragment;
 import android.content.Intent;
@@ -11,16 +11,22 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.ahame_000.seg2105.DataStructures.Account;
+import com.example.ahame_000.seg2105.Activities.EditViewChoreActivity;
+import com.example.ahame_000.seg2105.DataStructures.Chore;
+import com.example.ahame_000.seg2105.ListAdapters.ChoreCustomAdapter;
+import com.example.ahame_000.seg2105.R;
+import com.example.ahame_000.seg2105.Helpers.Session;
+
 import java.util.ArrayList;
 
 
-public class ChoreTodoListFragment extends Fragment {
+public class ChoreGeneralListFragment extends Fragment {
 
     private View view;
 
-
     /**
-     * Brings user to view of list of to-do chores for logged in profile
+     * Brings user to view of list of all unassigned chores for logged in account
      * @param inflater
      * @param container
      * @param savedInstanceState
@@ -29,21 +35,16 @@ public class ChoreTodoListFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        this.view = inflater.inflate(R.layout.chore_todo_list_layout,container,false);
+        this.view = inflater.inflate(R.layout.chore_general_list_layout,container,false);
 
 
-        TextView listTittleField =  this.view.findViewById(R.id.ListTitle_TextView_TodoList);
-        listTittleField.setText("To-Do List");
 
+        TextView listTittleField =  this.view.findViewById(R.id.ChoresListTitle_TextView_GeneralList);
 
-        Profile profile = Session.getViewedChild();
-        if (profile == null)
-            profile = Session.getLoggedInProfile();
         Account account = Session.getLoggedInAccount();
-        ArrayList<Chore> choreList = (ArrayList<Chore>) profile.getTodoChores();
+        ArrayList<Chore> choreList = (ArrayList<Chore>) account.getUnassignedChores();
 
-
-        ListView listView =  this.view.findViewById(R.id.ChoresList_ListView_TodoList);
+        ListView listView =  this.view.findViewById(R.id.ChoresList_ListView_GeneralList);
         ChoreCustomAdapter adapter = new ChoreCustomAdapter(getContext(), choreList);
         listView.setAdapter(adapter);
 
@@ -65,4 +66,5 @@ public class ChoreTodoListFragment extends Fragment {
 
         return this.view;
     }
+
 }

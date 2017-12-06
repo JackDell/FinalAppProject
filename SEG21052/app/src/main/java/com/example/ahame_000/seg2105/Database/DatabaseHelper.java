@@ -1,4 +1,4 @@
-package com.example.ahame_000.seg2105.databasing;
+package com.example.ahame_000.seg2105.Database;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
